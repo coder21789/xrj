@@ -1,0 +1,90 @@
+{% extends "common.html" %}
+
+{% block title %} {{news.subject | safe}}-新融街xinrongnews.com {% endblock %}
+{% block keywords %} {{news.subject | safe}} {% endblock %}
+{% block description %} {{news.subject | safe}} {% endblock %}
+{% block agent %}{{news.news_url}}{% endblock %}
+
+
+{% block header %}
+<link href="/css/jquery.range.css" rel="stylesheet" type="text/css" />
+<link href="/css/detail.css" rel="stylesheet" type="text/css" />
+<link href="/css/event.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+{% include "./event/tmpHeadCommon.html" %}
+<div id="tmpTwoTime">
+	<div class="relatedNewsTitle">
+		<h1>事件<span>回顾</span></h1>
+		<div class="relatedLine"></div>
+	</div>
+	<div id="timeLineSliderContainer">
+		<div class="silderCardContainer">
+			<div class="silderCardScrollContainer">
+				<ul id="sliderCard" class="timeLineSlider{{timeLineSlider}}" data-len="{{timeLineSlider}}">
+					<li class="sliderCardFirst">
+						<p></p>
+					</li>
+					{% for i in tmpSelfModel %}
+					<li class="{% if loop.index == 1 %}timeDownMouseOver{% endif %}">
+						<div class="timeDownContainerOuter">
+							<div class="timeDownContainer">
+								<div class="timeDown">
+									<span class="timeLineDownPointer"></span>
+									<span class="timeLineDownArrow"></span>
+									<div class="summaryContentDownContainer">
+										<span>{{i.eventPoint}}</span>
+										<p class="summaryDownTitle">{{i.news_recommend_subject}}</p>
+										<div class="summaryDownPicContainer">
+											<img src="{{i.pic_url}}" alt="{{i.news_recommend_subject}}" />
+											<div class="picDownContainer">
+												<p>{{i.news_recommend_summary}}</p>
+												<a href="{{i.news_url}}" title="{{i.news_recommend_subject}}" target="_blank">查看详情</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="timeDownDate">
+								<p>{{i.eventPoint}}</p>
+							</div>
+						</div>
+					</li>
+					{% endfor %}
+					<li class="sliderCardLast">
+						<p></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="timeController">
+			<div class="timeControllerContainer">
+				<div id="sliderBefore"></div>
+				<div id="sliderAfter"></div>
+				<div class="silderSchedule">
+					<div class="scheduleBg"></div>
+					{% if timeLineSlider < 5 %}
+						<div id="scheduleRate" class="scheduleRateFull"></div>
+					{% else %}
+						<!-- <div id="scheduleController"></div> -->
+						<input type="hidden" class="scheduleControllerContainer" value="" />
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% include "./event/relatedNews.html" %}
+<div class="center">
+	{% include "./common/detailsComment.html" %}
+</div>	
+{% include "./event/videoTmp.html" %}
+{% endblock %}
+
+{% block script %}
+<script src="/js/jquery.range.js" type="text/javascript"></script>
+<script src="/js/about.js" type="text/javascript"></script>
+<script src="/js/detail.js" type="text/javascript"></script>
+<script src="/js/event.js" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!--start 专家列表-->
+
+<div class="expertBox">
+    {% for news in expertList %}
+    <div class="expert-content{{loop.index}} expert-img expert" data-id="{{news.publish_author_id}}">
+        <div class="top">
+            <div class="expert-load img"></div>
+            <div class="name">{{news.news_author}}</div> 
+        </div>
+        
+        <div class="title txt-hide">
+            <a href="{{news.news_url}}" title="{{news.subject | safe}}">{{news.subject | safe}}</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!--end 专家列表-->

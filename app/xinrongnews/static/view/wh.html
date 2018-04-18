@@ -1,0 +1,416 @@
+
+{% extends "common.html" %}
+
+{% block title %} {{meta.title | safe}} {% endblock %}
+{% block keywords %} {{meta.keywords | safe}} {% endblock %}
+{% block description %} {{meta.description | safe}} {% endblock %} 
+{% block agent %}/{{code}}/{% endblock %}
+{% block header %}
+<link href="/css/wh.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+<div id="whRecommendContainer">
+    <ul>
+        {% for item in whRecommendBanner %}
+        <li>
+            <a href="{{item.news_url}}" target="_blank" title="{{item.news_recommend_subject}}">
+                <div class="container">
+                    <img src="{{item.news_pic}}" alt="{{item.news_recommend_subject}}">
+                    <div class="mask">
+                        <div>{{item.news_recommend_subject}}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>  
+</div>
+<div ng-controller="indexCtrl">
+    {% include "./common/nav.html" %}
+    <div class="center_wai" >
+        <div class="exchangeContent_box">
+            <div class="ex_left">
+                <!-- <div class="todayBox">
+                    <div class="focus">
+                        <div class="minTitle">
+                            <h4>今日看点</h4>
+                            <i class="line"></i>
+                            <div class="arrow"></div>
+                        </div>
+                        {% for news in recommend.web_wh_jrkd %}
+                            <div class="centered">  
+                                <div class="img">  
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}"  alt="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jrkd" data-channel="wh" class="recommendCollect">
+                                        <img src="{{news.news_pic}}" title="{{news.news_recommend_subject | safe}}"  alt="{{news.news_recommend_subject | safe}}"/>  
+                                    </a>    
+                                </div>
+                                <div class="desc">  
+                                    <h2 class="title"><a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jrkd" data-channel="wh" class="recommendCollect">{{news.news_recommend_subject | safe}}</a></h2>
+                                    <div class="text"><p>{{news.news_recommend_summary | safe}}</p><a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jrkd" data-channel="wh" class="recommendCollect">【查看详情】</a></div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="new">
+                        <div class="top">
+                            <i class="leftHand">今<br />日<br />最<br />新</i>
+                            <ul>
+                                <li class="first">
+                                        <h2 class="topNews">
+                                            {% for data in recommend.web_wh_jrzx_1 %}
+                                                <a href="{{data.news_url}}" title="{{data.news_recommend_subject | safe}}" target="_blank" class="topTitle recommendCollect" data-id="web_wh_jrzx_1" data-channel="wh">{{data.news_recommend_subject | safe}}</a> &nbsp;&nbsp;
+                                            {% endfor %}
+                                        </h2>
+                                        <div class="min-title">
+                                            [
+                                                {% for data in recommend.web_wh_jrzx_2 %}
+                                                    <a href="{{data.news_url}}" title="{{data.news_recommend_subject | safe}}" target="_blank" class="minTitle recommendCollect" data-id="web_wh_jrzx_2" data-channel="wh">{{data.news_recommend_subject | safe}}</a>
+                                                    {% if  loop.length == 1 or loop.last %}
+                                                    {% else %}
+                                                        |
+                                                    {% endif %}
+                                                {% endfor %}
+                                            ]
+                                        </div>
+                                
+                                </li>
+                                <li class="last">
+                                    <h2 class="topNews">
+                                        {% for data in recommend.web_wh_jrzx_3 %}
+                                            <a href="{{data.news_url}}" title="{{data.news_recommend_subject | safe}}" target="_blank" class="topTitle recommendCollect" data-id="web_wh_jrzx_3" data-channel="wh">{{data.news_recommend_subject | safe}}</a>&nbsp;&nbsp;
+                                        {% endfor %}
+                                    </h2>
+                                    <div class="min-title">
+                                        [
+                                            {% for data in recommend.web_wh_jrzx_4 %}
+                                                <a href="{{data.news_url}}" title="{{data.news_recommend_subject | safe}}" target="_blank" class="minTitle recommendCollect"  data-id="web_wh_jrzx_4" data-channel="wh">{{data.news_recommend_subject | safe}}</a> 
+                                                {% if  loop.first or loop.last %}
+                                                {% else %}
+                                                    |
+                                                {% endif %}
+                                            {% endfor %}
+                                        ]
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {% for news in recommend.web_wh_whtzkt %}
+                        <div class="exchange_class">
+                            <h3>外汇投资课堂</h3>
+                            <p class="exchange_class_tl"><a href="{{news.news_url}}" data-id="web_wh_whtzkt" data-channel="wh" class="recommendCollect">{{news.news_recommend_subject | safe}}</a></p>
+                            <p class="exchange_class_cn"><a href="{{news.news_url}}" data-id="web_wh_whtzkt" data-channel="wh" class="recommendCollect">{{news.news_recommend_summary | safe}}</a></p>
+                            <a class="exchange_class_dl recommendCollect" href="{{news.news_url}}" data-id="web_wh_whtzkt" data-channel="wh">【查看详情】</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div> -->
+                <!-- 全球日历 -->
+                <div class="row qqRange" ng-controller="qqrlCtrl" style="margin-top: -10px;">
+                    <div class="minTitle">
+                        <a href="/wh/qqrl.html" target="_blank"><h3>全球经济日历</h3></a>
+                        <input type="hidden" id="todayTime" value="{{today}}">
+                        <!--<span ng-bind="today" class="time_tl"></span>-->
+                        <span class="time_tl">{{today}}</span>
+                        <span><a href="/wh/qqrl.html" target="_blank">查看更多>></a></span>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="qq_table mt10">
+                        {% if financeData.length >0 %}
+                            <table class="cjsj_tab" id="current_data" >
+                                <thead>
+                                    <th width="100">时间</th>
+                                    <th width="90">国家地区</th>
+                                    <th width="275">指标</th> 
+                                    <th width="85">前值</th> 
+                                    <th width="80">预测值</th> 
+                                    <th width="80">公布值</th> 
+                                    <th width="80">重要性</th>
+                                </thead>
+                                <tbody>
+                                    {% for dataArr in financeData %}
+                                        {% for data in dataArr.sameTimeArr %}
+                                            {% if data.importanceImgUrl >2 %}
+                                                <tr class="hot">
+                                            {% else %}
+                                                <tr>
+                                            {% endif %}
+                                                <td class="time tab_time">
+                                                    {% if loop.index0 == 0 %}{{dataArr.time}}{% endif %}
+                                                </td>
+                                                <td class="flag tab_time">
+                                                    {% if loop.index0 == 0 %}
+                                                    <img alt="" src="/imgs/con_png_web/{{dataArr.flagClass}}.png"/>{% endif %}
+                                                </td>
+                                                <td class="event">{{data.target}}</td>
+                                                <td class="beforeVal">{{data.beforeVal}}</td>
+                                                <td class="predictionVal">
+                                                    {% if data.predictionVal == null %}
+                                                        --
+                                                    {% else %}
+                                                        {{data.predictionVal}}
+                                                    {% endif %}
+                                                </td>
+            
+                                                <td class="publishVal">
+                                                    {% if data.publishVal == '--' or data.publishVal == '待公布' or data.publishVal == null %}
+                                                        <span class="search_tag">侦查中</span>
+                                                    {% else %}
+                                                        {{data.publishVal}}
+                                                    {% endif %}
+                                                </td>
+                                                {% if data.importanceImgUrl < 2 %}
+                                                    <td class="level level1">
+                                                        <span>低</span>
+                                                    </td>
+                                                {% elseif data.importanceImgUrl == 2 %}
+                                                    <td class="level level2">
+                                                        <span>中</span>
+                                                    </td>
+                                                {% else %} 
+                                                    <td class="level level3">
+                                                        <span>高</span>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="errorMsg">暂无财经数据发行公布！</div>
+                        {% endif %} 
+
+                    </div>
+                </div>
+                <!-- 人民币相关利率 -->
+                <div class="row mt30">
+                    <div class="col-sm-8 rmbRange">
+                        <div class="price set" ng-controller="rmbRateCtrl">
+                            <div class="minTitle">
+                                <h3>人民币相关汇率</h3>
+                                <div class="arrow"></div>
+                            </div>
+                            <div class="bor" id="directQuotation">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>代码</th>
+                                            <th>名称</th>
+                                            <th>最新价</th>
+                                            <th>涨跌额</th>
+                                            <th>涨跌幅</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in rmbRate">
+                                            <td ng-bind="item.code"></td>
+                                            <td ng-bind="item.name"></td>
+                                            <td ng-bind="item.trade"></td>
+                                            <td ng-bind="item.pricechange"></td>
+                                            <td ng-bind="item.changepercent"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="/wh/qqrl.html" target="_blank"><img class="rmbRemBanner" src="/imgs/wh/rem3.png" alt="全球日历" /></a>
+                    </div>
+                </div>
+                <!-- 推荐位新闻 -->
+                <div class="exchange_rem">
+                    <div class="row mt30 mm70">
+                        <!-- 外汇动态头条 -->
+                        <div class="col-sm-6">
+                            <div class="news_recommend pr10">
+                                {% for news in indexRecommendNews.web_sy_whdt %}
+                                <div class="mews_frame">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="bg"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="tit"><p>{{news.news_recommend_subject | safe}}</p></a>
+                                </div>
+                                {% endfor %}
+                                <ul class="recommend_news_block">
+                                    {% for news in newsList.whdt %}
+                                        <li><p><a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a></p></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 外汇交易头条 -->
+                        <div class="col-sm-6">
+                            <div class="news_recommend pl10">
+                                {% for news in indexRecommendNews.web_sy_whjy %}
+                                <div class="mews_frame">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="bg"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="tit"><p>{{news.news_recommend_subject | safe}}</p></a>
+                                </div>
+                                {% endfor %}
+                                <ul class="recommend_news_block">
+                                    {% for news in newsList.whjy %}
+                                        <li><p><a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a></p></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 大行观点头条 -->
+                        <div class="col-sm-6">
+                            <div class="news_recommend pr10">
+                                {% for news in indexRecommendNews.web_sy_dxgd %}
+                                <div class="mews_frame">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="bg"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="tit"><p>{{news.news_recommend_subject | safe}}</p></a>
+                                </div>
+                                {% endfor %}
+                                <ul class="recommend_news_block">
+                                    {% for news in newsList.dhgd %}
+                                        <li><p><a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a></p></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- 国际经济头条 -->
+                        <div class="col-sm-6">
+                            <div class="news_recommend pl10">
+                                {% for news in indexRecommendNews.web_sy_gjjj %}
+                                <div class="mews_frame">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="bg"></a>
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="tit"><p>{{news.news_recommend_subject | safe}}</p></a>
+                                </div>
+                                {% endfor %}
+
+                                <ul class="recommend_news_block">
+                                    {% for news in newsList.gjjj %}
+                                        <li><p><a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a></p></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ex_right">
+                <!-- <div class="price on" ng-controller="moneyRateCtrl">
+                    <div class="minTitle">
+                        <h3>交易商活动</h3>
+                        <i class="line"></i>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="content">
+                        {% for news in recommend.web_wh_jyshd_1 %}
+                            <div class="topTrader">
+                                <div class="img">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_1" data-channel="wh" class="recommendCollect">
+                                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                    </a>
+                                </div>
+                                <div class="desc">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_1" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="other">
+                            <p> 
+                                <span class="square"></span>
+                                {% for news in recommend.web_wh_jyshd_2 %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_2" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                {% endfor %}
+                            </p>
+                            <p> 
+                                <span class="square"></span>
+                                {% for news in recommend.web_wh_jyshd_3 %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_3" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                {% endfor %}
+                            </p>
+                            <p> 
+                                <span class="square"></span>
+                                {% for news in recommend.web_wh_jyshd_4 %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_4" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                {% endfor %}
+                            </p>
+                            <p> 
+                                <span class="square"></span>
+                                {% for news in recommend.web_wh_jyshd_5 %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_5" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                {% endfor %}
+                            </p>
+                            <p> 
+                                <span class="square"></span>
+                                {% for news in recommend.web_wh_jyshd_6 %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_6" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                {% endfor %}
+                            </p>
+                            <p> 
+                                <span class="square"></span>
+                                {% for news in recommend.web_wh_jyshd_7 %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_wh_jyshd_7" data-channel="wh" class="recommendCollect">
+                                        {{news.news_recommend_subject | safe}}
+                                    </a>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- 外汇金融数据公共模块 -->
+                <div style="margin-top: -29px;">
+                    {% include "./common/exchangeCommon.html" %}
+                </div>
+                <!-- 各国利率变动 -->
+                <div class="price on" ng-controller="moneyRateCtrl">
+                    <div class="minTitle">
+                        <h3>各国央行利率变动</h3>
+                        <i class="line"></i>
+                        <div class="arrow"></div>
+                    </div>
+                    <div class="bor" id="moneyRate">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>央行</th>
+                                    <th>最新利率</th>
+                                    <th>涨跌幅</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in moneyRate">
+                                    <td ng-bind="item.rate"></td>
+                                    <td ng-bind="item.latestprice"></td>
+                                    <td ng-bind="item.pricechange"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <!-- 人民币牌价 -->
+                    {% include "./common/bankList.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="friendlink-container">
+    <!-- 友情链接 -->
+    {% include "common/friendLink.html" %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/js/wh.js"></script>
+{% endblock %}

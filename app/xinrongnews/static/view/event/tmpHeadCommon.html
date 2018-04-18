@@ -1,0 +1,58 @@
+<!-- 大事件视频导语区域 -->
+<div id="tmpHeadCommon">
+	<img src="{{tmpHeadCommon.top_pic_url}}" alt="{{tmpHeadCommon.subject}}" id="bannerCover" />
+	<div id="coverBg"></div>
+	{% if templateId !== 3 %}
+		<div id="titleContainer" style="display: none;">
+			<div id="titlePosition">
+				<div id="bannerTitle">
+					<h1></h1>
+					<div id="bannerNumber">
+						<p></p>
+						<p></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% if tmpHeadCommon.video_url %}
+		<div id="video">
+			<div id="videoContainer">
+				<img src="{{tmpHeadCommon.thumbnail_url}}" alt="{{tmpHeadCommon.subject}}" id="videoCover" />
+				<div id="videoBg">
+					<div id="videoBtn"></div>
+				</div>
+			</div>
+			<input id="videoUrl" type="hidden" value="{{tmpHeadCommon.video_url}}" />
+		</div>
+		{% endif %}
+	{% endif %}
+</div>
+<div class="center">
+	<div id="captionContainer">
+		<div class="captionNumberContainer">
+			<div class="captionNumber">
+				<span>第{{tmpHeadCommon.region}}期</span>
+				<span></span>
+				<span>{{tmpHeadCommon.timePoint}}</span>
+				<span>{{tmpHeadCommon.name}}</span>
+			</div>
+			<div class="captionTagNumber {% if templateId == 3 %}captionTagNumber3{% endif %}"></div>
+		</div>
+		{% if templateId == 3 %}
+			<div class="captionTitleTop"></div>
+			<a href="{{tmpHeadCommon.news_url}}" title="{{tmpHeadCommon.news_recommend_subject}}" target="_blank">
+				<h1>{{tmpHeadCommon.news_recommend_subject}}</h1>
+				<div class="captionContent">
+					<img src="{{tmpHeadCommon.pic_url}}" alt="{{tmpHeadCommon.subject}}" />
+					<p>{{tmpHeadCommon.news_recommend_summary}}</p>
+				</div>
+			</a>
+		{% else %}
+			<div class="captionTitle"></div>
+			<h1>{{tmpHeadCommon.subject}}</h1>
+			<div>
+				<p>{{tmpHeadCommon.news_recommend_summary}}</p>
+			</div>
+		{% endif %}
+	</div>
+</div>

@@ -1,0 +1,15 @@
+<div id="dashijianTmp2">
+	<ul>
+		{% for item in listDashijianTmp.slice(0,5) %}
+		<li>
+			<a href="{{item.news_url}}" title="{{item.subject}}" target="_blank">
+				<img src="{{item.thumbnail_url}}" alt="{{item.subject}}">
+				<span>{{item.region}}期</span>
+				<div>
+					<p>{{item.subject}}</p>
+				</div>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>

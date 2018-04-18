@@ -1,0 +1,36 @@
+{% raw %}
+<!--start 内盘外盘-->
+<div ng-cloak class="forward-market  charts mb30" data-ng-controller="forwardController">
+    <div class="tab">
+        <a ng-repeat="menu in menus" ng-class="{bar1: true, on:isCurrent==$index}" ng-mouseover="tabToggle($index)">{{menu.name}}
+        </a>
+    </div>
+    <div class="content">
+        <div ng-repeat="item in items" ng-class="{box:true,hide:isCurrent!=$index,last:$index==1}">
+            <div class="menus menus{{isCurrent}}">
+                <a ng-repeat="menu in item.menu" ng-class="{menu: true, on:isOn==$index}" ng-mouseover="menuToggle($index)">{{menu.name}}
+                </a>
+            </div>
+            <table ng-repeat="it in item.data"  ng-class="{box:true,hide:isOn!=$index}" >
+                <thead>
+                    <th class="first">品种</th>
+                    <th>最新价</th>
+                    <th ng-class="{hide:isCurrent==1}">涨跌额</th>
+                    <th class="last">涨跌幅</th>
+                </thead>
+                <tbody>   
+                    <tr ng-repeat="i in it"  class="t{{$index%2}}" ng-class="i| isUp" >
+                        <td class='first'>{{i.name}}</td>
+                        <td class='price'>{{i.price | decimals}}</td>
+                        <td ng-class="{limit: true,hide:isCurrent==1}"><i ng-class='i.range'></i><span>{{i.limit | decimals}}</span></td>
+                        <td class='last range'><i ng-class='i.range'></i><span>{{i.range}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+</div>
+{% endraw %}
+<!--end 内盘外盘-->

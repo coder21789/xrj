@@ -1,0 +1,33 @@
+
+{% raw %}
+<!--人民币牌价-->
+<div ng-cloak class="money" id="BankList" data-ng-controller="bankListController">
+    <div class="minTitle">
+        <h4>人民币牌价</h4>
+        <i class="line"></i>
+        <div class="arrow"></div>
+    </div>
+    <ul>
+        <li ng-repeat="menu in menus" ng-class="{bar1: true, on:isCurrent==$index}" ng-mouseover="tabToggle($index)" data-id="{{menu.id}}">{{menu.name}}</li>
+    </ul>
+    <table ng-repeat="item in items" ng-class="{hide:isCurrent!=$index}">
+        <thead>
+            <tr>
+                <th class="first">货币</th>
+                <th>购汇</th>
+                <th>售汇</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="it in getData(item,filter)">
+                <td><img ng-src="/imgs/wh/{{it.symbol}}.png" alt=""> <span>{{it.name}}</span></td>
+                <td>{{it.xh_buy}}</td>
+                <td>{{it.xh_sell}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+</div>
+<!--人民币牌价-->
+{% endraw %}

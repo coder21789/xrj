@@ -1,0 +1,71 @@
+{% extends "common.html" %}
+
+{% block title %} {{meta.title}} {% endblock %}
+{% block keywords %} {{meta.keywords}} {% endblock %}
+{% block description %} {{meta.description}} {% endblock %}
+
+{% block header %}
+<script>
+    function imageError(image) {
+        image.src = '/imgs/default_logo_bg.png';
+    };
+</script>
+<link href="/css/list.css" rel="stylesheet" type="text/css" />
+<link href="/css/ht.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.picSet .mask {
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000); 
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    {% include "./common/nav.html" %}
+    <div class="center">
+        <ul class="topicList">
+            {% for item in topic %}
+            <li class="picSet">
+                <a href="{{item.news_url}}" title="{{item.subject}}" target="_blank">
+                    <div class="container targetEl">
+                        <img src="{{item.thumbnail_url}}" alt="{{item.subject}}" onerror="imageError(this);">
+                        <div class="mask">
+                            <div>{{item.topics.length}}篇<span>{{item.time}}</span></div>
+                        </div>
+                    </div>
+                    <div class="subject">
+                        <a href="{{item.news_url}}" title="{{item.subject}}" target="_blank"><p>{{item.subject}}</p></a>
+                        <span></span>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% if page.count > 1 %}
+        <div class="select-page">
+            <a href="/ht/" class="firstPage">首页</a>
+            <ul class="num_btn" data-num="{{page.page}}">
+                <li class="arrow_l"><a href=""><span class="prev iconfont icon-zuo"></span></a></li>
+                {% for i in range(1, page.page + 1) -%}
+                    {% if i == page.start %}
+                        <li class="curent"><a href="" class="num_tag">{{i}}</a></li>
+                    {% else %}
+                        <li><a href="/ht/list-{{i}}.html" class="num_tag">{{i}}</a></li>
+                    {% endif %}
+                {%- endfor %}
+                <li class="arrow_r"><a href=""><span class="prev iconfont  icon-you"></span></a></li>
+            </ul>
+            <a href="/ht/list-{{page.page}}.html" class="lastPage">尾页</a>
+            <div class="page_btn">
+                <label>跳转至</label><input type="text"><span>页</span>
+                <a href="" class="sure_btn">确定</a>
+            </div>
+        </div>
+        {% endif %}
+        <input id="currentPageNum" name="currentPageNum" type="hidden" value="{{page.start}}">
+    </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/js/zj.js"></script>
+<script type="text/javascript" src="/js/ht.js"></script>
+{% endblock %}

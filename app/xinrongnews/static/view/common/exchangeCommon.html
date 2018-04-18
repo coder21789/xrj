@@ -1,0 +1,55 @@
+<!-- 直盘行情 -->
+{% raw %}
+<!-- 直盘行情 -->
+<div class="price set" ng-controller="directQuotationCtrl">
+    <div class="minTitle">
+        <h3>直盘行情</h3>
+        <i class="line"></i>
+        <div class="arrow"></div>
+    </div>
+    <div class="bor" id="directQuotation">
+        <table>
+            <thead>
+                <tr>
+                    <th>货币</th>
+                    <th>最新价</th>
+                    <th>涨跌</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in directQuotation">
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.trade"></td>
+                    <td ng-bind="item.pricechange|filterLiftPlus" class="{{item.pricechange|filterLift}}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 交叉盘行情 -->
+<div class="price set" ng-controller="crossMarketCtrl">
+    <div class="minTitle">
+        <h3>交叉盘行情</h3>
+        <i class="line"></i>
+        <div class="arrow"></div>
+    </div>
+    <div class="bor" id="crossMarket">
+        <table>
+            <thead>
+                <tr>
+                    <th>货币</th>
+                    <th>最新价</th>
+                    <th>涨跌</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in crossMarket">
+                    <td ng-bind="item.name"></td>
+                    <td ng-bind="item.trade"></td>
+                    <td ng-bind="item.pricechange|filterLiftPlus" class="{{item.pricechange|filterLift}}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endraw %}

@@ -1,0 +1,174 @@
+<div ng-cloak class="Tj" id="marketCenter"  data-ng-controller="equityMarketController"><!--统计代码div开始 -->
+    <div class="tabsone">
+        <ul>
+            {% raw %}
+            <li ng-repeat="menu in menus" ng-class="{cur:isCurrent==$index,last: $index==5}" ng-mouseover="tabToggle($index)" >
+                {{menu.name}}
+            </li>
+            {% endraw %}
+        </ul>
+    </div>
+
+    <div id="con_g_1" class="indices-box">
+        <div class="con_big">
+            <div class="tab-sub umb3"><span class="cur" id="menu_g1_1">沪市</span><span id="menu_g1_2">深市</span><span id="menu_g1_3">创业板</span></div>
+            <div class="flashbox" id="con_g1_1">
+                <object type="application/x-shockwave-flash" id="_FlashID_000001" data="http://f0.jrj.com.cn/hq/home/HQ_A_135.swf" width="250" height="135" title="Adobe Flash Player"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_000001&amp;autoUpdateTimer=10"></object>
+            </div>
+            <div class="flashbox hide" id="con_g1_2"><object type="application/x-shockwave-flash" id="_FlashID_399001" data="http://f0.jrj.com.cn/hq/home/HQ_A_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_399001&amp;autoUpdateTimer=10"></object></div>
+            <div class="flashbox hide" id="con_g1_3"><object type="application/x-shockwave-flash" id="_FlashID_399006" data="http://f0.jrj.com.cn/hq/home/HQ_A_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_399006&amp;autoUpdateTimer=10"></object></div>
+        </div>
+        <div class="indices-link">
+            <div class="content">
+                {% for cate in hq.gp.links %}
+                <a href="/{{hq.gp.code}}/{{cate.code}}.html" title="{{cate.name}}" target="_blank">{{cate.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="noraml-link">
+            <a href="/{{hq.zj}}/" target="_blank"><i class="iconfont icon-pen"></i>专家点评</a>
+            <a href="/{{hq.zb}}/" target="_blank"><i class="iconfont icon-zhibo01"></i>行情直播</a>
+        </div>
+    </div>
+    <div id="con_g_2" class="indices-box hide">
+        <div class="con_big">
+            <div class="tab-sub umb3"><span class="cur" id="menu_g2_1">恒指</span><span id="menu_g2_2">国企</span><span id="menu_g2_3">红筹</span></div>
+            <div class="flashbox" id="con_g2_1"><object type="application/x-shockwave-flash" id="_FlashID_I5001" data="http://f0.jrj.com.cn/hq/home/HQ_H_135.swf" width="250" height="135" title="Adobe Flash Player"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_I5001&amp;autoUpdateTimer=10"></object></div>
+            <div class="flashbox hide" id="con_g2_2"><object type="application/x-shockwave-flash" id="_FlashID_I5014" data="http://f0.jrj.com.cn/hq/home/HQ_H_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_I5014&amp;autoUpdateTimer=10"></object></div>
+            <div class="flashbox hide" id="con_g2_3"><object type="application/x-shockwave-flash" id="_FlashID_I5015" data="http://f0.jrj.com.cn/hq/home/HQ_H_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_I5015&amp;autoUpdateTimer=10"></object></div>
+        </div>
+        <div class="indices-link">
+            <div class="content">
+                {% for cate in hq.gp.links %}
+                <a href="/{{hq.gp.code}}/{{cate.code}}.html" title="{{cate.name}}" target="_blank">{{cate.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="noraml-link">
+            <a href="/{{hq.zj}}/" target="_blank"><i class="iconfont icon-pen"></i>专家点评</a>
+            <a href="/{{hq.zb}}/" target="_blank"><i class="iconfont icon-zhibo01"></i>行情直播</a>
+        </div>
+    </div>
+    {% raw %}
+    <div id="con_g_3" class="indices-box hide">
+        <div class="con_big">
+            <div class="table-big">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <thead><tr><th>指数</th><th>最新价</th><th>涨跌额</th><th>涨跌幅</th></tr></thead>
+                    <tbody>
+                        <tr ng-repeat="item in stock" class="t{{$index%2}} {{item | isUp}}">
+                            <td class="first">{{item.name | stockName}}</td><td>{{item.trade}}</td><td>{{item.limit}}</td><td>{{item.range}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+            <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+        </div>
+    </div>
+    {% endraw %}                
+    <div id="con_g_4" class="indices-box hide">
+        <div class="con_big">
+            <div class="tab-sub umb2"><span class="cur" id="menu_g3_1">沪基指数</span><span id="menu_g3_2">深基指数</span></div>
+            <div class="flashbox" id="con_g3_1"><object type="application/x-shockwave-flash" id="_FlashID_000011" data="http://f0.jrj.com.cn/hq/home/HQ_Fund_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_000011&amp;autoUpdateTimer=10"></object></div>
+            <div class="flashbox hide" id="con_g3_2"><object type="application/x-shockwave-flash" id="_FlashID_399305" data="http://f0.jrj.com.cn/hq/home/HQ_Fund_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_399305&amp;autoUpdateTimer=10"></object></div>
+        </div>
+        <div class="indices-link">
+            <div class="content">
+                {% for cate in hq.jj.links %}
+                <a href="/{{hq.jj.code}}/{{cate.code}}.html" title="{{cate.name}}" target="_blank">{{cate.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="noraml-link">
+            <a href="/{{hq.zj}}/" target="_blank"><i class="iconfont icon-pen"></i>专家点评</a>
+            <a href="/{{hq.zb}}/" target="_blank"><i class="iconfont icon-zhibo01"></i>行情直播</a>
+        </div>
+    </div>
+  
+    <div id="con_g_5" class="indices-box hide">
+      {% raw %}
+        <div class="con_big">
+            <div class="tab-sub umb4"><span ng-repeat="menu in smallMenus" ng-class="{cur:smallId==$index}" ng-mouseover="smallToggle($index)" >
+                {{menu.name}}
+            </span></div>
+            <div class="flashbox" id="con_g4_1"><div style="width:250px;height:135px;"><object type="application/x-shockwave-flash" id="_FlashID_DXY" data="http://f0.jrj.com.cn/hq/home/HQ_DXY_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_DXY&amp;autoUpdateTimer=10"></object></div></div>
+            <div class="flashbox flashboxhtwo hide" id="con_g4_2" >
+                <div class="table-big tbone">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <thead><tr><th>币种</th><th>现价</th><th>涨跌幅</th></tr></thead>
+                        <tbody>
+                            <tr ng-repeat="item in items.exchange" class="t{{$index%2}} {{item | isUp}}">
+                                <td class="first">{{item.name}}</td><td class="trade">{{item.trade}}</td><td class="last">{{item.changepercent}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                 </div>
+                 <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+                <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+            </div>
+            <div class="flashbox flashboxhtwo hide" id="con_g4_3">
+                <div class="table-big tbone">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <thead><tr><th>币种</th><th>现价</th><th>涨跌幅</th></tr></thead>
+                        <tbody>
+                            <tr ng-repeat="item in items.cross" class="t{{$index%2}} {{item | isUp}}">
+                                <td class="first">{{item.name}}</td><td class="trade">{{item.trade}}</td><td class="last">{{item.changepercent}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+                <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+            </div>
+            <div class="flashbox flashboxhtwo hide" id="con_g4_4">
+                <div class="table-big tbone">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <thead><tr><th>币种</th><th>卖出价</th><th>汇买价</th><th>钞买价</th></tr></thead>
+                        <tbody>
+                            <tr ng-repeat="item in items.rmb" class="red">
+                                <td class="first">{{item.name}}</td><td>{{item.buyPrice}}</td><td>{{item.sellPrice}}</td><td>{{item.price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+                <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+            </div>
+        </div>
+          {% endraw %}
+        <div class="indices-link">
+            <div class="content">
+                {% for cate in hq.wh.links %}
+                <a href="/{{hq.wh.code}}/{{cate.code}}.html" title="{{cate.name}}" target="_blank">{{cate.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="noraml-link">
+            <a href="/{{hq.zj}}/" target="_blank"><i class="iconfont icon-pen"></i>专家点评</a>
+            <a href="/{{hq.zb}}/" target="_blank"><i class="iconfont icon-zhibo01"></i>行情直播</a>
+        </div>
+    </div>
+  
+    <div id="con_g_6" class="indices-box hide">
+        <div class="con_big">
+            <div class="tab-sub umb3"><span class="cur" id="menu_g5_1">原油</span><span id="menu_g5_2">黄金</span><span id="menu_g5_3">白银</span></div>
+            <div class="flashbox " id="con_g5_1"><object type="application/x-shockwave-flash" id="_FlashID_CL" data="http://f0.jrj.com.cn/hq/home/HQ_InterFutures_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_CL&amp;autoUpdateTimer=10"></object></div>
+            <div class="flashbox hide" id="con_g5_2"><object type="application/x-shockwave-flash" id="_FlashID_GLD" data="http://f0.jrj.com.cn/hq/home/HQ_InterFutures_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_GLD&amp;autoUpdateTimer=10"></object></div>
+            <div class="flashbox hide" id="con_g5_3"><object type="application/x-shockwave-flash" id="_FlashID_SVR" data="http://f0.jrj.com.cn/hq/home/HQ_InterFutures_135.swf" width="250" height="135"><param name="menu" value="false"><param name="scale" value="noScale"><param name="wmode" value="transparent"><param name="allowScriptAccess" value="always"><param name="flashvars" value="code=FlashID_SVR&amp;autoUpdateTimer=10"></object></div>
+
+        </div>
+        <div class="indices-link">
+            <div class="content">
+                {% for cate in hq.cj.links %}
+                <a href="/{{hq.cj.code}}/{{cate.code}}.html" title="{{cate.name}}" target="_blank">{{cate.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="noraml-link">
+            <a href="/{{hq.zj}}/" target="_blank"><i class="iconfont icon-pen"></i>专家点评</a>
+            <a href="/{{hq.zb}}/" target="_blank"><i class="iconfont icon-zhibo01"></i>行情直播</a>
+        </div>
+    </div>
+    
+</div>

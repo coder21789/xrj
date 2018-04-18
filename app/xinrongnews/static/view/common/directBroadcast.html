@@ -1,0 +1,23 @@
+
+<div ng-cloak class="livelist"  id="directBroadcast" data-ng-controller="directBroadcastController">
+    <div class="tit">
+        {% for cat in livelist %}
+        <a ng-mouseover="getLiveData('{{cat.id}}')" data-id="{{cat.id}}" title="{{cat.name}}" ng-class="{on: isCurrent =={{cat.id}}}">{{cat.name}}</a>
+        {% endfor %}
+    </div>
+    {% raw %}
+    <div class="content">
+        <ul>
+            <li ng-repeat="item in items">
+                <span class="time" >{{item.creationDate || timeFormat}}</span>
+                <span class="content">{{item.content}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="loading hide" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error hide" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+    <!--<div class="loadmore"  ng-click="loadmore()">
+        <span class="link_normal">查看更多>></span>
+    </div>-->
+    {% endraw %}
+</div>

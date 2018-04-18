@@ -1,0 +1,82 @@
+<div class="navAdContainerOuter">
+	<div id="navAdContainer">
+		<div class="cj_ad_block">
+			<ui-ad ad-code="XRJ_CJ_007" ad-style="{width:'1020px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<a href="/appDownload" target="_blank">
+			<img src="/imgs/nav/cj_logo.png" alt="下载新融街APP" class="cj_logo" />
+		</a>
+		<img src="/imgs/nav/cj_code.png" alt="新融街二维码" class="cj_code" />
+	</div>
+</div>
+<div id="cjNavigationBar">
+	<div class="cjNavBg">
+		<div class="left"></div>
+		<div class="right"></div>
+	</div>
+	<div id="cjNavBlock">
+		<div class="cjNavBlockContainer">
+			<div class="cjNavLeft">
+				<a href="/" target="_blank">
+					<img src="/imgs/nav/cj_nav_logo.png" alt="新融街" />
+				</a>
+			</div>
+			<div class="cjNavMiddle"></div>
+			<div class="cjNavRight">
+				<a href="/cj/" target="_blank">
+					<h1 id="cjChannel">财经<span>频道</span></h1>
+				</a>
+				<ul>
+					<li><a href="/">返回首页</a></li>
+					{% for item in getCjCode %}
+					<li class="{% if loop.index == 7 %}cj_hot_tag{% endif %} {% if item.code == thisCode %}cj_nav_on{% endif %}">
+						{% if item.code == 'gnjj' or item.code == 'gjjj' %}
+							<a href="/cj/{{item.code}}.html">{{item.name.slice(0,2)}}</a>
+						{% else %}
+							<a href="/cj/{{item.code}}.html">{{item.name.slice(2)}}</a>
+						{% endif %}
+						{% if loop.index == 7 %}
+						<span></span>
+						{% endif %}
+					</li>
+					{% endfor %}
+				</ul>
+				<div id="cjSearchContainer">
+					<div id="bdcs">
+						<div class="bdcs-container">
+							<meta http-equiv="x-ua-compatible" content="IE=9">   
+							<!-- 嵌入式 -->  
+							<div class="bdcs-main bdcs-clearfix" id="default-searchbox">      
+								<div class="bdcs-search bdcs-clearfix" id="bdcs-search-inline">          
+									<form action="http://zhannei.baidu.com/cse/search" method="get" target="_blank" class="bdcs-search-form ng-pristine ng-valid" autocomplete="off" id="bdcs-search-form">              
+									<input type="hidden" name="s" value="2754227531528606912">              	
+									<input type="hidden" name="entry" value="1">                                                                        
+									<input type="text" name="q" class="bdcs-search-form-input" id="bdcs-search-form-input" placeholder="请输入关键词..." autocomplete="off" style="height: 32px; line-height: 32px;">              
+									<input type="submit" class="bdcs-search-form-submit " id="bdcs-search-form-submit" value="搜索">                    
+									</form>      
+								</div>                
+								<div class="bdcs-search-sug" id="bdcs-search-sug" style="top: 41px; left: 7px; width: 234px;">              
+									<ul class="bdcs-search-sug-list" id="bdcs-search-sug-list"></ul>          
+								</div>                  
+							</div>                           
+						</div>
+					</div>
+					<p class="cjSearchText">新闻</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="cjNavRadioContainer">
+	<div class="cjNavRadioContainerInner">
+		<p class="radioSubjectBar">滚动播报 :</p>
+		<div class="radioSlider">
+			<ul>
+				{% for item in getCjRecommend %}
+				<li><a href="{{item.news_url}}" target="_blank" title="{{item.news_recommend_subject}}">{{item.news_recommend_subject}}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

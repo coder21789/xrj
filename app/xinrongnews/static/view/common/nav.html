@@ -1,0 +1,50 @@
+{% if (base.pageInfo.level == 5 and base.pageInfo.name == '话题') or code == 'cj' or code == 'gp' or code == 'wh' or code == 'bx' or code == 'qh' or code == 'yy' or code == 'zj' or code == 'hj' or code == 'lc' or code == 'zc' or code == 'sy' %}
+{% else %}
+<div class="nav {{'tjDetail' if base.pageInfo.name == '图说财经' and base.pageInfo.level == 5}}" ng-cloak>
+{% raw %}
+    <div id="Nav" data-ng-controller="navHeader"  class="nav-item {{color}} {{sideNav}}" >
+{% endraw %}
+        <div class="layout"> 
+            {% if base.pageInfo.level == 1 or base.pageInfo.logolevel == 2  or code == "tjDetail" or code == "cjch"  %}
+                <ul ng-cloak class="indexNav">
+                    {% for cate in first_degree %}
+                        <li class="{% if loop.last %} last {% endif %} {% if cate.code == code %} on{% endif %}"><a href="/{{cate.code}}/" target="_blank"><span>{{cate.name}}</span></a></li>
+                    {% endfor %}
+                </ul>
+                <img class="live_hot_tag" src="/imgs/live_hot_tag.png" alt="">
+            {% else %}
+                <ul ng-cloak class="chanelNav">
+                    {% for cate in last_degree %}          
+                        <li class="{% if loop.last %} last {{cate.code}} {% endif %} {% if cate.code == thisCode %} on{% endif %}" >
+                            <a {% if cate.code =="qqrl" %} href="/{{code}}/{{cate.code}}.html" {% else %} href="/{{code}}/{{cate.code}}.html" {% endif %}>
+                                <span>{{cate.name}}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    {% if base.pageInfo.name == '话题' or base.pageInfo.name == '图说财经' %}
+    {% else %}
+    <div class="sideNav layout" id="Sidenav">
+        <ul class="menuList">
+            {% for cate in recommended_nav[0] %}
+                <li><a href="{{cate.news_url}}" target="_blank">{{cate.news_recommend_subject}}</a></li>
+            {% endfor %}
+            {% for cate in recommended_nav[1] %}
+                <li><a href="{{cate.news_url}}" target="_blank">{{cate.news_recommend_subject}}</a></li>
+            {% endfor %}
+            {% for cate in recommended_nav[2] %}
+                <li class="{% if loop.first %} new-tag {% endif %}">
+                    {% if loop.first %}
+                        <span></span>
+                    {% endif %}
+                    <a href="{{cate.news_url}}" target="_blank">{{cate.news_recommend_subject}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endif %}

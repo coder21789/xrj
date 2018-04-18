@@ -1,0 +1,20 @@
+{% raw %}
+<table ng-cloak id="rateTable" ng-clock data-ng-controller="rateController">
+    <thead>
+        <th class="first">货币</th>
+        <th>最新价</th>
+        <th>涨跌额</th>
+        <th>涨跌幅</th>
+    </thead>
+    <tbody>
+
+        <tr ng-repeat="item in items"  class="t{{$index%2}} {{item | isUp}}">
+            <td class="first">{{item.name | rateName}}</td>
+            <td>{{item.trade}}</td>
+            <td>{{item.pricechange}}</td>
+            <td>{{item.changepercent}}</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endraw %}

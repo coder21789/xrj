@@ -1,0 +1,25 @@
+
+<div id="syNavigartionBar">
+	<a href="/" target="_blank" class="logo">
+		<img  src="/imgs/sy/logo.png" alt="新融街">
+	</a>
+	<a href="/sy/" target="_blank" class="name">
+		<h1>双语频道</h1>
+	</a>
+	<div class="sy_ad_block_right">
+		<ui-ad ad-code="XRJ_SYPD_001" ad-style="{width:'920px',height:'60px'}" ad-channel="0"></ui-ad>
+	</div>
+</div>
+<div class="syRangeContainerOuter">
+	<ul>
+		<li class="line"></li>
+		<li class="home"><a href="/"><span class="shortLine"></span>返回首页<span>Homepage</span></a></li>
+		{% for item in getSyCode %}
+		<li class="{% if item.code == thisCode %}sy_nav_on{% endif %}">
+			<a href="/sy/{{item.code}}.html"><span class="shortLine"></span>{{item.name}}<span>{{item.bili_name}}</span><i class="virgule"></i></a>
+		</li>
+		{% endfor %}
+		<li class="line"></li>
+	</ul>
+</div>
+{% include "nav/navigartion.html" %}

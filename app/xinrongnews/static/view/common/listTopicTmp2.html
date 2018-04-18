@@ -1,0 +1,17 @@
+<div id="topicTmp2">
+	<ul class="picSetList">
+        {% for item in listTopicTmp.slice(0,5) %}
+        <li class="{% if loop.index > 1 %}picSmaller{% endif %} picSet">
+        	<div class="topic_tag">热门话题</div>
+            <a href="{{item.topicUrl}}" title="{{item.topicSubject}}" target="_blank">
+                <div class="container">
+                    <img src="{{item.topicPic}}" alt="{{item.topicSubject}}" />
+                    <div class="mask">
+                        <div>{{item.topicSubject}}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

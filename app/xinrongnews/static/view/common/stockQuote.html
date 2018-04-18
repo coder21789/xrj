@@ -1,0 +1,36 @@
+
+{% raw %}
+<!-- 个股涨幅 -->
+<div class="stocks" id="stockBoard" ng-controller="Quote">
+    <ul class="tab_nav stocksNav">
+        <li ng-mouseenter="tab('increase')" class="{{increase?'on':''}}">个股涨幅</li>
+        <li ng-mouseenter="tab('down')" class="{{down?'on':''}}">个股跌幅</li>
+    </ul>
+    <table class="same">
+        <thead>
+            <tr>
+                <th class="t0">排名</th>
+                <th class="t1">名称</th>
+                <th class="t2">最新价</th>
+                <th class="t3">{{increase?'涨幅':'跌幅'}}</th>
+            </tr>
+        </thead>
+        <tbody ng-show="increase">
+            <tr ng-repeat="item in increaseData" class="{{$even|filterOdd}}">
+                <td class="rank{{$index}} t0"><span ng-bind="item.rank" ></span></td>
+                <td class="t1" ng-bind="item.name"></td>
+                <td class="t2" ng-bind="item.trade"></td>
+                <td class="increase_red t3">{{item.range}}%</td>
+            </tr>
+        </tbody>
+        <tbody ng-show="down">
+            <tr ng-repeat="item in downData" class="{{$even|filterOdd}}">
+                 <td class="rank{{$index}} t0"><span ng-bind="item.rank" ></span></td>
+                <td class="t1" ng-bind="item.name"></td>
+                <td class="t2" ng-bind="item.trade"></td>
+                <td class="down_green t3">{{item.range}}%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endraw %}

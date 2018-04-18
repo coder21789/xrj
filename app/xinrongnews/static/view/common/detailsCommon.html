@@ -1,0 +1,118 @@
+<!-- 关键字 -->
+
+<div class="dtl_keywords {% if news.word.length==0 %} noWord{% endif %}">
+    {% if news.word.length>0 %}
+        {% for item in news.word %}
+            <a href="/word/{{item.tid}}.html"  target="_blank"  class="keywords_tag" data-id="{{item.tid}}">{{item.tname}}</a>
+        {% endfor %}
+    {% endif %}
+
+    <div class="store" data-ng-controller="store" ng-click="setStore({{news.id}})" ng-class="{collected: isCollected}" id="setCollect" data-id="{{news.id}}">
+        <i class="icon"></i>
+        <span><em>收藏</em></span>
+    </div>
+</div>
+{% if thisCode == 'mryl' or thisCode == 'yyj' %}
+    {% if news.refer_article.length > 0 %}
+        <div class="box  reference-media">
+            <div class="detail-title">
+                <span class="line"></span>
+                参考资料：
+            </div>
+            <div class="content">
+                {% for info in news.refer_article %}
+                    <p>{{loop.index}}、{{info.title}} {{info.url}}.[引用日期{{news.time.slice(0,10)}}]</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if thisCode == 'yyj' %}
+    <div class="box  classic-words">
+        <div class="detail-title">
+            <span class="line"></span>
+            经典词汇：
+        </div>
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="td1">英文</th>
+                        <th class="td2">中文</th>
+                        <th class="td3">释义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for info in news.classic_term %}
+                        <tr>
+                            <td class="td1">{{info.etitle}}</td>
+                            <td class="td2">{{info.ctitle}}</td>
+                            <td class="td3">{{info.meaning}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="box  Wonderful-statement">
+        <div class="detail-title">
+            <span class="line"></span>
+            精彩语句：
+        </div>
+        <div class="content">
+            {% for info in news.good_saying %}
+                <p>
+                    {{loop.index}}、<span class="en">{{info.en}}</span>
+                    <span class="zh">{{info.cn}}</span>
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+
+
+<!-- 免责申明 -->
+{% if news.news_type == '1' %}
+<div class="mz_dtl mt40">
+	<div class="mz_tl"><h4>免责申明</h4></div>
+	<p>【原创声明】凡注明“来源：新融街”的文章，系本站原创，任何单位或个人未经本站书面授权不得转载、转贴或以其他方式复制发表。否则，本站将依法追究其法律责任。如本文有侵犯了您的知识产权，请与我们取得联系，我们会及时修改或删除。</p>
+</div>
+{% endif %}
+
+<!-- 二维码 -->
+<div class="code_block mt40">
+	<a href="/appDownload" class="link" target="_blank" >
+		<img src="/imgs/details/dtl_code.gif" alt="新融街app客户端下载" class="dtl_code">
+	</a>
+</div>
+<!-- 详情页评论模块 -->
+{% include "./detailsComment.html" %}
+<!-- 相关阅读 -->
+<div class="related_recommend mt40"> 
+	<h4>相关阅读</h4>
+		<ul class="recommend_list">
+			{% for item in relatedReadingNews %}
+				{% if item.id== news.id %}
+
+				{% else %}
+					<li>
+						<a href="{{item.newsUrl}}" target="_blank" title="{{item.subject | safe}}"><h3 class="details_hot_caption">{{item.subject | safe}}</h3></a>
+						<ul class="details_tag">
+							{% set time = item.publishTimeFormat.slice(0,16) %}
+							<li>{{time}}</li>
+						    {% if item.newsSource %}
+								<li><span class="splice_line">/</span> {{item.newsSource}}</li>
+							{% endif %}
+						</ul>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	<p class="toggle_btn">展开更多</p>
+</div>
+{% if code != 'sy' %}
+<!-- 详情页推荐位新闻 -->
+{% include "./detailsRecommendNews.html" %}
+{% endif %}

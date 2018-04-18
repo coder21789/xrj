@@ -1,0 +1,55 @@
+<div class="modal-container register-modal">
+    <div class="modal-header">
+        <ul>
+            <li ng-click="setLogin()">登录</li>
+            <li><a href="">注册</a></li>
+        </ul>
+    </div>
+    <div class="modal-body">
+        <div class="errorContainer" ng-if="error.length"><div class="errorMsg">{{error}}</div></div>
+        <form id="register" class="modalBox" name="register">
+            <ul>
+                <li class="li1" >
+                    <div class="tit phone border">
+                        <input type="text" class="input-tit" name="username" autocomplete="off"  ng-model="username" maxlength="11" ng-pattern="/1[3|4|5|7|8]\d{9}$/" required>
+                        <div class="name"><i class="iconfont icon-cp-number"></i><span ng-hide="register.username.$viewValue">手机号</span>
+                        </div>
+                    </div>
+                </li>
+                <li class="li6">
+                    <div id="captcha">
+                        <p id="wait" class="show">正在加载验证码......</p>
+                    </div>
+                </li>
+                <li class="li registerForm">
+                    <div  class="tit code border" > 
+                        <input type="text" class="input-tit code-input"  id="code" name="code" ng-model="code" autocomplete="off"  minlength="6" maxlength="6" required>
+                        <div class="name"><i class="iconfont icon-check_square"></i><span ng-hide="register.code.$viewValue">短信验证码</span></div>
+                    </div>
+                    <span class="blue send btn" ng-click="setTime(register,1)">{{send}}</span>
+                </li>
+                <li class="li3 registerForm">
+                    <div  class="tit password border">
+                        <input type="password" class="input-tit" name="password" autocomplete="off" ng-model="password" minlength="6" maxlength="20" ng-model="password" required>
+                        <div class="name"><i class="iconfont icon-mima"></i><span ng-hide="register.password.$viewValue">密码（6-20位数字字母或字符）</span></div>
+                    </div>
+                </li>
+                <li class="li4 registerForm">
+                    <input type="checkbox" id="service" ng-model="cheched">
+                    <span>我已经阅读并同意<span ng-click="setService()" class="service-tips">《服务条例》</span></span>
+                </li>
+                <li class="li5 registerForm">
+                    <span class="submit btn" ng-click="registerFun(register)">注册</span>
+                </li>
+                <li class="li6 oauth">
+                    <label class="oauth-name">第三方登录：</label>
+                    <div class="login-module">
+                        <a onclick="wb_Login()" class="iconfont icon-weibo weiboLogin hide"></a>
+                        <a onclick="wx_Login()" class="iconfont icon-weixin1 weixinLogin"></a>
+                        <a onclick="qq_Login()" class="iconfont icon-qq1 qqLogin"></a>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

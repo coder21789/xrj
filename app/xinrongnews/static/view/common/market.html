@@ -1,0 +1,54 @@
+{% raw %}
+<div ng-cloak id="marketBox" class="rbox mod" ng-clock data-ng-controller="marketBoxController">
+    <div class="hd">
+        <ul id="" class="fin-tit">
+            <li ng-repeat="item in menus" ng-mouseover="tabToggle($index,$event)" ng-class="{on:isCurrent==$index,last:$index==2}">{{item.name}}</li>
+        </ul>
+    </div>
+    <div class="bd">
+        <div class="dataCss" id="fin_Tab0">
+            <ul>
+                <li ng-repeat="item in items.data0" ng-mouseover="asiaToggle($index,$event)" class="t{{$index%2}} {{item | isUp}} ">
+                    <div ng-class="{current:oneCurrent==$index,fin:true}">
+                        <span class="one first">{{item.name}}</span>
+                        <span class="two">{{item.trade}}</span>
+                        <span class="three">{{item.limit | plus}}</span>
+                        <span class="four">{{item.range | plus}}</span>
+                        <div class="mapData" ng-class="{on:oneCurrent==$index} " >
+                            <img align="" ng-src="{{item.chartUrl}}">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="fin_Tab1" class="dataCss hide">
+            <ul>
+                <li ng-repeat="item in items.data1" ng-mouseover="usaToggle($index,$event)" class="t{{$index%2}} {{item | isUp}}">
+                    <div ng-class="{current:twoCurrent==$index,fin:true}">
+                        <span class="one first">{{item.name}}</span>
+                        <span class="two">{{item.trade}}</span>
+                        <span class="three">{{item.limit | plus}}</span>
+                        <span class="four">{{item.range | plus}}</span>
+                        <div class="mapData" ng-class="{on:twoCurrent==$index}" >
+                            <img align="" ng-src="{{item.chartUrl}}">
+                        </div>
+                    </div>
+                    
+                </li>
+            </ul>
+        </div>
+        <div id="fin_Tab2" class="dataCss hide">
+            <ul>
+                <li ng-repeat="item in items.data2"  class="t{{$index%2}} {{item | isUp}}" >
+                    <span class="one first">{{item.name}}</span>
+                    <span class="two">{{item.trade}}</span>
+                    <span class="three">{{item.limit | plus}}</span>
+                    <span class="four">{{item.range | plus}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div> 
+</div>
+{% endraw %}

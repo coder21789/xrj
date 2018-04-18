@@ -1,0 +1,96 @@
+{% extends "common.html" %}
+
+{% block title %} {{meta.title}} {% endblock %}
+{% block keywords %} {{meta.keywords}} {% endblock %}
+{% block description %} {{meta.description}} {% endblock %}
+
+{% block header %}
+<link href="/css/list.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+{% include "./common/nav.html" %}
+<div class="center" ng-controller="indexCtrl">
+    <div class="row mt20 mm70">
+        <div class="col-md-8">
+            <div class="col-sm-12 newslist">
+                <ul class="partContent">
+                	{% for i in news %}
+                    <li class="tmpListContainer">
+                        <a href="{{i.news_url}}" title="{{i.subject}}" target="_blank"><img class="atricleCover" src="{{i.thumbnail_url}}" alt="{{i.subject}}"></a>
+                    	<div class="articlePart">
+                    		<a href="{{i.news_url}}" title="{{i.subject}}" target="_blank">
+                    			<h2>{{i.subject}}</h2>
+                    		</a>
+                    		<ul>
+                    			{% for item in i.list %}
+                    			<li>
+                    				<a href="{{item.news_url}}" title="{{item.news_recommend_subject}}" target="_blank">
+	                    				<p class="articleTag">{{item.news_event_tag}}</p>
+	                    				<a class="articleListHover" href="{{item.news_url}}" title="{{item.news_recommend_subject}}" target="_blank">
+                                            <p class="articleList">{{item.news_recommend_subject}}</p>
+                                        </a>
+	                    				<p class="atricleDate">{{item.time}}</p>
+                    				</a>
+                    			</li>
+                    			{% endfor %}
+                    		</ul>
+                    		<div class="articleNumber">
+                    			<span>第{{i.region}}期</span>
+                    			<span>{{i.name}}</span>
+                    		</div>
+                    	</div>
+                	</li>
+                	{% endfor %}
+                </ul>
+               <!-- 分页按钮 -->
+                {% if page.all > 1 %}
+                <div class="select-page">
+                    <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" class="firstPage">首页</a>
+                    <ul class="num_btn" data-num="{{page.all}}">
+                        <li class="arrow_l"><a href=""><span class="prev iconfont icon-zuo"></span></a></li>
+                        {% for i in range(1, page.all + 1) -%}
+                            {% if i == page.start %}
+                                <li><a href="" class="num_tag">{{i}}</a></li>
+                            {% else %}
+                            	{% if i == 1 %}
+                                <li><a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" class="num_tag">{{i}}</a></li>
+                                {% else %}
+                                <li><a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}-{{i}}.html" class="num_tag">{{i}}</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {%- endfor %}
+                        <li class="arrow_r"><a href=""><span class="prev iconfont  icon-you"></span></a></li>
+                    </ul>
+                    <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}-{{page.all}}.html" class="lastPage">尾页</a>
+                    <div class="page_btn">
+                        <label>跳转至</label><input type="text"><span>页</span>
+                        <a href="" class="sure_btn">确定</a>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- 当前页隐藏值 -->
+                <input id="currentPageNum" name="currentPageNum" type="hidden" value="{{page.start}}">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="ml30">
+            	<!-- 热门文章 -->
+            	{% include "./common/hotArticles.html" %}
+            </div>
+            <div class="mt30 ml30">
+                <!-- XRJ_**_****_001 -->
+                <ui-ad ad-code="XRJ_CJ_DASHIJIAN_001" ad-style="{width:'370px',height:'380px'}" ad-channel="1"></ui-ad>
+            </div>
+            <!-- 每日财经 -->
+            <div class="mt30 ml30">
+                {% include "./common/recommend.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/js/list.js"></script>
+{% endblock %}

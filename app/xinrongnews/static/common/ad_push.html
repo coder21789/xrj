@@ -1,0 +1,59 @@
+<!--start 广告申请窗口-->
+<div class="modal-container">         
+    <div class="modal-body">
+        <form id="adPush" 
+            class="modalBox" 
+            name="adPushForm" 
+            novalidate
+            ng-submit="adPushSubmit()"
+            ng-show="adFormShow">
+            <ul>
+                <li>
+                    <label for="ownerName">公司姓名:</label>
+                    <input type="text" 
+                        name="ownerName" 
+                        autocomplete="off" 
+                        ng-model="ownerName" 
+                        ng-required="true"
+                        ng-maxlength=30
+                        ng-class="{error_msg:adPushForm.ownerName.$invalid && adPushForm.ownerName.$dirty}" />
+                    <span ng-show="adPushForm.ownerName.$invalid && adPushForm.ownerName.$dirty">公司姓名不得为空或多于30个字数</span>
+                </li>
+                <li>
+                    <label for="cusName">联系人:</label>
+                    <input type="text" 
+                        name="cusName" 
+                        autocomplete="off" 
+                        ng-model="cusName" 
+                        ng-required="true"
+                        ng-class="{error_msg:adPushForm.cusName.$invalid && adPushForm.cusName.$dirty}" />
+                    <span ng-show="adPushForm.cusName.$invalid && adPushForm.cusName.$dirty">请输入联系人名称！</span>
+                </li>
+                <li>
+                    <label for="tel">联系方式:</label>
+                    <input type="text" 
+                        placeholder="手机号码/固定电话" 
+                        name="tel" 
+                        autocomplete="off" 
+                        ng-model="tel" 
+                        ng-required="true"
+                        ng-pattern="/^([0-9]{3,4}-)?[0-9]{7,8}$|^((\+?86)|(\+86))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/"
+                        ng-class="{error_msg:adPushForm.tel.$invalid && adPushForm.tel.$dirty}" />
+                    <span ng-show="adPushForm.tel.$invalid && adPushForm.tel.$dirty">请填写正确的手机号码或固定电话</span>
+                </li>
+                <li>
+                    <input type="submit" 
+                        class="push-btn" 
+                        value="提交" 
+                        ng-disabled="adPushForm.$invalid" />
+                </li>
+            </ul>
+        </form>
+        <div id="successMsg"
+            ng-show="successMsgShow">
+            <h3>提交成功！</h3>
+            <p>请保持电话畅通，客服人员会马上与您联系</p>
+        </div>
+    </div>
+</div>
+<!--end 广告申请窗口-->

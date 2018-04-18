@@ -1,0 +1,11 @@
+<!-- 今日要闻 -->
+<div class="today_news mt30 ml30">  
+    <div class="news_caption">
+        <div class="news_line"><h3>今日要闻</h3><em>Today's news</em></div>
+    </div>
+    <ul class="news_list">
+        {% for item in todayNews %}
+            <li><a href="{{item.news_url}}" target="_blank" title="{{item.news_recommend_subject | safe}}">{{item.news_recommend_subject | safe}}</a></li>
+        {% endfor %}
+    </ul>
+</div>

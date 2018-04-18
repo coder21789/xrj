@@ -1,0 +1,17 @@
+<div id="atlasTmp2">
+	<div class="atlas_navigartion_tmp2"><a href="/tj/" target="_blank">查看更多></a></div>
+	<ul class="picSetList">
+        {% for item in listAtlasTmp.slice(0,3) %}
+        <li class="{% if loop.index > 1 %}picSmaller{% endif %} picSet">
+            <a href="{{item.newsUrl}}" title="{{item.subject}}" target="_blank">
+                <div class="container">
+                    <img src="{{item.pics[0].pic_url_list}}" alt="{{item.subject}}" />
+                    <div class="mask">
+                        <div>{{item.subject}}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

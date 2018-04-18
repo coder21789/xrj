@@ -1,0 +1,107 @@
+<div class="whNavAdContainerOuter">
+	<div class="whNavAdContainer">
+		<div class="wh_ad_block">
+			<ui-ad ad-code="XRJ_QH_005" ad-style="{width:'1000px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="wh_ad_block_right">
+			<ui-ad ad-code="XRJ_QH_006" ad-style="{width:'190px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div id="qhNavigartionBar">
+	<a href="/" target="_blank">
+		<img src="/imgs/nav/qh_web_logo.png" alt="新融街" class="qh_web_logo" />
+	</a>
+	<a href="/qh/" target="_blank">
+		<h1 id="qhChannelSubject">
+			<img src="/imgs/nav/qh_channel_logo.png" alt="期货频道" />
+		</h1>
+	</a>
+	<ul id="whChannelBar" class="qhChannelBar">
+		<li class="four"><a href="/">返回首页</a><span></span></li>
+		{% for item in getQhCode %}
+		<li class="{% if item.name.length == 4 %}four{% endif %} {% if item.code == thisCode %}wh_nav_on{% endif %}">
+			<a href="/qh/{{item.code}}.html">{{item.name}}</a>
+			{% if item.code == thisCode %}
+				<span></span>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div id="gpNavigartionBar" class="qhRangeContainer" ng-controller="futuresCN">
+	{% raw %}
+	<div class="gpNavContainerInner">
+		<div class="gpContainerInnerCaption"><p>上期所</p></div>
+		<ul>
+			<li ng-repeat="item in futuresSHFE.slice(0,3)">
+				<span class="name" ng-bind="item.name"></span>
+				<span class="price" ng-bind="item.price | decimals"></span>
+				<span class="normal {{item.limit|filterLift}}" ng-bind="item.limit | decimals"></span>
+				<span class="normal {{item.range|filterLift}}" ng-bind="item.range"></span>
+			</li>
+		</ul>
+	</div>
+	<div class="gpNavContainerInner">
+		<div class="gpContainerInnerCaption"><p>大商所</p></div>
+		<ul>
+			<li ng-repeat="item in futuresDCE.slice(0,3)">
+				<span class="name" ng-bind="item.name"></span>
+				<span class="price" ng-bind="item.price | decimals"></span>
+				<span class="normal {{item.limit|filterLift}}" ng-bind="item.limit | decimals"></span>
+				<span class="normal {{item.range|filterLift}}" ng-bind="item.range"></span>
+			</li>
+		</ul>
+	</div>
+	<div class="gpNavContainerInner">
+		<div class="gpContainerInnerCaption"><p>郑商所</p></div>
+		<ul>
+			<li ng-repeat="item in futuresZCE.slice(0,3)">
+				<span class="name" ng-bind="item.name"></span>
+				<span class="price" ng-bind="item.price | decimals"></span>
+				<span class="normal {{item.limit|filterLift}}" ng-bind="item.limit | decimals"></span>
+				<span class="normal {{item.range|filterLift}}" ng-bind="item.range"></span>
+			</li>
+		</ul>
+	</div>
+	{% endraw %}
+</div>
+<div class="whRangeContainerOuter qhRangeContainerOuter">
+	<div id="whRangeContainer" class="channel">
+		{% raw %}
+	    <div id="qhNewsRange" class="box box_more" ng-controller="futuresGB">
+	        <span class="title link_nav">
+	            <i class="iconfont icon-waihuizhishu qhRangeMap"></i>
+	            外盘行情
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content exchangeContainer radioSliderChild">
+	                <ul>
+	                    <li ng-repeat="item in futuresGB" class="{{item | isUp}}">
+	                        <span class="first qhRangeName" ng-bind="item.name"></span>
+	                        <span class="trade" ng-bind="item.price"></span>
+	                        <span class="range"><i class="{{item.range | arrow2}}"></i><em ng-bind="item.range | percent2"></em></span>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>  
+	    </div>
+	    {% endraw %}
+		<div id="bxNewsReport" class="box box_more">
+	        <span class="title link_nav">
+	        	<i class="iconfont icon-qihuo-remensousuo"></i>
+	            今日热搜
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content exchangeContainer radioSlider">
+	                <ul>
+	                	{% for item in getQhRecommend %}
+	                    <li><a href="{{item.news_url}}" target="_balnk" title="{{item.news_recommend_subject}}">{{item.news_recommend_subject}}</a></li>
+	                    {% endfor %}
+	                </ul>
+	            </div>
+	        </div>  
+	    </div>
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

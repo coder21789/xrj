@@ -1,0 +1,24 @@
+{% raw %}
+<div ng-cloak class="recommend wrap-box" id="recommend" data-ng-controller="recommendController">
+    <div class="wrap-tit"><h3>每日推荐</h3>
+        <div class="bar">
+            <a ng-repeat="menu in menus" ng-class="{bar1: true, on:isCurrent==$index}" class="a{{$index}}" ng-mouseover="tabToggle($index)">
+                {{menu.name}}
+                <i class="icon"></i>
+            </a>
+        </div>
+        <i class="line"></i>
+        <div class="arrow"></div>
+    </div>
+    <div class="wrap-content">
+       <ul ng-repeat="item in items" ng-class="{hide:isCurrent!=$index}">
+            <li ng-repeat="it in item" >
+                <a href="{{it.url}}" class="img" title="{{it.subject}}"><img ng-src="{{it.thumbnailUrl}}" alt="{{it.subject}}" title="{{it.subject}}"/></a>
+                <div class="desc"><a href="{{it.url}}" class="title" title="{{it.subject}}" target="_blank">{{it.subject}}</a></div>
+            </li>
+       </ul>
+    </div>
+    <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+</div>
+{% endraw %}

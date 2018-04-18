@@ -1,0 +1,8 @@
+<div class="pane links mb40" >
+	<h3 class="pane-tit mb20">友情链接<span class="en-title">FRIENDSHIP LINK<em></em></span></h3>
+	<ul class="list">
+	    {% for item in friendlyLinks %}
+	    <li><a href="{{item.url}}" target="_blank">{{item.name}}</a></li>
+	    {% endfor %}
+	</ul>
+</div>

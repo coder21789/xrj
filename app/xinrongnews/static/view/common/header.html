@@ -1,0 +1,223 @@
+<div  ng-cloak ng-class="{header:true,channelHeader:!isBaseHead}" id="Header" data-ng-controller="topHeader" >
+    <div class="layout">
+        {% if topNavBar %}
+            <div class="headNav">
+                <ul>
+                    <li class="first"><a href="/" target="_blank"><span>新融街首页</span></a></li>
+                    {% for cate in topNavBar %}
+                        <li><a href="/{{cate.code}}/" target="_blank"><span>{{cate.name}}</span></a></li>
+                    {% endfor %}
+                </ul>  
+            </div>
+        {% else %}
+            {% raw %}
+                <div class="headNav">
+                    <ul>
+                        <li class="first"><a href="/" target="_blank"><span>新融街首页</span></a></li>
+                        <li ng-mouseover="codeShow()" ng-mouseout="codeHide()" class="w85"> <a class="iconfont icon-shouji1"></a></i>
+                            <div ng-class="{'topcoder': true, 'hide': !isCodeShow}">
+                                <div class="content">
+                                    <i class="icon"></i>
+                                    <a href="/appDownload" target="_blank">
+                                    <img src="/imgs/index/code.png" alt="新融街客户端"><div class="tite">下载新融街客户端</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                       
+                        <li>电话：<span class="blue">400-8251-009</span></li>
+                    </ul>
+                </div>
+            {% endraw %}
+        {% endif %}
+        <div class="member">
+            {% if topNavBar %}
+                {% raw %}
+                    <div class="phone"  ng-show="!isBaseHead" ng-mouseover="codeShow()" ng-mouseout="codeHide()">
+                        <a href="/appDownload" target="_blank">手机版 <i class="iconfont {{arror}}"></i></a>
+                        <div ng-class="{'topcoder': true, 'hide': !isCodeShow}">
+                            <div class="content">
+                                <a href="/appDownload" target="_blank">
+
+                                <img src="/imgs/code.png" alt="新融街客户端"><div class="tite">新融街客户端</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endraw %}
+            {% endif %}
+             <div class="editNow"> <a ng-click="contribute()" target="_blank" rel="nofollow"><i class="iconfont icon-tougao_bianji"></i><span>我要投稿</span></a></div>
+
+            {% raw %}
+            
+                <div class="islogin" ng-if="islogin" ng-mouseover="Show()" ng-mouseout="Hide()">                 
+                    <a href="/person" rel="nofollow" class="href"><i class="iconfont icon-yonghu1"></i>{{username}}<i class="iconfont {{icon}}"></i></a>
+                    <div ng-class="{'person-menu': true, 'hide': !isShow}">
+                        
+                        <ul>
+                            <li class="first"><i class="icon"></i><a href="/person">猜你喜欢</a></li>
+                            <li><a href="/person?type=article" target="_blank" rel="nofollow">我的文章</a></li>
+                            <li><a href="/person?type=consult" target="_blank" rel="nofollow">我的咨询</a></li>
+                            <li><a href="/person?type=collect" target="_blank" rel="nofollow">我的收藏</a></li>
+                            <li><a href="/person?type=comment" target="_blank" rel="nofollow">我的评论</a></li>
+                            <li><a href="/person?type=info" target="_blank" rel="nofollow">我的消息</a></li>
+                            <li><a href="/person?type=modify" target="_blank" rel="nofollow">资料编辑</a></li>
+                            <li class="last"><a ng-click="logout()">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="logout" ng-if="!islogin">
+                    <a ng-click="setLogin()" class="link_normal hoverRed" rel="nofollow">登录</a>
+                    <a ng-click="setRegister()" class="link_normal" rel="nofollow">注册</a>
+                    <a href="/sitemap.html" target="_blank" class="map">网站地图</a>
+                </div>
+            {% endraw %}
+        </div>
+    </div>
+</div>  
+{% if base.pageInfo.level == 1 %}
+    {% raw %}
+    <div class="layout1240 hide"><a id="closeBg"><i class="iconfont icon-cuohao"></i>关闭</a></div>
+    <div class="indexBg">
+        <div class="top layout  {{color}}"  ng-cloak  id="top" data-ng-controller="commonHead"> 
+        {% endraw %} 
+            <div id="logo">
+                <h1 class="channel">
+                    <a href="/" target="_blank">
+                        <img src="/imgs/index/logo.png" alt="新融街" title="新融街" />
+                    </a>
+                </h1>
+                {% if base.pageInfo.level > 2 %}
+                    {% if base.pageInfo.crumbs %}
+                        <div class="crumbs">
+                            <a href="/" target="_blank" rel="nofollow">新融街首页</a>
+                                {% if base.pageInfo.level == 2 or base.pageInfo.level == 2.5 or base.pageInfo.setLink === 0 %}
+                                    <i class="iconfont icon-you"></i>
+                                    <span>{{base.pageInfo.crumbs.parent.name}}</span>
+                                {% else %}
+                                    <i class="iconfont icon-you"></i>
+                                    <a href="/{{base.pageInfo.crumbs.parent.code}}/" target="_blank" >{{base.pageInfo.crumbs.parent.name}}</a>
+                                {% endif %}
+                            {% if base.pageInfo.level  == 3%}
+                                <i class="iconfont icon-you"></i>
+                                <span>{{base.pageInfo.crumbs.child.name}}</span>
+                            {% endif %}
+                            {% if base.pageInfo.level  == 4 %}
+                                <i class="iconfont icon-you"></i>
+                                <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" target="_blank" >{{base.pageInfo.crumbs.child.name}}</a>
+                                <i class="iconfont icon-you"></i>
+                                <span>详情</span>
+                            {% endif %}
+                            {% if base.pageInfo.level  == 5 %}
+                                <i class="iconfont icon-you"></i>
+                                <span>详情</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="search_container">
+                <script type="text/javascript">
+                    (function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=2754227531528606912' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+                </script>
+                
+                <div class="hotWord">
+                    热门：
+                    {% for item in hotWord %}
+                        <a {% if item.url %} href="{{item.url}}" target="_blank" {% else %} class="hotlink" {% endif %} >{{item.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% if code == 'cj' %}
+        {% include "nav/cj.html" %}
+    {% elif code == 'gp' %}
+        {% include "nav/gp.html" %}
+    {% elif code == 'wh' %}
+        {% include "nav/wh.html" %}
+    {% elif code == 'bx' %}
+        {% include "nav/bx.html" %}
+    {% elif code == 'qh' %}
+        {% include "nav/qh.html" %}
+    {% elif code == 'yy' %}
+        {% include "nav/yy.html" %}
+    {% elif code == 'zj' %}
+        {% include "nav/zj.html" %}
+    {% elif code == 'hj' %}
+        {% include "nav/hj.html" %}
+    {% elif code == 'lc' %}
+        {% include "nav/lc.html" %}
+    {% elif code == 'zc' %}
+        {% include "nav/zc.html" %}
+    {% elif code == 'sy' %}
+        {% include "nav/sy.html" %}
+    {% else %}
+    {% raw %}
+    <div class="top layout  {{color}}"  ng-cloak  id="top" data-ng-controller="commonHead"> 
+    {% endraw %} 
+        <div id="logo">
+            <div class="channel">
+                <a href="/" target="_blank">
+                    <img src="/imgs/logo2.png" alt="新融街" title="新融街" />
+                </a>
+                {% if base.pageInfo.level != 1 %}
+                    {% if base.pageInfo.level == 4 or base.pageInfo.level == 5 or base.pageInfo.setH1 === 0 %}
+                        <span class="name">
+                            {{base.pageInfo.name}}
+                        </span>
+                    {% else %}
+                        <h1 class="name">
+                            {{base.pageInfo.name}}
+                        </h1>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% if base.pageInfo.level > 2 %}
+                {% if base.pageInfo.crumbs %}
+                    <div class="crumbs">
+                        <a href="/" target="_blank" rel="nofollow">新融街首页</a>
+                            {% if base.pageInfo.level == 2 or base.pageInfo.level == 2.5 or base.pageInfo.setLink === 0 %}
+                                <i class="iconfont icon-you"></i>
+                                <span>{{base.pageInfo.crumbs.parent.name}}</span>
+                            {% else %}
+                                <i class="iconfont icon-you"></i>
+                                <a href="/{{base.pageInfo.crumbs.parent.code}}/" target="_blank" >{{base.pageInfo.crumbs.parent.name}}</a>
+                            {% endif %}
+                        {% if base.pageInfo.level  == 3%}
+                            <i class="iconfont icon-you"></i>
+                            <span>{{base.pageInfo.crumbs.child.name}}</span>
+                        {% endif %}
+                        {% if base.pageInfo.level  == 4 %}
+                            <i class="iconfont icon-you"></i>
+                            <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" target="_blank" >{{base.pageInfo.crumbs.child.name}}</a>
+                            <i class="iconfont icon-you"></i>
+                            <span>详情</span>
+                        {% endif %}
+                        {% if base.pageInfo.level  == 5 %}
+                            <i class="iconfont icon-you"></i>
+                            <span>详情</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="search_container">
+            <script type="text/javascript">
+                (function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=2754227531528606912' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+            </script>
+        </div>
+        <div class="public_adv">
+            <div class="adLine1">
+                <!-- XRJ_SY_002 -->
+                <ui-ad ad-code="XRJ_SY_006" ad-style="{width:'229px',height:'50px'}" ad-channel="0"></ui-ad>
+            </div>  
+        </div>
+        <div class="clear"></div>
+    </div>    
+    {% endif %}
+{% endif %}

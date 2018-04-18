@@ -1,0 +1,60 @@
+<div class="security">
+{% if pageType == 'list' %}
+{% else %}
+    <h3 class="title">
+        <span class="name">证券公司</span>
+        <a href="/gp/zqgs.html" class="more" target="_blank" >更多>></a>
+    </h3>
+{% endif %}
+    <div class="content">
+        <ul>
+            {% for item in security %}
+            <li class="li{{loop.index}}">
+                <a href="/gp/{{item.orgId}}.html" target="_blank" class="link"></a>
+                <div class="company">
+                    <div class="img">
+                        <img src="{{item.logo}}" alt="{{item.simplyname}}">
+                    </div>
+                    <div class="desc">
+                        <div class="name">
+                            {% if item.simplyname.length >0 %}
+                               {{item.simplyname}}
+                            {% else %}
+                                暂无
+                            {% endif %}
+                        </div>
+                        <p>
+                            <span class="gray">公司总部：</span>
+                                {% if item.cityName.length >0 %}
+                                   {{item.cityName}}
+                                {% else %}
+                                    暂无
+                                {% endif %}
+                            <br/>
+                            <span class="gray">注册资金：</span>
+                            {% if item.registeredCapital.length >0 %}
+                               {{item.registeredCapital}}万元
+                            {% else %}
+                                暂无
+                            {% endif %}
+                            <br/>
+                        </p>
+                    </div>
+                </div>
+                <p class="text">
+                    {% if item.info.length >49 %}
+                      {% set str = item.info.slice(0,49)+'...' %}
+                        {{str}}
+                    {% else %}
+                        {% if item.info.length >0 %}
+                            {{item.info}}
+                        {% else %}
+                            暂无
+                        {% endif %}
+                    {% endif %}
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

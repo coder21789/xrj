@@ -1,0 +1,23 @@
+<div id="topicTmp3">
+	<div id="dashijianTmp1">
+		<div class="dsj_navigartion">
+			<h3>热门话题<span></span></h3>
+			<a href="/ht/" target="_blank">查看更多 ></a>
+			<div class="border_design">
+				<span></span>
+			</div>
+		</div>
+		<ul>
+			{% for item in listTopicTmp.slice(0,2) %}
+			<li>
+				<a href="{{item.topicUrl}}" title="{{item.topicSubject}}" target="_blank">
+					<img src="{{item.topicPic}}" alt="{{item.topicSubject}}" />
+					<div>
+						<p>{{item.topicSubject}}</p>
+					</div>
+				</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>

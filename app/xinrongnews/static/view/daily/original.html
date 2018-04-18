@@ -1,0 +1,65 @@
+{% extends "common.html" %}
+
+{% block title %} {{meta.title}} {% endblock %}
+{% block keywords %} {{meta.keywords}} {% endblock %}
+{% block description %} {{meta.description}} {% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="/css/list.css">
+<link rel="stylesheet" href="/css/daily.css">
+{% endblock %}
+
+{% block content %}
+    <div class="daily-container original">
+        <ul class="daily-nav">
+            <li class="daily-on"><a href="/yuanchuang/">原创综合</a></li>
+            <li><a href="/word/">每日热搜</a></li>
+            <li><a href="/meirixinwen/">每日新闻</a></li>
+            <li></li>
+        </ul>
+        <div class="daily-new-channel" id="{{channelCode[loop.index-1].code}}">
+            <ul class="daily-news-list">
+                {% for i in channelResult.slice(0,pageHalf) %}
+                <li><a href="{{i.news_url}}" title="{{i.subject | safe}}" target="_blank"><p>{{i.subject | safe}}</p><p class="hot_news_date">{{i.time.slice(5,10)}}</p></a></li>
+                {% endfor %}
+            </ul>
+            <ul class="daily-news-list list-right">
+                {% for i in channelResult.slice(pageHalf) %}
+                <li><a href="{{i.news_url}}" title="{{i.subject | safe}}" target="_blank"><p>{{i.subject | safe}}</p><p class="hot_news_date">{{i.time.slice(5,10)}}</p></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- 分页按钮 -->
+        {% if page.count > 1 %}
+        <div class="select-page">
+            <a href="/yuanchuang/" class="firstPage">首页</a>
+            <ul class="num_btn" data-num="{{page.count}}">
+                <li class="arrow_l"><a href=""><span class="prev iconfont icon-zuo"></span></a></li>
+                {% for i in range(1, page.count + 1) %}
+                    {% if i == page.start %}
+                        <li><a href="" class="num_tag">{{i}}</a></li>
+                    {% else %}
+                        {% if i == 1 %}
+                            <li><a href="/yuanchuang/" class="num_tag">{{i}}</a></li>
+                        {% else %}
+                            <li><a href="/yuanchuang/list-{{i}}.html" class="num_tag">{{i}}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <li class="arrow_r"><a href=""><span class="prev iconfont  icon-you"></span></a></li>
+            </ul>
+            <a href="/yuanchuang/list-{{page.count}}.html" class="lastPage">尾页</a>
+            <div class="page_btn">
+                <label>跳转至</label><input type="text"><span>页</span>
+                <a href="" class="sure_btn">确定</a>
+            </div>
+        </div>
+        {% endif %}
+        <!-- 当前页隐藏值 -->
+        <input id="currentPageNum" name="currentPageNum" type="hidden" value="{{page.start}}">
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="/js/list.js"></script>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "common.html" %}
+
+{% block title %} {{news.subject | safe}}-新融街xinrongnews.com {% endblock %}
+{% block keywords %} {{news.subject | safe}} {% endblock %}
+{% block description %} {{news.subject | safe}} {% endblock %}
+{% block agent %}{{news.news_url}}{% endblock %}
+
+
+{% block header %}
+<link href="/css/detail.css" rel="stylesheet" type="text/css" />
+<link href="/css/event.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div class="tmpColor">
+	<div class="center">
+		<div id="tmpBannerCover">
+			<div class="captionNumberContainer">
+				<div class="captionNumber">
+					<span>第{{tmpHeadCommon.region}}期</span>
+					<span></span>
+					<span>{{tmpHeadCommon.timePoint}}</span>
+					<span>{{tmpHeadCommon.name}}</span>
+				</div>
+				<div class="captionTagNumber"></div>
+			</div>
+			<img src="/imgs/details/tmp4_cover_bg.png" alt="{{tmpHeadCommon.news_recommend_subject}}" />
+			<div class="tmpBannerContainer">
+				<h1>{{tmpHeadCommon.news_recommend_subject}}</h1>
+				<div class="bannerStarter">
+					<span>导读</span>
+					<div class="bannerStarterLine"></div>
+					<p>{{tmpHeadCommon.news_recommend_summary}}</p>
+				</div>
+			</div>
+		</div>
+		<div id="topNewsId">
+			<div class="minTitle">
+		        <h2>事件新闻</h2>
+		        <a href="{{tmpHeadCommon.news_url}}" title="{{tmpHeadCommon.dsjtt_news_recommend_subject}}" target="_blank">
+			        <div id="topNewsContainer">
+			        	<div class="topNewsContent">
+			        		<span>头条</span>
+			        		<p class="topNewsTitle">{{tmpHeadCommon.dsjtt_news_recommend_subject}}</p>
+			        		<p class="topNewsMore">{{tmpHeadCommon.dsjtt_news_recommend_summary}}</p>
+			        	</div>
+			        	<img src="{{tmpHeadCommon.pic_url}}" alt="{{tmpHeadCommon.dsjtt_news_recommend_subject}}" class="topNewsSplash" />
+			        </div>
+			    </a>    
+		    </div>
+		</div>
+		<!-- 相关阅读 -->
+		<div id="newsMoreContainer">
+			<div class="newsMoreSlice">
+				<a href="{{relatedNews[0].news_url}}" title="{{relatedNews[0].news_recommend_subject}}" target="_blank">
+					<div class="newsMoreImg">
+						<img src="{{relatedNews[0].pic_url}}" alt="{{relatedNews[0].news_recommend_subject}}" />
+						<h3>{{relatedNews[0].news_recommend_subject}}</h3>
+					</div>
+					<p>{{relatedNews[0].news_recommend_summary}}</p>
+				</a>	
+			</div>
+			<ul class="newsMoreSmall">
+				{% for i in relatedNews.slice(1) %}
+				<li>
+					<a href="{{i.news_url}}" title="{{i.news_recommend_subject}}" target="_blank">
+				 		<img src="{{i.pic_url}}" alt="{{i.news_recommend_subject}}" />
+				 		<h3>{{i.news_recommend_subject}}</h3>
+				 		<p>{{i.news_recommend_summary}}</p>
+				 	</a>	
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<!-- 小编总结 -->
+		{% if tmpSelfModel %}
+		<div id="mobileSetContainer">
+			<div id="mobileSet">
+				<div class="mobileTag"></div>
+				<div class="mobileContainer">
+					<h1>小编有话说</h1>
+					<p>{{tmpSelfModel.news_recommend_summary}}</p>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	</div>	
+	<div id="topicSet">
+		<div class="minTitle">
+	        <a href="/ht/" target="_blank"><h3>热门话题</h3></a>
+	        <span class="more"><a href="/ht/" target="_blank">查看更多&gt;&gt;</a></span>
+	    </div>
+	    <ul class="topicContainer">
+	    	{% for i in hotMap %}
+	    	<li>
+	    		<a href="{{i.news_url}}" title="{{i.subject}}" target="_blank">
+	    			<img src="{{i.thumbnail_url}}" alt="{{i.subject}}" />
+	    			<div class="topicCaption">
+	    				<p>{{i.subject}}</p>
+	    				<span>{{i.topics.length}}篇</span>
+	    			</div>
+	    		</a>	
+	    	</li>
+	    	{% endfor %}
+	    </ul>
+	</div>
+	<div class="center">
+		{% include "./common/detailsComment.html" %}
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="/js/about.js" type="text/javascript"></script>
+<script src="/js/detail.js" type="text/javascript"></script>
+<script src="/js/event.js" type="text/javascript"></script>
+{% endblock %}

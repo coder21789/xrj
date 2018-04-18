@@ -1,0 +1,80 @@
+<link href="/font/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="/css/index.css" rel="stylesheet" type="text/css" />
+<div class="whNavAdContainerOuter">
+	<div class="whNavAdContainer">
+		<div class="wh_ad_block">
+			<ui-ad ad-code="XRJ_WH_001" ad-style="{width:'1000px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="wh_ad_block_right">
+			<ui-ad ad-code="XRJ_WH_002" ad-style="{width:'190px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div class="whNaviagrtionBar">
+	<a href="/" target="_blank">
+		<img src="/imgs/nav/wh_nav_logo_top.png" alt="新融街" class="wh_nav_logo" />
+	</a>
+	<a href="/wh/" target="_blank">
+		<h1 id="whChannelSubject">
+			<img src="/imgs/nav/wh_nav_logo.png" alt="外汇频道" />
+		</h1>
+	</a>
+	<ul id="whChannelBar">
+		<li><a href="/">返回首页</a></li>
+		{% for item in getWhCode %}
+		{% if item.code == 'whwd' %}
+		{% else %}
+		<li class="{% if loop.index == 7 %}wh_last_tag{% endif %} {% if item.code == thisCode %}wh_nav_on{% endif %}">
+			<a href="/wh/{{item.code}}.html">{{item.name}}</a>
+			{% if item.code == thisCode %}
+				<span></span>
+			{% endif %}
+		</li>
+		{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+<div class="whRangeContainerOuter">
+	<div id="whRangeContainer" class="channel" data-ng-controller="globalIndex">
+		{% raw %}
+	    <div class="box box_more">
+	        <span class="title link_nav">
+	            <!-- <i class="iconfont icon-waihuizhishu"></i> -->
+	            <span class="wh_range_tag"></span>
+	            外汇指数
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content exchangeContainer">
+	                <ul  class="slides">
+	                    <li ng-repeat="item in exchangeItems" class="{{item | isUp}}">
+	                        <span class="first" ng-bind="item.name"></span>
+	                        <span class="trade" ng-bind="item.trade"></span>
+	                        <span class="range"><i class="{{item.pricechange | arrow2}}"></i><em ng-bind="item.pricechange | percent2"></em></span>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>  
+	    </div>
+	    {% endraw %}
+	    <div class="box box_more" data-ng-controller="directBroadcastWhController">
+	        <span class="title link_nav">
+	            <span class="wh_live_tag"></span>
+	            实时直播
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content wh_live_container_outer">
+	            	{% raw %}
+	                <ul class="wh_live_container">
+	                    <li ng-repeat="item in items">
+	                    	<p ng-bind="item.creationDate || timeFormat"></p>
+	                    	<p ng-bind="item.content"></p>
+	                    </li>
+	                </ul>
+	                {% endraw %}
+	                <p class="wh_live_more"><a href="/zb/" target="_blank">查看更多></a></p>
+	            </div>
+	        </div>  
+	    </div>
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

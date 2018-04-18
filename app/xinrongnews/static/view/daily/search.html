@@ -1,0 +1,63 @@
+{% extends "common.html" %}
+
+{% block title %} {{meta.title}} {% endblock %}
+{% block keywords %} {{meta.keywords}} {% endblock %}
+{% block description %} {{meta.description}} {% endblock %}
+
+
+{% block header %}
+<link rel="stylesheet" href="/css/list.css">
+<link rel="stylesheet" href="/css/daily.css">
+{% endblock %}
+
+{% block content %}
+    <div class="daily-container">
+        <ul class="daily-nav">
+            <li><a href="/yuanchuang/">原创综合</a></li>
+            <li class="daily-on"><a href="/word/">每日热搜</a></li>
+            <li><a href="/meirixinwen/">每日新闻</a></li>
+            <li></li>
+        </ul>
+        <div id="dailySearchContainer">
+        	<ul>
+    			{% for item in word %}
+    				<li class="{% if loop.index%8==1 %}border-clip{% endif %} {% if loop.index<9 %}padding-clip{% endif %}">
+    					<a href="/word/{{item.id}}.html" title="{{item.name | safe}}" target="_blank">{{item.name | safe}}</a>
+    				</li>
+    			{% endfor %}	
+        	</ul>
+        </div>
+        <!-- 分页按钮 -->
+        {% if page.count > 1 %}
+        <div class="select-page">
+            <a href="/word/" class="firstPage">首页</a>
+            <ul class="num_btn" data-num="{{page.count}}">
+                <li class="arrow_l"><a href=""><span class="prev iconfont icon-zuo"></span></a></li>
+                {% for i in range(1, page.count + 1) %}
+                    {% if i == page.start %}
+                        <li><a href="" class="num_tag">{{i}}</a></li>
+                    {% else %}
+                        {% if i == 1 %}
+                            <li><a href="/word/" class="num_tag">{{i}}</a></li>
+                        {% else %}
+                            <li><a href="/word/list-{{i}}.html" class="num_tag">{{i}}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <li class="arrow_r"><a href=""><span class="prev iconfont  icon-you"></span></a></li>
+            </ul>
+            <a href="/word/list-{{page.count}}.html" class="lastPage">尾页</a>
+            <div class="page_btn">
+                <label>跳转至</label><input type="text"><span>页</span>
+                <a href="" class="sure_btn">确定</a>
+            </div>
+        </div>
+        {% endif %}
+        <!-- 当前页隐藏值 -->
+        <input id="currentPageNum" name="currentPageNum" type="hidden" value="{{page.start}}">
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="/js/list.js"></script>
+{% endblock %}

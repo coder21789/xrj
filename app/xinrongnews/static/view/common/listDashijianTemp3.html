@@ -1,0 +1,20 @@
+<div id="dashijianTmp3">
+	<div class="atlas_navigartion">
+		<h3>热点大事件<span></span></h3>
+		<a href="/cj/dashijian.html" target="_blank">查看更多 ></a>
+	</div>
+	<ul class="picSetList">
+        {% for item in listDashijianTmp.slice(0,5) %}
+        <li class="{% if loop.index > 1 %}picSmaller{% endif %} picSet">
+            <a href="{{item.news_url}}" title="{{item.subject}}" target="_blank">
+                <div class="container">
+                    <img src="{{item.thumbnail_url}}" alt="{{item.subject}}">
+                    <div class="mask">
+                        <div>{{item.subject}}</div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

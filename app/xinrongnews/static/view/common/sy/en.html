@@ -1,0 +1,54 @@
+<div class="day-to-chat aside">
+    <div class="title">
+        <a href="/sy/mryl.html" target="_blank" class="url"></a>
+        <span class="line"></span>
+        <h3 class="name">每日一聊</h3>
+        <a href="/sy/mryl.html" target="_blank" class="more">更多<i class="iconfont icon-iconfontgengduo"></i></a>
+    </div>
+    <div class="content">
+        <ul class="dayChat">
+            {% for news in dayChat %}
+                <li>
+                    <a class="mask" target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}"></a>
+                    <div class="news-img">
+                        <img src="{{news.thumbnail_url}}" alt="{{news.subject | safe}}" />
+                    </div>
+                    <div class="news_desc"> 
+                        <p class="zh">  
+                            {% if news.subject.length > 24 %}
+                                {{news.subject.slice(0,24) | safe}}... 
+                            {% else %}
+                                {{news.subject | safe}} 
+                            {% endif %} 
+                        </p>
+                        <p class="en">{{news.bili_subject | safe}}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="englishCorner aside">
+    <div class="title">
+        <a href="/sy/yyj.html" target="_blank" class="url"></a>
+        <span class="line"></span>
+        <h3 class="name">英语角</h3>
+        <a href="/sy/yyj.html" target="_blank" class="more">更多<i class="iconfont icon-iconfontgengduo"></i></a>
+    </div>
+    <div class="content">
+        <ul class="corner" id="EnglishCornerList">
+            {% for news in englishCorner %}
+                <li {% if loop.first %} class="current" {% endif %}>
+                    <i class="icon"></i>
+                    <a class="mask" target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}"></a>
+                    <div class="news-desc"> 
+                        <p class="zh">【第{{news.region}}期】{{news.subject | safe}}</p>
+                    </div>
+                    <div class="news-img">
+                        <img src="{{news.thumbnail_url}}" alt="{{news.subject | safe}}" />
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

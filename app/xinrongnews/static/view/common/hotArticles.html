@@ -1,0 +1,18 @@
+{% raw %}
+<div ng-cloak id="hotArticles" class="hot-articles"  data-ng-controller="hotArticlesController">
+    <div class="title">
+        <h3>热门文章</h3>
+        <a ng-repeat="menu in menus" ng-class="{bar1: true, on:isCurrent==$index}" ng-mouseover=tabToggle($index) class="a{{$index}}">{{menu.name}}
+        </a>
+    </div>
+    <div class="wrap-content">
+       <ul ng-repeat="item in items" ng-class="{hide:isCurrent!=$index}">
+            <li ng-repeat="it in item" >
+                <div class="desc"><span class="rank  rank{{$index}}">{{$index+1}}</span><a href="{{it.url}}" class="title" title="{{it.subject}}" target="_blank">{{it.subject}}</a></div>
+            </li>
+       </ul>
+    </div>
+    <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+</div>                
+{% endraw %}

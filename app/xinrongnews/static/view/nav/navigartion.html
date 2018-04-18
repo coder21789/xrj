@@ -1,0 +1,44 @@
+{% if base.pageInfo.level > 2 %}
+    {% if base.pageInfo.crumbs %}
+        <div class="crumbsContainer nav_bar_native">
+            <div class="crumbs">
+                <a href="/" target="_blank" rel="nofollow">新融街首页</a>
+                    {% if base.pageInfo.level == 2 or base.pageInfo.level == 2.5 or base.pageInfo.setLink === 0 %}
+                        <i class="iconfont icon-you"></i>
+                        <span>{{base.pageInfo.crumbs.parent.name}}</span>
+                    {% else %}
+                        <i class="iconfont icon-you"></i>
+                        <a href="/{{base.pageInfo.crumbs.parent.code}}/" target="_blank" >{{base.pageInfo.crumbs.parent.name}}</a>
+                    {% endif %}
+                {% if base.pageInfo.level  == 3%}
+                    <i class="iconfont icon-you"></i>
+                    <span>{{base.pageInfo.crumbs.child.name}}</span>
+                {% endif %}
+                {% if base.pageInfo.level  == 3.5 %}
+                    <i class="iconfont icon-you"></i>
+                    <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" target="_blank" >{{base.pageInfo.crumbs.child.name}}</a>
+                    <i class="iconfont icon-you"></i>
+                    <span>{{base.pageInfo.current}}</span>
+                {% endif %}
+                {% if base.pageInfo.level  == 4 %}
+                    <i class="iconfont icon-you"></i>
+                    <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" target="_blank" >{{base.pageInfo.crumbs.child.name}}</a>
+                    <i class="iconfont icon-you"></i>
+                    <span>详情</span>
+                {% endif %}
+                {% if base.pageInfo.level  == 4.5 %}
+                    <i class="iconfont icon-you"></i>
+                    <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}.html" target="_blank" >{{base.pageInfo.crumbs.child.name}}</a>
+                    <i class="iconfont icon-you"></i>
+                    <a href="/{{base.pageInfo.crumbs.parent.code}}/{{base.pageInfo.crumbs.child.code}}/{{base.pageInfo.crumbs.tertiary.code}}.html" target="_blank" >{{base.pageInfo.crumbs.tertiary.name}}</a>
+                    <i class="iconfont icon-you"></i>                  
+                    <span>详情</span>
+                {% endif %}
+                {% if base.pageInfo.level  == 5 %}
+                    <i class="iconfont icon-you"></i>
+                    <span>详情</span>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

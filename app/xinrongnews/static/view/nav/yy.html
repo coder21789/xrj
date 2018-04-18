@@ -1,0 +1,56 @@
+<div class="yyAdContainerOuter">
+	<div id="yyAdContainer">
+		<a href="/" target="_blank"><img src="/imgs/nav/yy_web_logo.png" alt="新融街" class="yy_web_logo" /></a>
+		<a href="/yy/" target="_blank"><h1 id="yyChannelSubject">原油</h1></a>
+		<a href="/appDownload" target="_blank">
+			<div class="yy_code">
+				<i class="iconfont icon-yuanyou-shouji"></i>
+				<span>手机访问</span>
+				<div class="yy_pop_container">
+					<div class="yy_pop_container_inner">
+						<img src="/imgs/nav/yy_app_download.jpg" alt="下载APP" />
+						<p>下载APP</p>
+						<span class="arrow"></span>
+					</div>
+				</div>
+			</div>
+		</a>
+		<div class="yy_code">
+			<i class="iconfont icon-yuanyou-weixin"></i>
+			<span>官方微信</span>
+			<div class="yy_pop_container">
+				<div class="yy_pop_container_inner">
+					<img src="/imgs/nav/yy_wechat.jpg" alt="官方微信" />
+					<p>扫码关注</p>
+					<span class="arrow"></span>
+				</div>
+			</div>
+		</div>
+		<div class="yy_ad_block">
+			<ui-ad ad-code="XRJ_YY_004" ad-style="{width:'780px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div id="yyNavigartionBar">
+	<ul>
+		<li><a href="/"><i class="iconfont icon-yuanyou-youdi"></i>返回首页</a></li>
+		{% for item in getYyCode %}
+		<li class="{% if item.code == thisCode %}yy_nav_on{% endif %}">
+			<a href="/bx/{{item.code}}.html"><i class="iconfont icon-yuanyou-youdi"></i>{{item.name}}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div id="cjNavRadioContainer" class="yyNavRadioContainer">
+	<div class="cjNavRadioContainerInner">
+		<p class="radioSubjectBar">今日要闻 :</p>
+		<div class="radioSlider">
+			<ul>
+				{% for item in getYyRecommend %}
+				<li><a href="{{item.news_url}}" target="_blank" title="{{item.news_recommend_subject}}">{{item.news_recommend_subject}}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

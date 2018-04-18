@@ -1,0 +1,56 @@
+<div class="whNavAdContainerOuter">
+	<div class="whNavAdContainer">
+		<div class="wh_ad_block">
+			<ui-ad ad-code="XRJ_ZC_006" ad-style="{width:'1000px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="wh_ad_block_right">
+			<ui-ad ad-code="XRJ_ZC_007" ad-style="{width:'190px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div id="cjNavigationBar" class="zcNavigationBar">
+	<div class="cjNavBg">
+		<div class="left"></div>
+		<div class="right"></div>
+	</div>
+	<div id="cjNavBlock">
+		<div class="cjNavBlockContainer">
+			<div class="cjNavLeft">
+				<a href="/" target="_blank">
+					<img src="/imgs/nav/cj_nav_logo.png" alt="新融街" />
+				</a>
+			</div>
+			<div class="cjNavMiddle"></div>
+			<div class="cjNavRight">
+				<a href="/zc/" target="_blank">
+					<h1 id="cjChannel">众筹<span>频道</span></h1>
+				</a>
+				<ul>
+					<li><a href="/">返回首页</a></li>
+					{% for item in getZcCode %}
+					<li class="{% if item.code == thisCode %}web_zc_nav_on{% endif %}">
+						<a href="/zc/{{item.code}}.html">{{item.name}}</a>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="zcTodayNews">
+	<img src="/imgs/nav/zc_today_show.png" alt="今日众筹" />
+	<ul>
+		{% for item in zcTodayNews.slice(0,3) %}
+		<li>
+			<a href="{{item.url}}" target="_blank" title="{{item.subject}}">
+				<p class="today_news_subject">{{item.subject}}</p>
+				<p class="today_news_content">{{item.summary}}</p>
+			</a>
+			{% if loop.index < 3 %}
+			<span></span>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% include "nav/navigartion.html" %}

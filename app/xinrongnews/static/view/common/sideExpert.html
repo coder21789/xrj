@@ -1,0 +1,26 @@
+<!--start 专家列表-->
+
+<div class="expert pane mb30">
+    <h3 class="expert_tit pane-title">
+        <span>专家观点</span><a href="/zj/"  target="_blank">更多<i class="iconfont icon-iconfontgengduo"></i></a>
+    </h3> 
+   
+    <div class="pane-content">
+        {% for news in expertList %}
+        <div class="expert-content expert-img" data-id="{{news.publish_author_id}}">
+            <div class="img expert-load"></div>
+            <div class="desc">
+                <div class="name">
+                    <a href="/zj/{{news.publish_author_id}}/guandian.html" target="_blank">{{news.news_author}}</a>
+                    <span class="time">{{news.time.slice(5)}}</span>
+                </div>
+                <div class="title txt-hide">
+                    <a href="{{news.news_url}}" title="{{news.subject | safe}}">{{news.subject | safe}}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!--end 专家列表-->

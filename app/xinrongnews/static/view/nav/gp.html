@@ -1,0 +1,60 @@
+<div class="gpAdContainerTopOuter">
+	<div id="gpAdContainerTop">
+		<a href="/" target="_blank">
+			<img class="gpChannelSubject" src="/imgs/nav/gp_logo_top.png" alt="新融街" />
+		</a>
+		<a href="/gp/" target="_blank">
+			<h1>股票</h1>
+		</a>
+		<div class="gp_ad_block">
+			<ui-ad ad-code="XRJ_GP_005" ad-style="{width:'740px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="gp_ad_block_right">
+			<ui-ad ad-code="XRJ_GP_006" ad-style="{width:'220px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div id="gpNavigartionBar">
+	<a href="/"><div class="gp_nav_back_tag"><p>返回首页</p></div></a>
+	<div class="gpNavContainerInner">
+		<div class="gpContainerInnerCaption"><p>要闻</p></div>
+		<ul>
+			{% for item in getGpCode.slice(0,12) %}
+			<li><a href="/gp/{{item.code}}.html" class="{% if item.code == thisCode %}gpChannelOn{% endif %}">{{item.name}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="gpNavContainerInner gpContainerInnerCaptionTwo">
+		<div class="gpContainerInnerCaption"><p>美股</p></div>
+		<ul>
+			{% for item in getGpCode.slice(12, 16) %}
+			<li><a href="/gp/{{item.code}}.html" class="{% if item.code == thisCode %}gpChannelOn{% endif %} {% if loop.index == 2 %}gpChannelPlus{% endif %}">{{item.name}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="gpNavContainerInner gpContainerInnerCaptionThree">
+		<div class="gpContainerInnerCaption"><p>港股</p></div>
+		<ul>
+			{% for item in getGpCode.slice(16, 20) %}
+			<li><a href="/gp/{{item.code}}.html" class="{% if item.code == thisCode %}gpChannelOn{% endif %}">{{item.name}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% raw %}
+<div id="gpStockContainer" data-ng-controller="globalIndex">
+	<ul>
+		<li ng-repeat="item in items" class="{{item | isUp}}">
+			<div class="gp_stock_name">
+				<span class="first" ng-bind="item.name | stockName"></span>
+				<span class="trade" ng-bind="item.trade"></span>
+			</div>
+            <div class="gp_stock_range">
+            	<span class="range"><i class="{{item.range | arrow2}}"></i><em ng-bind="item.range | percent2"></em></span>
+            	<span class="limit"><em ng-bind="item.limit | percent2"></em></span>
+            </div>
+        </li>
+	</ul>
+</div>
+{% endraw %}
+{% include "nav/navigartion.html" %}

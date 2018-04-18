@@ -1,0 +1,53 @@
+<div class="gpAdContainerTopOuter" id="zjAdContainerTopOuter">
+	<div id="gpAdContainerTop">
+		<a href="/" target="_blank">
+			<img class="gpChannelSubject" src="/imgs/nav/gp_logo_top.png" alt="新融街" />
+		</a>
+		<a href="/zj/" target="_blank">
+			<h1>专家</h1>
+		</a>
+		<div class="gp_ad_block">
+			<ui-ad ad-code="XRJ_ZJ_006" ad-style="{width:'740px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="gp_ad_block_right">
+			<ui-ad ad-code="XRJ_ZJ_007" ad-style="{width:'220px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div id="zjWebNavigartionbar">
+	<ul>
+		<li>
+			<a href="/">
+				<i class="iconfont icon-fanhui"></i>
+				<span>返回首页</span>
+			</a>
+		</li>
+		{% for item in getZjCode %}
+		<li class="{% if item.code == thisCode %}web_zj_nav_on{% endif %}">
+			<a href="/zj/{{item.code}}.html">
+				<i class="iconfont {% if item.code == 'guandian' %}icon-zuixinguandian{% else %}icon-zhuanjiawenda{% endif %}"></i>
+				<span>{{item.name}}</span>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div id="zjRadioContainer">
+	<div class="radio_part_container top_slider_left">
+		<i class="iconfont icon-yuanyoubaoxian"></i>
+		<ul class="radio_slider_part">
+			{% for item in getZjNewsTop10 %}
+			<li><a href="{{item.news_url}}" target="_blank" title="{{item.subject}}"><span>{{item.time.split(' ')[1]}}  </span>{{item.subject}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="radio_part_container top_slider_right">
+		<i class="iconfont icon-wenda"></i>
+		<ul class="radio_slider_part">
+			{% for item in getZjAnswer %}
+			<li><a href="/zj/wenda/{{item.answer.answerId}}.html" target="_blank" title="{{item.ask.question}}"><span>{{item.ask.questionTime.split(' ')[1].slice(0,5)}}  </span>{{item.ask.question}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

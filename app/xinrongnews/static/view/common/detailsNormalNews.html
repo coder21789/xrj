@@ -1,0 +1,10 @@
+{% if code == 'htDetail' %}
+{% else %}
+<!-- 今日要闻 -->
+	{% include "./today'sNews.html" %}
+{% endif %}
+{% if code == 'tjDetail' %}
+{% else %}
+	<!-- 为您推荐 -->
+	{% include "./recommendedNews.html" %}
+{% endif %}

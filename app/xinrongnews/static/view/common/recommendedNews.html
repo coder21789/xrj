@@ -1,0 +1,11 @@
+<!-- 为您推荐 -->
+<div class="today_news mt30 ml30">
+    <div class="news_caption caption_bg">
+        <div class="news_line"><h3>为您推荐</h3><em>Commended for you</em></div>
+    </div>
+    <ul class="news_list">
+        {% for item in suggestForYou %}
+            <li><a href="{{item.news_url}}" target="_blank" title="{{item.news_recommend_subject | safe}}">{{item.news_recommend_subject | safe}}</a></li>
+        {% endfor %}
+    </ul>   
+</div>

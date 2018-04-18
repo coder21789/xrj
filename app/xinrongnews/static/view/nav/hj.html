@@ -1,0 +1,52 @@
+<div id="qhNavigartionBar" class="hjNavigartionBar">
+	<a href="/" target="_blank">
+		<img src="/imgs/nav/web_hj_logo.png" alt="新融街" class="qh_web_logo" />
+	</a>
+	<a href="/hj/" target="_blank">
+		<h1 id="qhChannelSubject">
+			<img src="/imgs/nav/web_hj_channel_logo.png" alt="期货频道" />
+		</h1>
+	</a>
+	<ul class="qhChannelBar hjChannelBar">
+		<li><a href="/">返回首页</a><span></span></li>
+		{% for item in getHjCode %}
+		<li class="{% if item.code == thisCode %}web_nav_hj_on{% endif %} {% if loop.index == 5 %}web_nav_hj_last_on{% endif %}">
+			<a href="/hj/{{item.code}}.html">{{item.name}}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div class="whNavAdContainerOuter">
+	<div class="whNavAdContainer">
+		<div class="wh_ad_block">
+			<ui-ad ad-code="XRJ_HJ_005" ad-style="{width:'1000px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="wh_ad_block_right">
+			<ui-ad ad-code="XRJ_HJ_006" ad-style="{width:'190px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div class="whRangeContainerOuter qhRangeContainerOuter hjRangeContainerOuter">
+	<div id="whRangeContainer" class="channel">
+		{% raw %}
+	    <div id="qhNewsRange" class="box box_more" ng-controller="goldMarketSlider">
+	        <span class="title link_nav">
+	            <i class="iconfont icon-waihuizhishu qhRangeMap"></i>
+	            最新行情
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content exchangeContainer radioSliderChild">
+	                <ul>
+	                    <li ng-repeat="item in exchangeMarketSlider" class="{{item | isUp}}">
+	                        <span class="first qhRangeName" ng-bind="item.variety"></span>
+	                        <span class="trade" ng-bind="item.latestprice"></span>
+	                        <span class="range"><em ng-bind="item.chg"></em></span>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>  
+	    </div>
+	    {% endraw %}
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

@@ -1,0 +1,156 @@
+<!-- 评论 -->
+{% if not viewpoint %}
+<div class="related_comment mt30"> 
+	<h4 id="commentNum">网友评论(<em>暂无评论</em>)</h4>
+	<textarea name="commentIO" id="commentIO" cols="30" placeholder="理性发言!"></textarea>
+	<p class="commentTips"></p>
+	<div class="comment_state mt20">
+		<h5 id="userId">游客</h5>
+		<p class="comment_submit" id="commentSend">发布评论</p>
+		{% if templateId %}
+        <div class="bdsharebuttonbox" data-tag="share_1">
+            <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+            <a class="bds_tsina" data-cmd="tsina"></a>
+            <a class="bds_weixin" data-cmd="weixin"></a>
+            <a class="bds_sqq" data-cmd="sqq"></a>
+        </div>
+        <script>
+            window._bd_share_config = {
+                common : {
+                    bdText : "{{news.subject | safe}}",
+                    bdDesc: "{{news.summary | safe}}",
+                    bdUrl : location.href,
+                    bdPic : 'https://www.xinrongnews.com/imgs/share_default.png'
+                },
+                share : [{
+                    "bdSize" : 16
+                }] 
+            }
+            with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+        <p class="commentContainerCaption">分享到：</p>
+        {% endif %}
+	</div>
+	<ul class="comment_list"></ul>
+	<div class="select">
+		<a href="" class="firstPage">首页</a>
+		<ul class="num_btn">
+			<li class="arrow_l"><a href=""><span class="prev iconfont icon-zuo"></span></a></li>
+			<li class="arrow_r"><a href=""><span class="prev iconfont  icon-you"></span></a></li>
+		</ul>
+		<a href="" class="lastPage">尾页</a>
+        <div class="page_btn">
+            <label>跳转至</label><input type="text"><span>页</span>
+            <div class="sure_btn">确定</div>
+        </div>
+	</div>
+</div>
+{% else %}
+<div id="reviewPoint" ng-controller="commetCtrl">
+	<input type="hidden" id="viewpoint" value="{{viewpoint}}" />
+	{% raw %}
+	<div class="caption_container">
+		<p class="point_content square_point_content"><span ng-bind="viewpoint.squarePointContent"></span>(<span ng-bind="viewpoint.squarePointNum"></span>)</p>
+		<p class="point_content opposition_point_content"><span ng-bind="viewpoint.oppositionPointContent"></span>(<span ng-bind="viewpoint.oppositionPointNum"></span>)</p>
+	</div>
+	<div class="hot_line_container_outer">
+		<div class="hot_line_container">
+			<div class="line_outer">
+				<div class="line_opposition"></div>
+				<div class="line_square_container">
+					<div class="line_square" style="width: {{viewpoint.squareRange}}%;">
+						<p></p>
+					</div>
+				</div>
+				<div class="line_square_container time_stamp">
+					<div class="line_square" style="width: {{viewpoint.squareRange}}%;">
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<i class="iconfont icon-dianzan-1" ng-click="addSupportViewpoint($event, 'plus_on', 'squarePointNum', viewpoint.squarePointId)"><span>+1</span></i>
+			<i class="iconfont icon-dianzan-zuo-" ng-click="addSupportViewpoint($event, 'plus_on', 'oppositionPointNum', viewpoint.oppositionPointId)"><span>+1</span></i>
+			<div class="range_container">
+				<p><span ng-bind="viewpoint.squareRange"></span>%</p>
+				<p><span ng-bind="viewpoint.oppositionRange"></span>%</p>
+			</div>
+		</div>
+	</div>
+	<div class="commet_list_container">
+		<div class="commet_left_list_container">
+			<textarea name="" id="" class="comment_viewpoint" cols="30" placeholder="理性发言!" ng-model="squareContent" ng-change="viewpointValidate(squareContent, 'squareContentSubmit', 'squareClicked')"></textarea>
+			<span class="viewponit_tag"></span>
+			<p class="view_msg_tip ng-hide" ng-show="isViewpointSuccess && squareContent && squareClicked"">成功评论了该观点</p>
+			<p class="view_msg_tip error_tip ng-hide" ng-show="isViewpointFailed && squareContent && squareClicked"">评论字数不能多于200字</p>
+			<p class="view_msg_tip error_tip ng-hide" ng-show="!squareContentSubmit && !squareContent && squareClicked">请输入评论内容</p>
+			<div class="submit_container">
+				<div class="share_ctrl">
+			        <div class="bdsharebuttonbox" data-tag="share_1">
+			            <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+			            <a class="bds_tsina" data-cmd="tsina"></a>
+			            <a class="bds_weixin" data-cmd="weixin"></a>
+			            <a class="bds_sqq" data-cmd="sqq"></a>
+			        </div>
+			        <p class="commentContainerCaption">分享到：</p>
+				</div>
+				<p class="submit_ctrl {{squareContentSubmit | eventModel}}" ng-click="newsReviewAdd(viewpoint.squarePointId, squareContent, 'squareContent', 'squareContentSubmit', 'squareClicked')">发布评论<span></span></p>
+			</div>
+			<ul class="commet_user_list">
+				<li class="commet_list_item" ng-repeat="item in viewpointListMap.positive">
+					<img src="{{item.photoImageUrl}}" alt="{{item.name}}" class="user_img" />
+					<div class="commet_content">
+						<h3 ng-bind="item.name"></h3><span class="time_pub" ng-bind="item.reviewTime"></span>
+						<div class="user_commet_content"><p class="user_content" ng-bind="item.content"></p><div class="show_more"><span>展开</span><i class="iconfont icon-gengduo"></i></div></div>
+						<i class="iconfont icon-zan" data-review="{{item.id}}" ng-click="reviewLike($event)"><span>+1</span></i><span class="commet_good" ng-bind="item.likeCount"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="commet_right_list_container">
+			<textarea name="" id="" class="comment_viewpoint" cols="30" placeholder="理性发言!" ng-model="oppositionContent" ng-change="viewpointValidate(oppositionContent, 'oppositionContentSubmit', 'oppositionClicked')"></textarea>
+			<span class="viewponit_tag"></span>
+			<p class="view_msg_tip ng-hide" ng-show="isViewpointSuccess && oppositionContent && oppositionClicked">成功评论了该观点</p>
+			<p class="view_msg_tip error_tip ng-hide" ng-show="isViewpointFailed && oppositionContent && oppositionClicked">评论字数不能多于200字</p>
+			<p class="view_msg_tip error_tip ng-hide" ng-show="!oppositionContentSubmit && !oppositionContent && oppositionClicked">请输入评论内容</p>
+			<div class="submit_container">
+				<div class="share_ctrl">
+			        <div class="bdsharebuttonbox" data-tag="share_1">
+			            <a class="bds_qzone" data-cmd="qzone" href="#"></a>
+			            <a class="bds_tsina" data-cmd="tsina"></a>
+			            <a class="bds_weixin" data-cmd="weixin"></a>
+			            <a class="bds_sqq" data-cmd="sqq"></a>
+			        </div>
+			        <p class="commentContainerCaption">分享到：</p>
+				</div>
+				<p class="submit_ctrl {{oppositionContentSubmit | eventModel}}" ng-click="newsReviewAdd(viewpoint.oppositionPointId, oppositionContent, 'oppositionContent', 'oppositionContentSubmit', 'oppositionClicked')">发布评论<span></span></p>
+			</div>
+			<ul class="commet_user_list">
+				<li class="commet_list_item" ng-repeat="item in viewpointListMap.negative">
+					<img src="{{item.photoImageUrl}}" alt="{{item.name}}" class="user_img" />
+					<div class="commet_content">
+						<h3 ng-bind="item.name"></h3><span class="time_pub" ng-bind="item.reviewTime"></span>
+						<div class="user_commet_content"><p class="user_content" ng-bind="item.content"></p><div class="show_more"><span>展开</span><i class="iconfont icon-gengduo"></i></div></div>
+						<i class="iconfont icon-zan" data-review="{{item.id}}" ng-click="reviewLike($event)"><span>+1</span></i><span class="commet_good" ng-bind="item.likeCount"></span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="commet_loadmore" ng-click="viewpointList(pageStart, 5, false, true)" ng-if="isLoadmore">查看更多评论</div>
+	{% endraw %}
+</div>
+<script>
+    window._bd_share_config = {
+        common : {
+            bdText : "{{news.subject | safe}}",
+            bdDesc: "{{news.summary | safe}}",
+            bdUrl : location.href,
+            bdPic : 'https://www.xinrongnews.com/imgs/share_default.png'
+        },
+        share : [{
+            "bdSize" : 16
+        }] 
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+{% endif %}

@@ -1,0 +1,18 @@
+<div id="atlasTmp1">
+	<div class="atlas_navigartion">
+		<h3>精彩图集<span></span></h3>
+		<a href="/tj/" target="_blank">查看更多 ></a>
+	</div>
+	<ul>
+		{% for item in listAtlasTmp.slice(0,6) %}
+		<li>
+			<a href="{{item.newsUrl}}" title="{{item.subject}}" target="_blank">
+				<img src="{{item.pics[0].pic_url_list}}" alt="{{item.subject}}" />
+				<div>
+					<p>{{item.subject}}</p>
+				</div>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>

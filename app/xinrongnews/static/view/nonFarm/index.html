@@ -1,0 +1,336 @@
+{% extends "common.html" %}
+
+{% block title %} {{meta.title}} {% endblock %}
+{% block keywords %} {{meta.keywords}} {% endblock %}
+{% block description %} {{meta.description}} {% endblock %}
+
+{% block header %}
+<link href="/css/about.css" rel="stylesheet" type="text/css" />
+<link href="/css/nonFarm.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/js/echarts.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="non_farm_banner_container">
+        <div class="non_farm_banner_cover">
+            <img src="/imgs/about/non_farm_banner_text_bg.png" alt="非农数据公布倒计时" />
+        </div>
+        <div class="time_container">
+            <input type="hidden" id="nextPublishTime" value="{{nextPublishTime}}" />
+            <p class="non_farm_time">距离下次非农公布时间还有</p>
+            <ul>
+                <li>
+                    <p id="t_d">00</p><span>天</span>
+                </li>
+                <li>
+                    <p id="t_h">00</p><span>时</span>
+                </li>
+                <li>
+                    <p id="t_m">00</p><span>分</span>
+                </li>
+                <li>
+                    <p id="t_s">00</p><span>秒</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="non_farm_data_container">
+        <div class="non_farm_inner">
+            <h2 class="service_news">非农数据公布值</h2>
+            <img src="/imgs/about/non_farm_data.png" alt="非农数据公布值" class="non_farm_caption" />
+            <div class="non_farm_chart">
+                <div class="farm_chart_caption">
+                    <ul id="timeZone">
+                        <li class="time_zone_on" data-time="6">半年</li>
+                        <li data-time="12">一年</li>
+                        <li data-time="24">两年</li>
+                    </ul>
+                    <ul class="chart_style">
+                        <li>
+                            <span></span>
+                            <p>预测值</p>
+                        </li>
+                        <li>
+                            <span></span>
+                            <p>公布值</p>
+                        </li>
+                    </ul>
+                </div>
+                <div id="main"></div>
+            </div>
+            <h2 class="service_news">数据影响</h2>
+            <img src="/imgs/about/non_farm_range.png" alt="数据影响" class="non_farm_caption" />
+            <div class="non_farm_top">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>公布结果</th>
+                            <th>黄金影响
+                                <div>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                </div>
+                            </th>
+                            <th>白银影响
+                                <div>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                </div>
+                            </th>
+                            <th>美元影响
+                                <div>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                </div>
+                            </th>
+                            <th>美股影响
+                                <div>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                </div>
+                            </th>
+                            <th>原油影响
+                                <div>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                    <i class="iconfont icon-xing"></i>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>公布值 > 预期</td>
+                            <td>利空黄金，金价下跌</td>
+                            <td>利空白银，银价下跌</td>
+                            <td>利好美元，美元上涨利空非美货币</td>
+                            <td>利好股市，股市上涨</td>
+                            <td>利空原油，油价下跌</td>
+                        </tr>
+                        <tr>
+                            <td>公布值 < 预期</td>
+                            <td>利好黄金，金价上涨</td>
+                            <td>利好白银，银价上涨</td>
+                            <td>利空美元，美元下跌利好非美货币</td>
+                            <td>利空股市，股市下跌</td>
+                            <td>利好原油，油价上涨</td>
+                        </tr>
+                        <tr>
+                            <td>公布值 = 预期 / 前期</td>
+                            <td>影响较小</td>
+                            <td>影响较小</td>
+                            <td>影响较小</td>
+                            <td>影响较小</td>
+                            <td>影响较小</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="non_farm_intro_container">
+                <div class="intro_text">
+                    <h2>非农介绍</h2>
+                    <img src="/imgs/about/non_farm_intro_en.png" alt="非农介绍" />
+                    <!-- <span>What is US Non-Farm Payroll (NFP)?</span> -->
+                    <p>非农数据，是指非农业就业人数、就业率与失业率这三个数值。顾名思义，就是反映美国非农业人口的就业状况的数据指标。这三个数据每个月第一个周五北京时间（冬令时:11月-3月）21:30，(夏令时：4月-10月）20:30发布，数据来源于美国劳工部劳动统计局。</p>
+                </div>
+                <div class="intro_why">
+                    <h2>为什么关注非农</h2>
+                    <img src="/imgs/about/non_farm_why_en.png" alt="为什么关注非农" />
+                    <!-- <span class="intro_why_en">Why to focus on NFP?</span> -->
+                    <ul>
+                        <li>
+                            <i class="iconfont icon-feinong-2"></i><span>非农数据被当做美洲经济运行的晴雨表。</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-feinong-1"></i><span>现货白银黄金等贵金属市场最为敏感的经济指标。</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-feinong-3"></i><span>可以作为衡量健康状况的关键指标。</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-feinong-4"></i><span>非农就业数增加，利好美元，利空贵金属。</span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-feinong-"></i><span>企业减少生产，利空美元，利好贵金属。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="non_farm_table_data">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>日期</th>
+                            <th>前值（万）</th>
+                            <th>预测值（万）</th>
+                            <th>公布值（万）</th>
+                            <th>影响黄金</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in nonFarmList %}
+                            <tr class="{% if loop.index%2 == 0 %}even_farm{% endif %} {% if i.real_value < i.forcast_value %}red_farm{% else %}green_farm{% endif %}">
+                                <td>{{i.report_time}}</td>
+                                <td>{{i.former_value}}</td>
+                                <td>{{i.forcast_value}}</td>
+                                <td>{{i.real_value}}</td>
+                                <td>{% if i.real_value < i.forcast_value %}利多{% elif i.real_value == i.forcast_value %}--{% else %}利空{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="non_farm_loadmore">
+                    <p data-start="1" data-page="{{nonFarmListPage}}">查看更多</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="non_farm_recommend">
+        <div class="non_farm_inner">
+            <div class="farm_recommend">
+                <h2 class="service_news">解读非农</h2>
+                <img src="/imgs/about/non_farm_news_intro.png" alt="解读非农" />
+                <ul>
+                    {% for i in recommendJdfn %}
+                        <li>
+                            <a href="{{i.news_url}}" title="{{i.news_recommend_subject}}" target="_blank">
+                                <div class="non_farm_intro_img">
+                                    <img src="{{i.news_pic}}" alt="{{i.news_recommend_subject}}" />
+                                </div>
+                                <p>{{i.news_recommend_subject}}</p>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="farm_knowledge">
+                <h2 class="service_news">非农常识</h2>
+                <img src="/imgs/about/non_farm_news_tech.png" alt="非农常识" />
+                <ul>
+                    {% for i in recommendFncs %}
+                    <li>
+                        <a href="{{i.news_url}}" title="{{i.subject}}" target="_blank">
+                            <span>{{loop.index}}</span>
+                            <p>{{i.subject}}</p>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>        
+    </div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    try {
+        window.__NON_FARM_STATE__ = {{initNonFarmList | safe}};
+    } catch (e) {
+        console.warn('error in getting server nonFarm data');
+    }
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            show: false
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: [],
+            axisLabel: {        
+                show: true,
+                textStyle: {
+                    color: '#777777',
+                    fontSize:'12'
+                },
+                margin: 15
+            },
+            axisTick: {
+               show: false
+            },
+            axisLine: {
+              show: true,
+              lineStyle: {
+                color: 'rgba(160,82,45,0.1)'
+              }
+            }   
+        },
+        yAxis: {
+            type: 'value',
+            splitLine: {
+                lineStyle: {
+                    color: ['rgba(160,82,45,0.3)']
+                }
+            },
+            axisLabel: {        
+                show: true,
+                textStyle: {
+                    color: '#777777',
+                    fontSize:'12'
+                },
+                margin: 15
+            },
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              show: false
+            } 
+        },
+        series: [
+            {
+                name:'预测值',
+                type:'line',
+                data:[],
+                symbol:'circle',
+                symbolSize: 10,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(113, 157, 216, 1)',
+                        lineStyle: {
+                           color: 'rgba(113, 157, 216, 1)' 
+                        }
+                    }
+                }
+            },
+            {
+                name:'公布值',
+                type:'line',
+                data:[],
+                symbol:'rect',
+                symbolSize: 8,
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(255, 127, 95, 1)',
+                        lineStyle: {
+                           color: 'rgba(255, 127, 95, 1)' 
+                        }
+                    }
+                }
+            }
+        ]
+    };
+</script>
+<script type="text/javascript" src="/js/nonFarm.js"></script>
+{% endblock %}

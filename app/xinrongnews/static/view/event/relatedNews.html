@@ -1,0 +1,19 @@
+<!-- 大事件相关阅读 -->
+<div id="relatedNews">
+	<div class="relatedNewsTitle">
+		<h1>相关<span>{% if templateId !== 3 %}报道{% else %}解读{% endif %}</span></h1>
+		<div class="relatedLine"></div>
+	</div>
+	<ul class="relatedContainer">
+		{% for i in relatedNews %}
+		<li>
+			<a href="{{i.news_url}}" title="{{i.news_recommend_subject}}" target="_blank">
+				<img src="{{i.pic_url}}" alt="{{i.news_recommend_subject}}" />
+				<div class="relatedContainerInner">
+					<h2>{{i.news_recommend_subject}}</h2>
+				<div>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>

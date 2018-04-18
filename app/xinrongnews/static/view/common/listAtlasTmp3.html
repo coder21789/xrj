@@ -1,0 +1,15 @@
+<div id="atlasTmp3">
+	<ul>
+		{% for item in listAtlasTmp.slice(0,4) %}
+		<li>
+			<a href="{{item.newsUrl}}" title="{{item.subject}}" target="_blank">
+				<img src="{{item.pics[0].pic_url_list}}" alt="{{item.subject}}" />
+				<span>最新图集</span>
+				<div>
+					<p>{{item.subject}}</p>
+				</div>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>

@@ -1,0 +1,36 @@
+{% extends "common.html" %}
+
+{% block title %} {{news.subject | safe}}-新融街xinrongnews.com {% endblock %}
+{% block keywords %} {{news.subject | safe}} {% endblock %}
+{% block description %} {{news.subject | safe}} {% endblock %}
+{% block agent %}{{news.news_url}}{% endblock %}
+
+
+{% block header %}
+<link href="/css/detail.css" rel="stylesheet" type="text/css" />
+<link href="/css/event.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+{% include "./event/tmpHeadCommon.html" %}
+{% include "./event/relatedNews.html" %}
+<div class="center">
+	<!-- 文章总结 -->
+	<div id="allNews">
+		<a href="{{tmpSelfModel.news_url}}" title="{{tmpSelfModel.news_recommend_subject}}" target="_blank">
+			<img src="{{tmpSelfModel.pic_url}}" alt="{{tmpSelfModel.news_recommend_subject}}" />
+			<div class="allNewsContainer">
+				<h3>{{tmpSelfModel.news_recommend_subject}}</h3>
+				<p>{{tmpSelfModel.news_recommend_summary}}</p>
+			</div>
+		</a>
+	</div>
+	{% include "./common/detailsComment.html" %}
+</div>	
+{% endblock %}
+
+{% block script %}
+<script src="/js/about.js" type="text/javascript"></script>
+<script src="/js/detail.js" type="text/javascript"></script>
+<script src="/js/event.js" type="text/javascript"></script>
+{% endblock %}

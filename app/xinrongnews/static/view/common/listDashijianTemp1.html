@@ -1,0 +1,23 @@
+<div id="dashijianTmp1">
+	<div class="dsj_navigartion">
+		<h3>热点大事件<span></span></h3>
+		<a href="/cj/dashijian.html" target="_blank">查看更多 ></a>
+		<div class="border_design">
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+	<ul>
+		{% for item in listDashijianTmp.slice(0,4) %}
+		<li>
+			<a href="{{item.news_url}}" title="{{item.subject}}" target="_blank">
+				<img src="{{item.thumbnail_url}}" alt="{{item.subject}}" />
+				<span>{{item.region}}期</span>
+				<div>
+					<p>{{item.subject}}</p>
+				</div>
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>

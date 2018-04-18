@@ -1,0 +1,37 @@
+{% if videoTmp %}
+<link href="/css/video-js.css" rel="stylesheet" type="text/css" />
+<script src="/js/video.min.js" type="text/javascript"></script>
+<script src="/js/videojs-ie8.min.js" type="text/javascript"></script>
+<script>
+    videojs.options.flash.swf = "http://player.hunantv.com/mgtv_v5_main/main.swf?js_function_name=vjjFlash";
+    var myPlayer = videojs('videoPlayer');
+    videojs("videoPlayer").ready(function(){
+        var myPlayer = this;
+        myPlayer.play();
+    });
+</script>	
+<video id="videoPlayer" autoplay class="video-js vjs-default-skin vjs-big-play-centered" controls preload="none" width="640" height="264"
+      poster="https://img.xinrongnews.com/data/20170627/70991498558600710.png"
+      data-setup='{"techOrder": ["html5", "flash"]}'>
+    <source src="http://7xpbjt.media1.z0.glb.clouddn.com/video11.mp4" type='video/mp4' />
+    <source src="http://7xpbjt.media1.z0.glb.clouddn.com/video11.webm" type='video/webm' />
+    <source src="http://7xpbjt.media1.z0.glb.clouddn.com/video11.ogv" type='video/ogg' />
+    <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+</video>
+<object id="hunantv-player-1" data="http://player.hunantv.com/mgtv_v5_main/main.swf?js_function_name=vjjFlash" type="application/x-shockwave-flash" width="100%" height="100%"> <param name="allowScriptAccess" value="always"><param name="quality" value="best"><param name="allowFullScreen" value="true"><param name="wmode" value="Opaque"><param name="allowScriptAccess" value="always"><param name="flashvars" value="video_id=3989477&amp;statistics_bigdata_bid=1&amp;cpn=1"><param name="bgcolor" value="#000000"><param name="type" value="application/x-shockwave-flash"><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer"></object>
+{% endif %}
+<div id="videoPlayerContainerOuter">
+    <div class="videoPlayerContainer">
+        <a class="qp_pop_close" id="videoClose">
+            <svg class="svg_icon" viewBox="0 0 38 38" width="38" height="38">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg_qp_icon_close">
+                    <svg id="svg_qp_icon_close" viewBox="0 0 38 38" width="100%" height="100%">
+                        <path d="M0.39 36.69a.864.864 0 0 0-.2 1.18.887.887 0 0 0 1.19-.2l17.65-17.66 17.65 17.66a.887.887 0 0 0 1.19.2.864.864 0 0 0-.2-1.18l-17.66-17.66 17.66-17.66a.864.864 0 0 0 .2-1.18.876.876 0 0 0-1.19.2l-17.65 17.65-17.65-17.65a.876.876 0 0 0-1.19-.2.864.864 0 0 0 .2 1.18l17.65 17.66z"></path>
+                    </svg>
+                </use>
+            </svg>
+        </a>
+        <input type="hidden" value="{{tmpHeadCommon.video_url}}" />
+        <iframe src="" frameborder="0" height="540px" width="960px"></iframe>
+    </div>
+</div>

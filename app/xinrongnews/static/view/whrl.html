@@ -1,0 +1,215 @@
+
+{% extends "common.html" %}
+{% block title %} {{meta.title | safe}} {% endblock %}
+{% block keywords %} {{meta.keywords | safe}} {% endblock %}
+{% block description %} {{meta.description | safe}} {% endblock %}
+
+{% block header %}
+<link href="/css/whrl.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+<div ng-controller="indexCtrl">
+{% include "./common/nav.html" %}
+    <div class="center_wai" style="margin-top: 20px;">
+        <div class="content layout ">
+            <div class="layout_left">
+                <div class="floor floor0">
+                    <div class="left">
+                        <h2 class="b-title">财经日历</h2>
+                        <div class="weekday">
+                            <a class="prev iconfont icon-zuo" href="/wh/qqrl/{{time.prevWeek}}.html"></a>
+                            <ul id="day">
+
+                                {% for date in time.day %}
+                                    <li {% if date.fulltime == checkday %} class="check" {% endif %} date-time="{{date.fulltime}}"><a href="/wh/qqrl/{{date.fulltime}}.html"></a><span class="date1">{{date.date}}</span><span class="date2">{{date.day}}</span></li>
+                                {% endfor %}
+                            </ul>
+                            <a class="next iconfont icon-you" href="/wh/qqrl/{{time.nextWeek}}.html"></a>
+                        </div>
+                    </div>  
+                </div>  
+                <div class="floor floor1">
+                    <h3 class="title">财经数据<a id="refresh"><i class="iconfont icon-refresh-20"></i>马上刷新</a></h3>
+                    {% if financeData.code == 0 %}
+                        {% if financeData.data.financialArr.length >0 %}
+                            <table class="cjsj_tab" id="current_data" >
+                                <thead>
+                                    <th width="75">时间</th>
+                                    <th width="90">国家地区</th>
+                                    <th width="410">指标</th> 
+                                    <th width="85">前值</th> 
+                                    <th width="80">预测值</th> 
+                                    <th width="80">公布值</th> 
+                                    <th width="80">重要性</th>
+                                    <th width="135">影响</th> 
+                                </thead>
+                                <tbody>
+                                    {% for dataArr in financeData.data.financialArr %}
+                                        {% if dataArr.sameTimeArr.length >0 %} 
+                                            {% for data in dataArr.sameTimeArr %}
+                                                {% if data.importanceImgUrl > 2 %}
+                                                    <tr class="hot">
+                                                {% else %}
+                                                    <tr>
+                                                {% endif %}
+                                                    <td class="time">
+                                                    {% if loop.index0 == 0 %}{{dataArr.time}}{% endif %}
+                                                    </td>
+                                                    <td class="flag">
+                                                        {% if loop.index0 == 0 %}<img alt="" src="/imgs/con_png_web/{{dataArr.flagClass}}.png"/>{% endif %}
+                                                    </td>
+                                                    <td class="event">{{data.target}}</td>
+                                                    <td class="beforeVal">{{data.beforeVal}}</td>
+                                                    <td class="predictionVal">
+                                                        {% if data.predictionVal == null %}
+                                                            --
+                                                        {% else %}
+                                                            {{data.predictionVal}}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="publishVal">
+                                                        {% if data.publishVal == '--' or data.publishVal == '待公布' or data.publishVal == null %}
+                                                            <span class="search_tag">侦查中</span>
+                                                        {% else %}
+                                                            {{data.publishVal}}
+                                                        {% endif %}
+                                                    </td>
+                                                    {% if data.importanceImgUrl < 2 %}
+                                                        <td class="level level1">
+                                                            <span>低</span>
+                                                        </td>
+                                                    {% elseif data.importanceImgUrl == 2 %}
+                                                        <td class="level level2">
+                                                            <span>中</span>
+                                                        </td>
+                                                    {% else %} 
+                                                        <td class="level level3">
+                                                            <span>高</span>
+                                                        </td>
+                                                    {% endif %}
+                                                    <td class="profit"> 
+                                                        {% if data.profit.length >0 %}
+                                                            {% for proList in data.profit %}
+                                                                {% if proList.profitEmpty and proList.profitEmpty.match("liduo") %}
+                                                                    <div class="red"> 
+                                                                        <span>{{proList.profitMore}}&nbsp;金银&nbsp;石油</span>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if proList.profitEmpty and proList.profitEmpty.match("likong") %}
+                                                                    <div class="green">
+                                                                        <span>{{proList.profitMore}}&nbsp;金银&nbsp;石油</span>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if proList.profitEmpty and proList.profitEmpty.match("wuyingxiang") %}
+                                                                    <div class="orange">
+                                                                        <span>{{proList.profitMore}}</span>
+                                                                    </div>
+                                                                {% endif %}
+                                                                {% if proList.profitEmpty=="" %}
+                                                                    <div>
+                                                                        <span>--</span>
+                                                                    </div>
+                                                                {% endif %}
+                                                             {% endfor %}
+                                                        {% else %}
+                                                            --
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                       {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="errorMsg">暂无财经数据发行公布！</div>
+                        {% endif %} 
+                    {% else %} 
+                        <div class="errorMsg">暂无财经数据发行公布！</div>
+                    {% endif %} 
+                </div>
+                <div class="floor floor2">
+                    <h3 class="title">国际假期预告<span class="time">{{selectedDate}}</span></h3>
+                    {% if financeData.code == 0 %}
+                        {% if financeData.data.holidayArr.length >0 %}
+                            <table>
+                                <thead>
+                                    <th width="75">时间</th>
+                                    <th width="145">国家地区</th>
+                                    <th width="140">地点</th>
+                                    <th width="840">事件</th>
+                                </thead>
+                                <tbody>
+                                    {% for dataArr in financeData.data.holidayArr %}
+                                        <tr>
+                                            <td class="time">{{dataArr.time}}</td>
+                                            <td class="flag">{{dataArr.area}}</td>
+                                            <td class="place">{{dataArr.place}}</td>
+                                            <td class="event">{{dataArr.event}}</td>
+                                        </tr>
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                        {% else %}
+                        <div class="errorMsg">暂无国际假期发行公布！</div>
+                        {% endif %}  
+                    {% else %}
+                        <div class="errorMsg">暂无国际假期发行公布！</div>
+                    {% endif %} 
+                </div>
+                <div class="floor floor3">
+                    <h3 class="title">财经大事件 <span class="time">{{selectedDate}}</span></h3>
+                    {% if financeData.code == 0 %}
+                        {% if financeData.data.bigthingArr.length >0 %}
+                            <table>
+                                <thead>
+                                    <th width="75">时间</th>
+                                    <th width="145">国家地区</th>
+                                    <th width="140">地点</th>
+                                    <th width="840">事件</th>
+                                </thead>
+                                <tbody>
+                                    {% for dataArr in financeData.data.bigthingArr %}
+                                        <tr>
+                                            <td class="time">{{dataArr.time}}</td>
+                                            <td class="flag">{{dataArr.area}}</td>
+                                            {% if dataArr.importanceImgUrl > 2 %}
+                                                <td class="place red">{{dataArr.place}}</td>
+                                                <td class="event red">{{dataArr.event}}</td>
+                                            {% else %}
+                                                <td class="place">{{dataArr.place}}</td>
+                                                <td class="event">{{dataArr.event}}</td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %} 
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <div class="errorMsg">暂无财经大事件发行公布！</div>
+                        {% endif %} 
+                    {% else %} 
+                        <div class="errorMsg">暂无财经大事件发行公布！</div>
+                    {% endif %} 
+                </div> 
+            </div>
+            <div class="layout_right">
+                <!-- 外汇金融数据公共模块 -->
+                {% include "./common/exchangeCommon.html" %}
+                <!-- 人民币牌价 -->
+                <div class="ex_right">
+                    {% include "./common/bankList.html" %}
+                </div>
+                <!-- 每日财经 -->
+                {% include "./common/recommend.html" %}
+            </div>      
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/js/wh.js"></script>
+<script type="text/javascript" src="/js/whrl.js"></script>
+
+{% endblock %}
+

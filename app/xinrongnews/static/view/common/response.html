@@ -1,0 +1,47 @@
+<div class="response">
+{% if pageType == 'list' %}
+{% else %}
+    <div class="title">
+        <h3>精彩回答</h3>
+        <a href="/zj/wenda.html" class="more" target="_blank">更多>></a>
+    </div>
+{% endif %}
+    <div class="content">
+        <ul class="answerList indexAnswer">
+            {% for news in answerList %}
+                <li class="{% if loop.last %} last {% endif %}">                             
+                     <div class="questions">
+                         <i class="icon"></i>
+                         <a href="/zj/wenda/{{news.answer.answerId}}.html" class="links" target="_blank">
+                         {% if news.ask.question.length > 41 %}
+                            {{news.ask.question.slice(0,41)}}...
+                         {% else %}
+                            {{news.ask.question}}
+                         {% endif %}
+                         </a>
+                     </div>
+                     <div class="answers">
+                         <p class="icon"></p>
+                         <a href="/zj/wenda/{{news.answer.answerId}}.html" class="links" target="_blank">
+                         {% if news.answer.answer.length >41 %}
+                            {{news.answer.answer.slice(0,41)}}...
+                         {% else %}
+                            {{news.answer.answer}}
+                         {% endif %}
+                         </a>
+                     </div> 
+                    <div class="author">
+                        <div class="avatar">
+                            <a href="/zj/{{news.answer.expertId}}/guandian.html" class="href" target="_blank">
+                                <img src="{{news.answer.headImg}}" alt="{{news.answer.author}}">
+                                <span class="author">{{news.answer.author}}</span>
+                            </a>
+                            <span class="nickName"><i class="icon"></i>{{news.answer.nickName}}</span>
+                            <span class="time">{{news.answer.replyTime.slice(5,16)}}</span>
+                        </div>
+                    </div>    
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

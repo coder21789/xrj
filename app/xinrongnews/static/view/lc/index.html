@@ -1,0 +1,378 @@
+
+{% extends "common.html" %}
+
+{% block title %} {{meta.title | safe}} {% endblock %}
+{% block keywords %} {{meta.keywords | safe}} {% endblock %}
+{% block description %} {{meta.description | safe}} {% endblock %}
+{% block agent %}/{{code}}/{% endblock %}
+
+
+{% block header %}
+<link href="/css/lc.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+{% include "./common/nav.html" %}
+<div class="cft_box">
+    <div class="cft_left">
+        <!-- 推荐位轮播图 -->
+        <div class="banner_cft">
+            <ul class="slides">
+                {% for news in recommend.web_lc_banner_1 %}
+                    <li>
+                        <a class="mask recommendCollect" target="_blank" title="{{news.news_recommend_subject | safe}}" href="{{news.news_url}}" data-id="web_lc_banner_1" data-channel="lc"></a>
+                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                        <div class="banner_recommend">
+                            <p>{{news.news_recommend_subject | safe}}</p>
+                            <span>{{news.news_recommend_summary | safe}}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+                {% for news in recommend.web_lc_banner_2 %}
+                    <li>
+                        <a class="mask recommendCollect" target="_blank" title="{{news.news_recommend_subject | safe}}" href="{{news.news_url}}" data-id="web_lc_banner_2" data-channel="lc"></a>
+                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                        <div class="banner_recommend">
+                            <p>{{news.news_recommend_subject | safe}}</p>
+                            <span>{{news.news_recommend_summary | safe}}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+                {% for news in recommend.web_lc_banner_3 %}
+                    <li>
+                        <a class="mask recommendCollect" target="_blank" title="{{news.news_recommend_subject | safe}}" href="{{news.news_url}}" data-id="web_lc_banner_3" data-channel="lc"></a>
+                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                        <div class="banner_recommend">
+                            <p>{{news.news_recommend_subject | safe}}</p>
+                            <span>{{news.news_recommend_summary | safe}}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>          
+        </div>
+        <div class="tabContent tabNews" ng-controller="Financial">
+            <ul class="tab_nav">
+                {% raw %}<li ng-mouseenter="toggle('plan')" class="{{ plan ? 'on' : '' }}">{% endraw %}
+                    <a href="/{{code}}/{{other.lcgh.code}}.html" target="_blank">{{other.lcgh.name}}</a>
+                </li>
+                {% raw %}<li ng-mouseenter="toggle('bank')" class="{{ bank ? 'on' : '' }}">{% endraw %}
+
+                    <a href="/{{code}}/{{other.yhlc.code}}.html" target="_blank">{{other.yhlc.name}}</a>
+
+                </li>
+                {% raw %}<li ng-mouseenter="toggle('live')" class="{{ live ? 'on' : '' }}">{% endraw %}
+
+                    <a href="/{{code}}/{{other.cfsh.code}}.html" target="_blank">{{other.cfsh.name}}</a>
+    
+                </li>
+            </ul>
+            <!-- 理财规划 -->
+            <div class="tab_box" ng-show="plan">
+                <div>
+                    {% for news in recommend.web_lc_lcgh_1 %}
+                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_1" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                    <ul>
+                        <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_1" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                        <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_1" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                    {% endfor %}    
+                    {% if newsList.lcgh.length > 3 %}      
+                        {% for news1 in newsList.lcgh.slice(0,3) %}
+                            <li class="raiders"><a href="{{news1.news_url}}" target="_blank" title="{{news1.subject | safe}}">{{news1.subject | safe}}</a></li>
+                        {% endfor %}  
+                    {% endif %}     
+                    </ul>
+                </div>
+                <div>
+                    {% for news in recommend.web_lc_lcgh_2 %}
+                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_2" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                    <ul>
+                        <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_2" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                        <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_2" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                    {% endfor %}
+                    {% if newsList.lcgh.length > 6 %} 
+                        {% for news2 in newsList.lcgh.slice(3,6) %}
+                            <li class="raiders"><a href="{{news2.news_url}}" target="_blank" title="{{news2.subject | safe}}">{{news2.subject | safe}}</a></li>
+                        {% endfor %} 
+                    {% endif %}     
+                    </ul>
+                </div>
+                <div>
+                    {% for news in recommend.web_lc_lcgh_3 %}
+                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_3" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                    <ul>
+                        <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_3" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                        <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcgh_3" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                    {% endfor %}
+                    {% if newsList.lcgh.length > 8 %} 
+                        {% for news3 in newsList.lcgh.slice(6,9) %}
+                            <li class="raiders"><a href="{{news3.news_url}}" target="_blank" title="{{news3.subject | safe}}">{{news3.subject | safe}}</a></li>
+                        {% endfor %}   
+                    {% endif %}     
+                    </ul>
+                </div>                       
+            </div>
+            <!-- 银行理财 -->
+            <div class="tab_box" ng-show="bank">
+                    <div>
+                    {% for news in recommend.web_lc_yhlc_1 %}
+                        <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_1" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                        <ul>
+                            <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_1" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                            <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_1" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                        {% endfor %}
+                        {% if newsList.yhlc.length > 3 %}      
+                                {% for news1 in newsList.yhlc.slice(0,3)  %}
+                                    <li class="raiders"><a href="{{news1.news_url}}" target="_blank" title="{{news1.subject | safe}}">{{news1.subject | safe}}</a></li>
+                                {% endfor %}
+                        {% endif %}       
+                        </ul>
+                    </div>
+                    <div>
+                        {% for news in recommend.web_lc_yhlc_2 %}
+                        <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_2" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                        <ul>
+                            <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_2" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                            <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_2" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                        {% endfor %}
+                        {% if newsList.yhlc.length > 6 %}
+                                {% for news2 in newsList.yhlc.slice(3,6)  %}
+                                    <li class="raiders"><a href="{{news2.news_url}}" target="_blank" title="{{news2.subject | safe}}">{{news2.subject | safe}}</a></li>
+                                {% endfor %}
+                        {% endif %}       
+                        </ul>
+                    </div>
+                    <div>
+                        {% for news in recommend.web_lc_yhlc_3 %}
+                        <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_3" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                        <ul>
+                            <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_3" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                            <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_yhlc_3" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                        {% endfor %}
+                        {% if newsList.yhlc.length > 8 %}
+                            {% for news3 in newsList.yhlc.slice(6,9)  %}
+                            <li class="raiders"><a href="{{news3.news_url}}" target="_blank" title="{{news3.subject | safe}}">{{news3.subject | safe}}</a></li>
+                            {% endfor %} 
+                        {% endif %}       
+                        </ul>
+                    </div>                       
+            </div>
+            <!-- 财富生活 -->
+            <div class="tab_box" ng-show="live">
+
+                    <div>
+                        {% for news in recommend.web_lc_cfsh_1 %}
+                        <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_1" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                        <ul>
+                            <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_1" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                            <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_1" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                        {% endfor %}   
+                        {% if newsList.cfsh.length > 3 %}   
+                            {% for news1 in newsList.cfsh.slice(0,3)  %}
+                                <li class="raiders"><a href="{{news1.news_url}}" target="_blank" title="{{news1.subject | safe}}">{{news1.subject | safe}}</a></li>
+                            {% endfor %} 
+                        {% endif %}      
+                        </ul>
+                    </div>
+                    <div>
+                        {% for news in recommend.web_lc_cfsh_2 %}
+                        <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_2" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                        <ul>
+                            <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_2" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                            <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_2" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                        {% endfor %}
+                        {% if newsList.cfsh.length > 6 %}
+                            {% for news2 in newsList.cfsh.slice(3,6)  %}
+                                <li class="raiders"><a href="{{news2.news_url}}" target="_blank" title="{{news2.subject | safe}}">{{news2.subject | safe}}</a></li>
+                            {% endfor %} 
+                        {% endif %}      
+                        </ul>
+                    </div>
+                    <div>
+                        {% for news in recommend.web_lc_cfsh_3 %}
+                        <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_3" data-channel="lc" class="recommendCollect"><img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /></a>
+                        <ul>
+                            <li><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_3" data-channel="lc" class="recommendCollect"><h2 class="caption_tl">{{news.news_recommend_subject | safe}}</h2></a></li>
+                            <li class="on"><a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_cfsh_3" data-channel="lc" class="recommendCollect"><p>{{news.news_recommend_summary | safe}}</p></a></li>
+                        {% endfor %}
+                        {% if newsList.cfsh.length > 8 %}
+                            {% for news3 in newsList.cfsh.slice(6,9)  %}
+                                <li class="raiders"><a href="{{news3.news_url}}" target="_blank" title="{{news3.subject | safe}}">{{news3.subject | safe}}</a></li>
+                            {% endfor %}  
+                        {% endif %}      
+                        </ul>
+                    </div>
+                          
+            </div>
+        </div>
+        <div class="fundList fundmar">
+            <h4>投资<i>investment</i></h4>
+            <div class="financialLists">
+                <!-- 信托资讯 -->
+                <div class="model model_news">
+                    <div class="modelTitle">
+
+                            <h3><span><a href="/{{code}}/{{other.xtzx.code}}.html" target="_blank">{{other.xtzx.name}}</a></span></h3>
+                            <i>Trust information</i>
+
+                        <p></p>
+                    </div>
+                        {% for news in recommend.web_lc_xtzx %}
+                        <div class="photo">
+                            <img class="financial_img_click" src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_xtzx" data-channel="lc" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                            <span>推荐</span>
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" class="financial_click" data-id="web_lc_xtzx" data-channel="lc" class="recommendCollect"></a>
+                        </div>
+                        {% endfor %}
+                    <ul>
+                        {% for news in newsList.xtzx %}
+                            <li><a target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}">{{news.subject | safe}}</a></li>
+                        {% endfor %}
+                    </ul>                              
+                </div>
+                <!-- P2P -->
+                <div class="model model_dynamic">
+                    <div class="modelTitle">
+                            <h3><span><a href="/{{code}}/{{other.p2p.code}}.html" target="_blank">{{other.p2p.name}}</a></span></h3>
+                            <i>P2P</i>
+                        <p></p>
+                    </div>
+                    {% for news in recommend.web_lc_p2p %}
+                        <div class="photo">
+                            <img class="financial_img_click" src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_p2p" data-channel="lc" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                            <span>推荐</span>
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" class="financial_click" data-id="web_lc_p2p" data-channel="lc" class="recommendCollect"></a>
+                        </div>
+                    {% endfor %}
+                    <ul>
+                        {% for news in newsList.p2p %}
+                            <li><a target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}">{{news.subject | safe}}</a></li>
+                        {% endfor %}
+                    </ul> 
+                </div>
+                <!-- 个人理财 -->
+                <div class="model model_market">
+                    <div class="modelTitle">
+                            <h3><span><a href="/{{code}}/{{other.grlc.code}}.html" target="_blank">{{other.grlc.name}}</a></span></h3>
+                            <i>Personal finance</i>
+
+                        <p></p>
+                    </div>
+                        {% for news in recommend.web_lc_grlc %}
+                        <div class="photo">
+                            <img class="financial_img_click" src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_grlc" data-channel="lc" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                            <span>推荐</span>
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" class="financial_click" data-id="web_lc_grlc" data-channel="lc" class="recommendCollect"></a>
+                        </div>
+                        {% endfor %}
+                    <ul>
+                        {% for news in newsList.grlc %}
+                            <li><a target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}">{{news.subject | safe}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- 理财案例 -->
+                <div class="model model_industry">
+                    <div class="modelTitle">
+                            <h3><span><a href="/{{code}}/{{other.lcal.code}}.html" target="_blank">{{other.lcal.name}}</a></span></h3>
+                            <i>IFinancial cases</i>
+                        <p></p>
+                    </div>
+                        {% for news in recommend.web_lc_lcal %}
+                        <div class="photo">
+                            <img class="financial_img_click" src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcal" data-channel="lc" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                            <span>推荐</span>
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" class="financial_click" data-id="web_lc_lcal" data-channel="lc" class="recommendCollect"></a>
+                        </div>
+                        {% endfor %}
+                    <ul>
+                        {% for news in newsList.lcal %}
+                            <li><a target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}">{{news.subject | safe}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- 理财达人 -->
+                <div class="model model_cft">
+                    <div class="modelTitle">
+                            <h3><span><a href="/{{code}}/{{other.lcdr.code}}.html" target="_blank">{{other.lcdr.name}}</a></span></h3>
+                            <i>Financial talent</i>
+                        <p></p>
+                    </div>
+                        {% for news in recommend.web_lc_lcdr %}
+                        <div class="photo">
+                            <img class="financial_img_click" src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_lcdr" data-channel="lc" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                            <span>推荐</span>
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" class="financial_click" data-id="web_lc_lcdr" data-channel="lc" class="recommendCollect"></a>
+                        </div>
+                        {% endfor %}
+                    <ul>
+                        {% for news in newsList.lcdr %}
+                            <li><a target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}">{{news.subject | safe}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- 投资理财 -->
+                <div class="model model_fai">
+                    <div class="modelTitle">
+
+                            <h3><span><a href="/{{code}}/{{other.tzlc.code}}.html" target="_blank">{{other.tzlc.name}}</a></span></h3>
+                            <i>Finance and investment</i>
+
+                        <p></p>
+                    </div>
+                    {% for news in recommend.web_lc_tzlc %}
+                        <div class="photo">
+                            <img class="financial_img_click" src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_lc_tzlc" data-channel="lc" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                            <span>推荐</span>
+                            <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" class="financial_click" data-id="web_lc_tzlc" data-channel="lc" class="recommendCollect"></a>
+                        </div>
+                    {% endfor %}
+                    <ul>
+                    {% for news in newsList.tzlc %}
+                        <li><a target="_blank" title="{{news.subject | safe}}" href="{{news.news_url}}">{{news.subject | safe}}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cft_right">
+        <!-- 24小时直播 -->
+        <div class="live">
+            <div class="modelTitle">
+                <span>7x24 小时直播</span>
+                <i>live telecast</i>
+                <p></p>
+            </div>
+            {% include "./common/directBroadcast.html" %}
+        </div>
+        <!-- 人民币牌价 -->
+        {% include "./common/bankList.html"%}
+        <!-- 基金榜 -->
+        <div class="fundList">
+        {% include "./common/fundRank.html" %}
+        </div>
+        <!-- 个股涨幅 -->
+        {% include "./common/stockQuote.html" %}
+        <!-- 广告位 -->
+        <div class="common common_ban">
+            <!-- XRJ_LC_001 -->
+            <ui-ad ad-code="XRJ_LC_001" ad-style="{width:'370px',height:'357px'}" ad-channel="0"></ui-ad>
+        </div>
+    </div>
+</div>
+<div class="friendlink-container">
+    <!-- 友情链接 -->
+    {% include "common/friendLink.html" %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/js/lc.js"></script>
+
+{% endblock %}
+

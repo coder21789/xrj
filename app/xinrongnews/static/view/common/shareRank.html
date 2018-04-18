@@ -1,0 +1,83 @@
+
+{% raw %}
+<!--start 涨跌排行-->
+<div ng-cloak class="shares-hot tabBar mb30" id="shareRank"  data-ng-controller="shareRankController">
+    <dl>
+        <dt class="title">
+
+            <a ng-repeat="menu in menus" ng-class="{on:isCurrent==$index}" ng-mouseover="tabToggle($index)" >
+                {{menu.name}}
+            </a>
+        </dt>
+        <dd class="rank">
+            <table class="tabContent" ng-if="!isCurrent">
+                <thead>
+                    <th class="first">排名</th>
+                    <th class="code">代码</th>
+                    <th class="name">名称</th>
+                    <th class="trade">最新价</th>
+                    <th class="pricechange">涨跌额</th>
+                    <th class="changepercent">涨跌幅</th>
+                    <th class="buy">买入</th>
+                    <th class="sell">卖出</th>
+                    <th class="settlement">昨收</th>
+                    <th class="open">今开</th>
+                    <th class="hight">最高</th>
+                    <th class="low">最低</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items.asc" ng-class="{red: true,even: $index % 2 == 0}">
+                        <td class="first">{{item.rank}}</td>
+                        <td class="code">{{item.code}}</td>
+                        <td class="name">{{item.name}}</td>
+                        <td class="trade">{{item.trade | toFixed2}}</td>
+                        <td class="pricechange">{{item.limit | plus | toFixed2}}</td>
+                        <td class="changepercent">{{item.range | percent}}</td>
+                        <td class="buy">{{item.buy | toFixed2 }}</td>
+                        <td class="sell">{{item.sell| toFixed2 }}</td>
+                        <td class="settlement">{{item.settlement | toFixed2}}</td>
+                        <td class="open">{{item.open | toFixed2}}</td>
+                        <td class="high">{{item.high | toFixed2}}</td>
+                        <td class="low">{{item.low | toFixed2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="tabContent" ng-if="isCurrent">
+                <thead>
+                    <th class="first">排名</th>
+                    <th class="code">代码</th>
+                    <th class="name">名称</th>
+                    <th class="trade">最新价</th>
+                    <th class="pricechange">涨跌额</th>
+                    <th class="changepercent">涨跌幅</th>
+                    <th class="buy">买入</th>
+                    <th class="sell">卖出</th>
+                    <th class="settlement">昨收</th>
+                    <th class="open">今开</th>
+                    <th class="hight">最高</th>
+                    <th class="low">最低</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items.desc" ng-class="{green: true,even: $index % 2 == 0}" >
+                        <td class="first">{{item.rank}}</td>
+                        <td class="code">{{item.code}}</td>
+                        <td class="name">{{item.name}}</td>
+                        <td class="trade">{{item.trade | toFixed2}}</td>
+                        <td class="pricechange">{{item.limit | toFixed2}}</td>
+                        <td class="changepercent">{{item.range | percent }}</td>
+                        <td class="buy">{{item.buy | toFixed2}}</td>
+                        <td class="sell">{{item.sell | toFixed2}}</td>
+                        <td class="settlement">{{item.settlement | toFixed2}}</td>
+                        <td class="open">{{item.open | toFixed2}}</td>
+                        <td class="high">{{item.high | toFixed2}}</td>
+                        <td class="low">{{item.low | toFixed2}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+     <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div> 
+</div>
+<!--end 涨跌排行-->
+{% endraw %}

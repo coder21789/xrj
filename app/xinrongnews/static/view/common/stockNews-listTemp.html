@@ -1,0 +1,29 @@
+<div class="stocks gp_news" id="stockBoard" ng-controller="Quote">
+    {% raw %}
+    <ul class="tab_nav stocksNav">
+        <li ng-mouseenter="tab('increase')" class="{{increase?'on':''}}"><h3>股票新闻</h3></li>
+        <li ng-mouseenter="tab('down')" class="{{down?'on':''}}"><h3>股民学校</h3></li>
+    </ul>
+    {% endraw %}
+    <table class="same">
+        <tbody ng-show="increase">
+            {% for news in links %}
+            <tr>
+               
+                <td><span><a href="/gp/{{news.code}}.html" target="_blank">{{news.name}}</a></span></td>
+                    {% for item in gsywList[loop.index0] %}
+                        <td><a class="gmxx-news" href="{{item.news_url}}" target="_blank">{{item.subject | safe}}</a></td>
+                    {% endfor %}
+               
+            </tr>
+             {% endfor %}
+        </tbody>
+        <tbody ng-show="down" class="gmxx2">
+            {% for news in gmxx %}
+            <tr>
+                <td><span><a class="gmxw-news" href="{{news.news_url}}" target="_blank" title="{{news.subject | safe}}">{{news.subject | safe}}</a></span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

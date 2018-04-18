@@ -1,0 +1,74 @@
+
+
+{% extends "common.html" %}
+
+{% block title %} {{base.title}} {% endblock %}
+{% block keywords %} {{base.keywords}} {% endblock %}
+{% block description %} {{base.description}} {% endblock %}
+
+{% block header %}
+<link href="/css/about.css" rel="stylesheet" type="text/css" />
+<style>
+.center_wai{
+    width: 100%;
+    height: 100%;
+    background: url(/imgs/404bg.png) no-repeat left bottom;
+    background-size:100% 100%;
+}
+#logo img{
+    width: 110px;
+    height: 38px;
+}
+#logo .channel a{
+    width: 269px;
+}
+.center_wai{
+    width: 100%;
+    border-top: 1px solid #e5e5e5;
+}
+.footer{
+    margin-top: 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="center_wai">
+    <div class="center">
+        <div class="request_status">
+            <p>很抱歉你访问的页面找不回来了</p>
+            <span id="time_picker">>> 5秒返回</span>
+            <a href="/">新融街首页</a>
+        </div>
+        <div class="request_status_type">
+            <img src="/imgs/404.png" />
+        </div>
+        <div class="relative_recommend">
+            <div class="topic">行业要闻:</div>
+            <div class="recommend_content">
+                <ul>
+                    {% for cate in other %}
+                        <li><a href="/{{cate.parentCode}}/{{cate.code}}-1.html" target="_blank">{{cate.name}}</a></li> 
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    var time = 6;
+    var init = function(){
+        time = time - 1;
+        document.getElementById("time_picker").innerHTML = ">> "+time+"秒返回";    
+        if(time == 0){
+            location.href = "/";
+        }else{
+            setTimeout("init()",1000);
+        }
+    }
+    init();
+</script>
+{% endblock %}

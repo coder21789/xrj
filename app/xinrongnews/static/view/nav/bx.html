@@ -1,0 +1,61 @@
+<div class="whNavAdContainerOuter">
+	<div class="whNavAdContainer">
+		<div class="wh_ad_block">
+			<ui-ad ad-code="XRJ_BX_005" ad-style="{width:'1000px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+		<div class="wh_ad_block_right">
+			<ui-ad ad-code="XRJ_BX_006" ad-style="{width:'190px',height:'60px'}" ad-channel="0"></ui-ad>
+		</div>
+	</div>
+</div>
+<div id="bxNavigartionBar">
+	<a href="/" target="_blank"><img src="/imgs/nav/bx_web_logo.png" alt="新融街" class="bx_channel_logo" /></a>
+	<a href="/bx/" target="_blank"><h1 id="bxChannelLogo"><img src="/imgs/nav/bx_channel_logo.png" alt="保险频道" /></h1></a>
+	<ul>
+		<li><a href="/">返回首页</a></li>
+		{% for item in getBxCode %}
+		<li class="{% if item.code == thisCode %}bx_nav_on{% endif %}">
+			<a href="/bx/{{item.code}}.html">{{item.name}}</a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div class="whRangeContainerOuter">
+	<div id="whRangeContainer" class="channel">
+		<div id="bxNewsReport" class="box box_more">
+	        <span class="title link_nav">
+	        	<i class="iconfont icon-yuanyoubaoxian"></i>
+	            要闻速览
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content exchangeContainer radioSlider">
+	                <ul>
+	                	{% for item in getBxRecommend %}
+	                    <li><a href="{{item.news_url}}" target="_balnk" title="{{item.news_recommend_subject}}">{{item.news_recommend_subject}}</a></li>
+	                    {% endfor %}
+	                </ul>
+	            </div>
+	        </div>  
+	    </div>
+		{% raw %}
+	    <div id="bxNewsRange" class="box box_more" ng-controller="insuranceStockMarketSlider">
+	        <span class="title link_nav">
+	            <i class="iconfont icon-waihuizhishu"></i>
+	            保险股价
+	        </span>
+	        <div class="content" ng-clock>
+	            <div class="content exchangeContainer radioSliderChild">
+	                <ul>
+	                    <li ng-repeat="item in insuranceStockSlider" class="{{item | isUp}}">
+	                        <span class="first" ng-bind="item.name"></span>
+	                        <span class="trade" ng-bind="item.latestPrice"></span>
+	                        <span class="range"><i class="{{item.range | arrow2}}"></i><em ng-bind="item.range | percent2"></em></span>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>  
+	    </div>
+	    {% endraw %}
+	</div>
+</div>
+{% include "nav/navigartion.html" %}

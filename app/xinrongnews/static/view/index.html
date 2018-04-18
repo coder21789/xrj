@@ -1,0 +1,1384 @@
+
+
+{% extends "common.html" %}
+
+{% block title %} {{meta.title | safe}} {% endblock %}
+{% block keywords %} {{meta.keywords | safe}} {% endblock %}
+{% block description %} {{meta.description | safe}} {% endblock %}
+{% block agent %}/{% endblock %}
+
+{% block header %}
+<!-- <link href="/font/iconfont.css" rel="stylesheet" type="text/css" /> -->
+<link href="/css/index2.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+
+<div class="indexBg">
+    <div class="indexMenu">
+        <ul>
+            {% for items in indexNav %}
+                <li class="li{{loop.index}}">
+                    {% for item in items %}
+                        {% if item.rank == 1 %}
+                            <a href="{{item.news_url}}" target="_blank" class="item {{item.recommend_style}}">{{item.news_recommend_subject}} <i class="icon"></i>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="secondaryItem">
+        {% for items in indexNav %}
+            <div class="secondaryMenu nav{{loop.index}}">
+                {% for nav in items %}
+                    {% if nav.rank != 1 %}
+                        <a href="{{nav.news_url}}" target="_blank" class="item2 {{nav.recommend_style}}">{{nav.news_recommend_subject}} <i class="icon"></i></a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="layout indexNav" id="global" ng-cloak data-ng-controller="globalIndex">
+        <div class="topchannel">
+            <ul>
+                {% for item in dhq %}
+                    <li class="li{{loop.index}}">
+                        <a href="{{item.news_url}}" target="_blank">
+                            <img src="{{item.news_pic}}" alt="{{item.news_recommend_subject | safe}}"">
+                            <span>{{item.news_recommend_subject}}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="channel">
+            <div class="box">
+                <span class="title link_nav">
+                    <i class="iconfont icon-cainixihuan1"></i>
+                    猜你喜欢
+                </span>
+                <div class="content">
+                    <ul>
+                        {% for item in likes %}
+                            <li> <a href="{{item.url}}" target="_blank"  class="hotlink">{{item.name}}</a></li> 
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {% raw %}
+            <div class="box">
+                <span class="title link_nav">
+                    <i class="iconfont icon-icon34"></i>
+                    全球指数
+                </span>
+                <div class="content" ng-clock>
+                    <div class="content global">
+                        <ul  class="slides">
+                            <li ng-repeat="item in items" class="{{item | isUp}}">
+                                <span class="first">{{item.name | stockName}}</span>
+                                <span class="trade">{{item.trade}}</span>
+                                <span class="limit"><i class="{{item.range | arrow2}}"></i><em>{{item.limit | percent2}}</em></span>
+                                <span class="range"><i class="{{item.range | arrow2}}"></i><em>{{item.range | percent2}}</em></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="loading" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+                    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+                </div>  
+            </div>
+            {% endraw %}
+            <div class="box box_more">
+                <span class="title link_nav">
+                    <i class="iconfont icon-kandian_guankan"></i>
+                    独家看点
+                </span>
+                <div class="content">
+                    <ul>
+                        {% for item in djkd %}
+                            <li><a href="{{item.news_url}}" target="_blank">{{item.news_recommend_subject}}</a></li> 
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% raw %}
+            <div class="box box_more">
+                <span class="title link_nav">
+                    <i class="iconfont icon-waihuizhishu1"></i>
+                    外汇指数
+                </span>
+                <div class="content" ng-clock>
+                    <div class="content exchangeContainer">
+                        <ul  class="slides">
+                            <li ng-repeat="item in exchangeItems" class="{{item | isUp}}">
+                                <span class="first">{{item.name}}</span>
+                                <span class="trade">{{item.trade}}</span>
+                                <span class="range"><i class="{{item.pricechange | arrow2}}"></i><em>{{item.pricechange | percent2}}</em></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="loading" ng-if="isloadingExchange"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+                    <div class="error" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+                </div>  
+            </div>
+            {% endraw %}
+        </div>
+    </div>
+    <div class="adLine1 topBanner layout">
+        <!-- XRJ_SY_001 -->
+        <ui-ad ad-code="XRJ_SY_007" ad-style="{width:'1200px',height:'80px'}" ad-channel="0"></ui-ad>
+    </div>
+    <div class="layout">
+        <!-- line -->
+        <div class="floor module1">
+            <div class="rect-wrap mr30">
+                <div class="headlines mb20">
+                    <div class="title"></div>
+                    <div class="content">
+                        <div class="plate">
+                            <h2>    
+                                {% for news in recommend.web_sy_ttdbt_1 %}  
+                                    <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                    data-id="web_sy_ttdbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% if loop.last %}
+
+                                    {% else %}
+                                        <span>&nbsp;&nbsp;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </h2>
+                            <ul>
+                                {% for news in recommend.web_sy_ttxbt_1 %}  
+                                    <li><a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                    data-id="web_sy_ttxbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="plate">
+                            <h2>    
+                                {% for news in recommend.web_sy_ttdbt_2 %}  
+                                    <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                    data-id="web_sy_ttdbt_2" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% if loop.last %}
+
+                                    {% else %}
+                                        <span>&nbsp;&nbsp;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </h2>
+                            <ul>
+                                {% for news in recommend.web_sy_ttxbt_2 %}  
+                                    <li><a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                    data-id="web_sy_ttxbt_2" data-channel="index">{{news.news_recommend_subject | safe}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="floor1">
+                    <div id="focus" class="flexslider">
+                        <ul class="slides">
+                            {% for news in recommend.web_sy_banner_1 %}
+                                <li>
+                                    <a href="{{news.news_url}}" target="_blank" class="bg recommendCollect" id="adv_lun1"
+                                    data-id="web_sy_banner_1" data-channel="index"></a><img
+                                        src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                                    <h2><a href="{{news.news_url}}" target="_blank" class="name" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}">{{news.news_recommend_subject | safe}}</a></h2>
+                                </li> 
+                            {% endfor %}
+                            {% for news in recommend.web_sy_banner_2 %}
+                                <li>
+                                    <a href="{{news.news_url}}" target="_blank" class="bg recommendCollect" id="adv_lun1"
+                                    data-id="web_sy_banner_2" data-channel="index"></a><img
+                                        src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                                    <h2><a href="{{news.news_url}}" target="_blank" class="name" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}">{{news.news_recommend_subject | safe}}</a></h2>
+                                </li> 
+                            {% endfor %}
+                            {% for news in recommend.web_sy_banner_3 %}
+                                <li>
+                                    <a href="{{news.news_url}}" target="_blank" class="bg recommendCollect" id="adv_lun1"
+                                    data-id="web_sy_banner_3" data-channel="index"></a><img
+                                        src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" />
+                                    <h2><a href="{{news.news_url}}" target="_blank" class="name" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}">{{news.news_recommend_subject | safe}}</a></h2>
+                                </li> 
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="paper">
+                        <div class="paper-plate">
+                            <h2>    
+                                {% for news in recommend.web_sy_tjdbt_1 %}  
+                                    <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                    data-id="web_sy_ttdbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% if loop.last %}
+
+                                    {% else %}
+                                        <span>&nbsp;&nbsp;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </h2>
+                            <ul>
+                                <li> 
+                                    {% for news in recommend.web_sy_tjxbt_1 %}  
+                                        <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                            data-id="web_sy_ttxbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% endfor %}
+                                </li>
+                                <li> 
+                                    {% for news in recommend.web_sy_tjxbt_2 %}  
+                                        <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                            data-id="web_sy_ttxbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="paper-plate">
+                            <h2>    
+                                {% for news in recommend.web_sy_tjdbt_2 %}  
+                                    <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                    data-id="web_sy_ttdbt_2" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% if loop.last %}
+
+                                    {% else %}
+                                        <span>&nbsp;&nbsp;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </h2>
+                            <ul>
+                                <li> 
+                                    {% for news in recommend.web_sy_tjxbt_3 %}  
+                                        <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                            data-id="web_sy_ttxbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% endfor %}
+                                </li>
+                                <li> 
+                                    {% for news in recommend.web_sy_tjxbt_4 %}  
+                                        <a href="{{news.news_url}}" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" target="_blank"
+                                            data-id="web_sy_ttxbt_1" data-channel="index">{{news.news_recommend_subject | safe}}</a>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </div> 
+                        <div class="banner">
+                                <!-- XRJ_SY_001 -->
+                            <ui-ad ad-code="XRJ_SY_018" ad-style="{width:'330px',height:'93px'}" ad-channel="0"></ui-ad>
+                        </div>   
+                    </div>
+
+                </div>
+                <div class="floor2">
+                    <div class="topic">
+                        <div class="title">
+                            <span class="line"></span>
+                            <span class="name">今日话题</span>
+                        </div>
+                        <div class="content">
+                            {% for news in recommend.web_sy_jrht %}
+                            <a href="{{news.news_url}}" target="_blank" class="name recommendCollect" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_jrht" data-channel="index"></a>
+                            
+                            <div class="img">
+                                <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                            </div>
+                            <div class="tit">{{news.news_recommend_subject | safe}}</div>
+                            <p>
+                                {{news.news_recommend_summary | safe}}
+                            </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                <div class="mid_tab first">
+                            <dl>
+                                <dt>
+                                    <span class="current menu">投资机会<i class="icon"></i></span>
+                                    <span class="menu">上市公司<i class="icon"></i></span>
+                                    <a href="/gp" class="links" target="_blank">股市资讯 <i class="iconfont icon-07jiantouxiangyou"></i></a>
+                                </dt>
+                                <dd>
+                                    <div class="article">
+                                        <div class="top">
+                                            {% for news in recommend.web_sy_tzjhtt %}
+                                                <h3>  
+                                                   <a href="{{news.news_url}}" target="_blank" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjhtt" data-channel="index">{{news.news_recommend_subject | safe}}</a> 
+                                                </h3>
+                                                
+                                                <div class="describe">
+                                                    {{news.news_recommend_summary | safe}} 
+                                                     <a href="{{news.news_url}}" target="_blank" class="txt-hide recommendCollect" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjhtt" data-channel="index">查看详情>></a> 
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="news">
+                                            <ul>
+                                                <li>
+                                                    {% for news in recommend.web_sy_tzjh_1 %}
+                                                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjh_1" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a> 
+                                                    {% endfor %}
+                                                </li>
+                                                <li>
+                                                    {% for news in recommend.web_sy_tzjh_2 %}
+                                                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjh_2" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a> 
+                                                    {% endfor %}
+                                                </li>
+                                                <li>
+                                                    {% for news in recommend.web_sy_tzjh_3 %}
+                                                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjh_3" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a> 
+                                                    {% endfor %}
+                                                </li>
+                                                <li>
+                                                    {% for news in recommend.web_sy_tzjh_4 %}
+                                                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjh_4" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a> 
+                                                    {% endfor %}
+                                                </li>
+                                                <li>
+                                                    {% for news in recommend.web_sy_tzjh_5 %}
+                                                    <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}" data-id="web_sy_tzjh_5" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a> 
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                                <dd class="hide">
+                                    <div class="article">
+                                        <div class="top">
+                                            {% for news in newsList.ssgs.slice(0,1) %}
+                                                <h3>  
+                                                   <a href="{{news.news_url}}" target="_blank" class="txt-hide recommendCollect" title="{{news.subject | safe}}" alt="{{news.subject | safe}}" data-id="web_sy_ssgstt" data-channel="index">{{news.subject | safe}}</a> 
+                                                </h3>
+                                                
+                                                <div class="describe">
+                                                    {% if news.summary.length > 48 %}
+                                                        {{news.summary.slice(0,48) | safe}}... 
+                                                    {% else %}
+                                                        {{news.summary | safe}} 
+                                                    {% endif %}
+                                                    <a href="{{news.news_url}}" target="_blank" class="txt-hide recommendCollect" title="{{news.subject | safe}}" alt="{{news.subject | safe}}" data-id="web_sy_ssgstt" data-channel="index">查看详情>></a> 
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="news">
+                                            <ul>
+                                                {% for news in newsList.ssgs.slice(1) %}
+                                                    <li>
+                                                        <a href="{{news.news_url}}" target="_blank" title="{{news.subject | safe}}" alt="{{news.subject | safe}}" data-id="web_sy_ssgs_1" data-channel="index" class="recommendCollect">{{news.subject | safe}}</a> 
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                </div>
+
+            </div>
+            <div class="seat-extra">
+                <div class="mid_tab last">
+                    <dl>
+                        <dt>
+                            <a href="/wh/qqrl.html" target="_blank" class="current menu">全球经济日历<i class="icon"></i></a>
+                            <a href="/zb/" target="_blank" class="menu">7x24小时<i class="icon"></i> 
+                            <span class="liveMore">更多&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></span></a>
+                        </dt>
+                        <dd>
+                        <div class="calendar">
+                            <a href="/wh/qqrl.html" target="_blank" class="more">查看全部&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a>
+                            <div class="content">
+                                <table>
+                                    {% for dataArr in financeData %}
+                                        {% for data in dataArr.sameTimeArr %}
+                                            {% if loop.index0 == 0 %}
+                                                <tr class="hot">
+                                                    <td class="time tab_time" colspan="5">
+                                                        <div class="time"><i></i>{% if loop.index0 == 0 %}{{dataArr.time}}{% endif %}</div>
+                                                    </td>
+                                                </tr>
+
+                                            {% endif %}
+                                                <tr>
+                                                {% set num = dataArr.sameTimeArr.length *2 %}
+                                                    {% if loop.index0 == 0 %}
+                                                        <td class="flag tab_time" rowspan="{{num}}">
+                                                            <div>
+                                                                <img alt="" src="/imgs/con_png_web/{{dataArr.flagClass}}.png"/>
+
+                                                            </div>  
+                                                        </td>
+                                                    {% endif %}
+                                                    <td class="event" {% if loop.index0 == 0 %} colspan="4" {% else %} colspan="5" {% endif %}>
+                                                        <div class="title">
+                                                        
+                                                            <span class="tit">{{data.target}}</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr   class="{% if loop.last %}last {% endif %}num">
+                                                    <td class="beforeVal">前值：{{data.beforeVal}}</td>
+                                                    <td class="predictionVal">
+                                                        预测值：
+                                                        {% if data.predictionVal == null %}
+                                                            --
+                                                        {% else %}
+                                                            {{data.predictionVal}}
+                                                        {% endif %}
+                                                    </td>
+
+                                                    <td class="publishVal">
+
+                                                        {% if data.publishVal == '--' or data.publishVal == '待公布' or data.publishVal == null %}
+                                                            <span class="search_tag">侦查中</span>
+                                                        {% else %}
+                                                            公布值：{{data.publishVal}}
+                                                        {% endif %}
+
+                                                       
+                                                    </td>
+                                                    <td class="start">
+                                                        {% if data.importanceImgUrl < 2 %}
+                                                            <span class="matter gray">低</span>
+                                                        {% elseif data.importanceImgUrl == 2 %}
+                                                            <span class="matter orange">中</span>
+                                                        {% else %} 
+                                                            <span class="matter red">高</span>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        </dd>
+                        <dd class="hide live" ng-controller="indexLiveController">
+                            <div class="menus">
+                                <span class="handfresh" ng-click="freshLoad()"><i class="fresh"></i>刷新</span>
+                               
+                            </div>
+                            <div class="liveContent livelist"  id="directBroadcast">
+                                <div class="content" >
+                                    {% raw %}
+                                    <ul>
+                                        <li ng-repeat="item in items">
+                                            <span class="time" >{{item.creationDate || timeFormat}}</span>
+                                            <span class="content">{{item.content}}</span>
+                                        </li>
+                                    </ul>
+                                    {% endraw%}
+                                </div>
+                                <div class="loading hide" ng-if="isloading"><img src="/imgs/loading.gif" width="18" height="18" alt="">加载中...</div>
+                                <div class="error hide" ng-if="error"><i class="iconfont icon-gantanhao"></i><span>糟糕，页面失联了</span></div>
+                            </div>
+                            
+                        </dd>
+                    </dl>
+                </div>
+                <div class="works">
+                    <div class="title">
+                        <h3 class="name"><span class="line"></span>原创综合</h3>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            {% for news in yczh %}
+                                <li>
+                                    <span class="square"></span>
+                                    <a href="{{news.news_url}}" target="_blank" title="{{news.subject | safe}}" alt="{{news.subject | safe}}" data-id="web_sy_yczh_2" data-channel="index" class="recommendCollect">{{news.subject | safe}}</a> 
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="floor module2">
+            <div class="rect-wrap mr30">
+              <div class="floor3"> 
+                    <div class="title"> 
+                        <i class="iconfont icon-jiankangzhuanjia"></i>
+                        <h3 class="name"><a href="/zj/" target="_blank">权威专家</a></h3>
+                        <span class="en">Experts</span>
+                        <span class="tips"></span>
+                    </div>
+                    <ul class="zjlist">   
+                    {% for item in expertList.slice(0,3) %}
+                        <li>
+                            <div class="avatar">
+                                <a href="/zj/{{item.expertId}}/guandian.html" target="_blank" 
+                                    >
+                                <img src="{{item.authorImageUrl}}" alt="{{item.author}}" />
+                                <span class="bg"></span>
+                                <i class="icon"></i></a>
+                            </div>
+                            <div class="box">
+                                <div class="name">
+                                    <a href="/zj/{{item.expertId}}/guandian.html" target="_blank" 
+                                    >{{item.author}}</a>
+                                </div>
+                                <div class="desc">
+                                    简介: {% if item.desc.length >24 %} 
+                                            {{item.desc.slice(0,24)}}...
+                                          {% else %}
+                                            {{item.desc}}
+                                          {% endif %}
+                                </div>
+                                <div class="good">
+                                    <span>擅长:</span> {% for goodAt in item.goodAt %}
+                                        {% if loop.index < 4 %}
+                                            <span class="item">{{goodAt.catName}}</span>
+                                        {% endif %}
+                                    {% endfor%}
+                                </div>
+                            </div>
+                        </li> 
+                    {% endfor %} 
+                    </ul>
+                    <dl class="answer"> 
+                        <dt class="title">  
+                            <a href="/zj.html" target="_blank" class="current menu">专家观点 <span class="line"></span></a>
+                            <a href="/zj.html" target="_blank" class="menu">专家问答</a>    
+                        </dt>
+                        <dd class="guandian">
+                            <a href="/zj/guandian.html" target="_blank" class="more">更多观点&nbsp;&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a>
+                            <ul class="zjlist2">  
+                                {% for news in expertNews %}    
+                                    <li class="li{{loop.index%2}}">
+                                        <a href="{{news.news_url}}" target="_blank" title="{{news.subject | safe}}" class="txt-hide">{{news.subject | safe}}</a>
+                                    </li>
+                                {% endfor %}   
+                            </ul>
+                        </dd>
+                        <dd class="wenda">
+                            <a href="/zj/" target="_blank" class="more tiwen">我要提问&nbsp;&nbsp;<i class="iconfont icon-tiwen"> </i></a>
+                            <ul class="zjMenu"> 
+                                <li class="current">推荐问题</li>
+                                <li>已解决</li>
+                            </ul>
+
+                            <ul class="zjlist2" style="display: block;">  
+                                {% for news in answerList.suggestAnswer %}    
+                                    <li class="li{{loop.index%2}}">
+                                        <a href="/zj/wenda/{{news.answer.answerId}}.html" target="_blank" title="{{news.ask.question | safe}}" class="txt-hide">{{news.ask.question | safe}}</a>
+                                    </li>
+                                {% endfor %}   
+                            </ul>
+                            <ul class="zjlist2">  
+                                {% for news in answerList.alreadyAnswer %}    
+                                    <li class="li{{loop.index%2}}">
+                                        <a href="/zj/wenda/{{news.answer.answerId}}.html" target="_blank" title="{{news.ask.question | safe}}" class="txt-hide">{{news.ask.question | safe}}</a>
+                                    </li>
+                                {% endfor %}   
+                            </ul>
+                        </dd>
+                    </dl>   
+                </div>
+             </div>
+             <div class="seat-extra">
+                 {% include "common/recommend.html" %}
+             </div>
+        </div>
+        <div class="banner2">
+            <!-- XRJ_SY_001 -->
+            <ui-ad ad-code="XRJ_SY_019" ad-style="{width:'1200px',height:'100px'}" ad-channel="0"></ui-ad>
+        </div>
+        <div class="floor module3">
+            <div class="rect-wrap mr30">
+                <div class="pane shares">
+                    <h3 class="pane-tit"><a href="/gp/" target="_blank">股票<span class="en-title">STOCK</span></a></h3>
+                    <div class="pane-content">
+                        <div class="stock-tab" id="stockTab">
+                            <dl>
+                                <dt>
+                                    {% for category in other.gp_nav %}
+                                        <a class= {% if loop.first %}"on {{category.code}}" {% else %} "{{category.code}}" {% endif %}  target="_blank" href="/{{other.gp}}/{{category.code}}.html" title="{{category.name}}">
+                                            {{category.name}}
+                                            <i class="icon"></i>
+                                        </a>
+                                    {% endfor %}
+                                </dt>
+                                <dd>
+                                    <div class="box1 stock-box">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_gsyw %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_gsyw" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_gsyw" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.gsyw %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                        
+                                    </div>
+                                    <div class="box2 stock-box hide">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_dpfx %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" target="_blank" title="{{news.news_recommend_subject | safe}}" data-id="web_sy_dpfx" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_dpfx" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.dpfx %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" target="_blank"  title="{{news.subject | safe}}">{{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                    </div>
+                                    <div class="box3 stock-box hide">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_zldt %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_zldt" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_zldt" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.zldt %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank"> {{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                    </div>
+                                    
+                                    <div class="box4 stock-box hide">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_jggd %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_jggd" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_jggd" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.jggd %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                    </div>
+                                    <div class="box5 stock-box hide">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_hwgs %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_hwgs" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_hwgs" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.hwgs %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" title="{{news.subject | safe}}"  target="_blank">{{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                    </div>
+                                    <div class="box6 stock-box hide">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_cyb %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_cyb" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_cyb" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.cyb %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                    </div>
+                                    <div class="box7 stock-box hide">
+                                        <div class="hot">
+                                            {% for news in recommend.web_sy_xsb %}
+                                            <div class="title">
+                                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_xsb" data-channel="index" class="recommendCollect">{{news.news_recommend_subject | safe}}</a>
+                                            </div>
+                                            <div class="desc">
+                                                {{news.news_recommend_summary | safe}}<a href="{{news.news_url}}" target="_blank" data-id="web_sy_xsb" data-channel="index" class="recommendCollect"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <ul>
+                                            {% for news in newsList.xsb %}
+                                                <li>
+                                                    <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>       
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                        {% include "common/shareRank.html" %}
+                    </div>
+                </div>
+            </div>
+            <div class="seat-extra">
+                <div class="stock-chart charts">
+                    {% include "common/market.html" %}
+                </div>
+                <div class="tool">
+                    <div class="title">
+                        <i class="iconfont icon-gupiao1"></i>
+                        <span class="name">市盈率计算器</span>
+                        <a href="/lc/licaigongju.html" target="_blank" class="more">更多计算&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a>
+                    </div>
+                    <div class="content">
+                        <div class="tool-desc"><ul class="box"><li class="first"><div class="name">股票价格</div><input type="text" name="" class="input-num" maxlength="20"><div class="unit">元</div><div class="error" style="display: none;"></div></li><li><div class="name">企业每股税后利润</div><input type="text" name="" class="input-num" maxlength="20"><div class="unit">元</div><div class="error"></div></li><li><a class="submit">开始计算</a><a class="empty">清空</a></li></ul><div class="declare"></div><ul class="result"><li><div class="name">股票市盈率：</div><div class="computed-result gray">计算得出</div><div class="unit"></div><div class="error"></div></li></ul></div>
+                    </div>
+                </div>
+                <div class="banner3">
+                     <!-- XRJ_SY_001 -->
+                    <ui-ad ad-code="XRJ_SY_012" ad-style="{width:'370px',height:'170px'}" ad-channel="0"></ui-ad>
+                </div>
+            </div>
+
+        </div>
+        <div class="banner4">
+             <!-- XRJ_SY_001 -->
+            <ui-ad ad-code="XRJ_SY_013" ad-style="{width:'1200px',height:'100px'}" ad-channel="0"></ui-ad>
+        </div>
+        <div class="floor module4 whContainer">
+            <div class="rect-wrap mr30">
+                <h3 class="title"><a href="/wh/" target="_blank">外汇<span class="en-title">Foreign exchange</span></a></h3>
+                <div class="whBox">
+                    <div class="whRecommend">
+                        {% for news in recommend.web_sy_wh %}
+                        <a href="{{news.news_url}}" target="_blank" class="name" title="{{news.news_recommend_subject | safe}}" alt="{{news.news_recommend_subject | safe}}"><img
+                            src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" /><span class="txt-hide">{{news.news_recommend_subject | safe}}</span></a> 
+                        {% endfor %}
+                    </div>
+                    <ul class="whList">
+                        {% for news in whList %}
+                            <li class="li{{loop.index}}">
+                                <a href="{{news.news_url}}" target="_blank" class="txt-hide">{{news.subject}}</a>   
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="nonFarm">
+                    <div class="time_container">
+                        <input type="hidden" id="nextPublishTime" value="{{nextPublishTime}}" />
+                        <span class="non_farm_time">距离下次非农公布时间还有：</span>
+                        <ul>
+                            <li>
+                                <p id="t_d">00</p><span>天</span>
+                            </li>
+                            <li>
+                                <p id="t_h">00</p><span>时</span>
+                            </li>
+                            <li>
+                                <p id="t_m">00</p><span>分</span>
+                            </li>
+                            <li>
+                                <p id="t_s">00</p><span>秒</span>
+                            </li>
+                        </ul>
+                        <a href="/jjfn/" class="more" target="_blank">更多数据&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a>
+                    </div>
+                    <div class="non_farm_table_data">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>前值（万）</th>
+                                    <th>预测值（万）</th>
+                                    <th>公布值（万）</th>
+                                    <th>影响黄金</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in nonFarmList %}
+                                    <tr class="{% if loop.index%2 == 0 %}even_farm{% endif %} {% if i.real_value < i.forcast_value %}red_farm{% else %}green_farm{% endif %}">
+                                        <td>{{i.report_time}}</td>
+                                        <td>{{i.former_value}}</td>
+                                        <td>{{i.forcast_value}}</td>
+                                        <td>{{i.real_value}}</td>
+                                        <td>{% if i.real_value < i.forcast_value %}利多{% elif i.real_value == i.forcast_value %}--{% else %}利空{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="seat-extra">
+                <div class="wrap-box rates">
+                    <div class="wrap-tit"><span>基本汇率</span></div>
+                    <div class="wrap-content">
+                        {% include "common/exchangeRate.html" %}
+                    </div>
+                </div>
+                <div class="banner3">
+                     <!-- XRJ_SY_001 -->
+                    <ui-ad ad-code="XRJ_SY_014" ad-style="{width:'370px',height:'170px'}" ad-channel="0"></ui-ad>
+                </div>
+            </div>
+        </div>
+        <div class="banner5">
+             <!-- XRJ_SY_001 -->
+            <ui-ad ad-code="XRJ_SY_015" ad-style="{width:'1200px',height:'100px'}" ad-channel="0"></ui-ad>
+        </div>
+        <div class="floor">
+            <div class="rect-wrap mr30">
+                <div class="pane finance">
+                    <h3 class="pane-tit"><a href="/lc/" target="_blank">理财</a><span class="en-title">CONDUCT FINANCIAL TRANSACTIONS</span> <span class="line"></span></h3>
+                    <div class="pane-content">
+                        <div class="plate-pane">
+                                <h4 class="plate-tit">
+                                    <a href="/{{other.lc}}/{{other.tzlc.code}}.html" class="tit"  target="_blank">
+                                        {{other.tzlc.name}}
+                                    </a>
+                                    <a href="/{{other.lc}}/{{other.lcdr.code}}.html" class="more" target="_blank">
+                                        {{other.lcdr.name}}<i class="iconfont icon-07jiantouxiangyou"></i>
+                                    </a>
+                                </h4>
+                            <div class="plate-content">
+                                <div class="top">
+                                    {% for news in recommend.web_sy_tzlc %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_tzlc" data-channel="index" class="recommendCollect"></a>
+                                    <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                                    
+                                    {% endfor %}
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        {% for news in newsList.tzlc %}
+                                            <li>
+                                                <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plate-pane">
+                            <h4 class="plate-tit">
+                                <a href="/{{other.lc}}/{{other.yhlc.code}}.html" class="tit"  target="_blank">
+                                    {{other.yhlc.name}}
+                                </a>
+                                <a href="/{{other.lc}}/{{other.grlc.code}}.html" class="more" target="_blank">
+                                    {{other.grlc.name}}<i class="iconfont icon-07jiantouxiangyou"></i>
+                                </a>
+                            </h4>
+                            <div class="plate-content">
+                                <div class="top">
+                                    {% for news in recommend.web_sy_yhlc %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_yhlc" data-channel="index" class="recommendCollect"></a>
+                                    <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                                    
+                                    {% endfor %}
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        {% for news in newsList.yhlc %}
+                                            <li>
+                                                <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plate-pane">
+                            <h4 class="plate-tit">
+                                <a href="/{{other.lc}}/{{other.cjyw.code}}.html" class="tit" target="_blank">
+                                    {{other.cjyw.name}}
+                                </a>
+                                <a href="/{{other.lc}}/cjrw.html" class="more" target="_blank">
+                                    财经人物<i class="iconfont icon-07jiantouxiangyou"></i>
+                                </a>
+                            </h4>
+                            <div class="plate-content">
+                                <div class="top">
+                                    {% for news in recommend.web_sy_cjyw %}
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_whjy" data-channel="index" class="recommendCollect"></a>
+                                    <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}" target="_blank">
+                                    <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                                    
+                                    {% endfor %}
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        {% for news in newsList.cjyw %}
+                                            <li>
+                                                <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plate-pane">
+                                <h4 class="plate-tit">
+                                    <a href="/{{other.lc}}/{{other.jjsj.code}}.html" class="tit" target="_blank">
+                                        {{other.jjsj.name}}
+                                    </a>
+                                    <a href="/{{other.lc}}/cjrl.html" class="more" target="_blank">
+                                        财经日历<i class="iconfont icon-07jiantouxiangyou"></i>
+                                    </a>
+                                </h4>
+                            <div class="plate-content">
+                                <div class="top">
+                                    {% for news in recommend.web_sy_jjsj %}
+                                        <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_dxgd" data-channel="index" class="recommendCollect"></a>
+                                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                        <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                                        
+                                    {% endfor %}
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        {% for news in newsList.jjsj %}
+                                            <li>
+                                                <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="banner6">
+                            <!-- XRJ_SY_001 -->
+                            <ui-ad ad-code="XRJ_SY_017" ad-style="{width:'800px',height:'100px'}" ad-channel="0"></ui-ad>
+                        </div>
+                        <div class="plate-pane">
+
+                                <h4 class="plate-tit">
+                                    <a href="/{{other.jj}}/{{other.jjgd.code}}.html" class="tit" target="_blank">
+                                        {{other.jjgd.name}}
+                                    </a>
+                                    <a href="/{{other.jj}}/{{other.smkb.code}}.html" class="more" target="_blank">
+                                        {{other.smkb.name}}<i class="iconfont icon-07jiantouxiangyou"></i>
+                                    </a>
+                                </h4>
+
+                            <div class="plate-content">
+                                <div class="top">
+                                    {% for news in recommend.web_sy_jjgd %}
+                                        <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_jjgd" data-channel="index" class="recommendCollect"></a>
+                                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                        <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                                        
+                                    {% endfor %}
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        {% for news in newsList.jjgd %}
+                                            <li>
+                                                <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plate-pane"> 
+                            <h4 class="plate-tit">
+                                <a href="/{{other.jj}}/{{other.jjdt.code}}.html" class="tit" target="_blank">
+                                    {{other.jjdt.name}}
+                                </a>
+                                <a href="/{{other.jj}}/{{other.jjxx.code}}.html" class="more" target="_blank">
+                                    {{other.jjxx.name}}<i class="iconfont icon-07jiantouxiangyou"></i>
+                                </a>
+                            </h4>
+                            <div class="plate-content">
+                                <div class="top">
+                                    {% for news in recommend.web_sy_jjdt %}
+                                        <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_jjdt" data-channel="index" class="recommendCollect"></a>
+                                        <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                        <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                                        
+                                    {% endfor %}
+                                </div>
+                                <div class="list">
+                                    <ul>
+                                        {% for news in newsList.jjdt %}
+                                            <li>
+                                                <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner5">
+                            <!-- XRJ_SY_001 -->
+                        <ui-ad ad-code="XRJ_SY_004" ad-style="{width:'800px',height:'100px'}" ad-channel="0"></ui-ad>
+                    </div>
+                </div>                 
+                <div class="pane mb10 life">
+                    <h3 class="pane-tit">财富生活<span class="en-title">FORTUNR LIFE</span><span class="line"></span>
+                        <a href="/{{other.lc}}/{{other.cfsh.code}}.html" class="more" target="_blank">更多&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a>
+                    </h3>
+                    <div class="pane-content">
+                        <div class="top">
+                            {% for news in recommend.web_sy_cfsh %}
+                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" data-id="web_sy_cfsh" data-channel="index" class="recommendCollect"></a>
+                                <img src="{{news.news_pic}}" alt="{{news.news_recommend_subject | safe}}">
+                                <a href="{{news.news_url}}" title="{{news.news_recommend_subject | safe}}" target="_blank" class="title">{{news.news_recommend_subject | safe}}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="list">
+                            <ul>
+                                {% for news in newsList.cfsh %}
+                                    <li class="li{{loop.index}}">
+                                        <a href="{{news.news_url}}" title="{{news.subject | safe}}" target="_blank">{{news.subject | safe}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="seat-extra">
+                <div class="tool-link tool">
+                    <div class="title">
+                        <i class="iconfont icon-licai"></i>
+                        <span class="name">理财工具</span>
+                        <a href="/lc/licaigongju.html" target="_blank" class="more">更多工具&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a>
+                    </div>
+                    <div class="content">
+                        <a href="/lc/licaigongju.html" target="_blank" class="a1"><i class="icon"></i><span>复利增值计算器</span></a>
+                        <a href="/lc/licaigongju/1006/" target="_blank" class="a2"><i class="icon"></i><span>通货膨胀影响消费计算器</span></a>
+                        <a href="/lc/licaigongju/1007/" target="_blank" class="a3"><i class="icon"></i><span>通货膨胀影响投资计算器</span></a>
+                        <a href="/lc/licaigongju/1008/" target="_blank" class="a4"><i class="icon"></i><span>期间收益和年化收益转换</span></a>
+                    </div>
+                </div>
+                <div class="banner5">
+                    <!-- XRJ_SY_002 -->
+                    <ui-ad ad-code="XRJ_SY_016" ad-style="{width:'370px',height:'210px'}" ad-channel="0"></ui-ad>
+                </div>
+                <div class="wrap-box events">
+                    <div class="wrap-tit"><h3>金融大事件</h3><a href="/cj/dashijian.html" target="_blank" class="more">往期回顾&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a></div>
+                    <div class="wrap-content">
+                        {% for i in events %}
+                            <a href="{{i.news_url}}" title="{{i.subject}}" target="_blank" class="img"><img class="atricleCover" src="{{i.thumbnail_url}}" alt="{{i.subject}}"></a>
+                            <div class="desc">
+                                <a href="{{i.news_url}}" title="{{i.subject}}" target="_blank">
+                                    <span class="title">
+                                        {{i.subject}}
+                                    </span>
+                                    <span class="summary">
+                                        {% if i.summary.length >28 %}
+                                            {{i.summary.slice(0,28)}}...
+                                        {% else %}
+                                            {{i.summary}}
+                                        {%  endif %}
+                                    </span>
+                                </a>
+                                <a href="{{i.news_url}}" title="{{i.subject}}" target="_blank" class="url">点击查看</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="wrap-box dhcj">
+                    <div class="wrap-tit"><h3>大画财经</h3><a href="/dhcj/" target="_blank" class="more">往期回顾&nbsp;<i class="iconfont icon-07jiantouxiangyou"></i></a></div>
+                    <div class="wrap-content">
+                        <i class="icon"></i>
+                         {% for item in dhcjData %}
+                            <a href="{{item.news_url}}" title="{{item.subject}}" target="_blank" class="link">
+                                <img src="{{item.thumbnail_url}}" alt="{{item.subject}}">
+                                <span>{{item.subject}}</span>
+                            </a>
+                         {% endfor %}
+                    </div>
+                </div>
+                {% include "common/fundRank.html" %}
+                <div class="banner10">
+                    <!-- XRJ_SY_002 -->
+                    <ui-ad ad-code="XRJ_SY_020" ad-style="{width:'370px',height:'255px'}" ad-channel="0"></ui-ad>
+                </div>                                                                                                                                                                                                                            
+            </div>
+        </div> 
+        <div class="floor">
+             <div class="rect-wrap mr30">
+                <div class="Billboard mr20">
+                    <div class="title">
+                        <span class="name">原创排行</span>
+                        <div class="en">Original</div>
+                    </div>
+                    <dl class="rank-list">
+                        <dt>
+                            <span class="menu current">日榜<i class="icon"></i></span>
+                            <span class="menu">周榜<i class="icon"></i></span>
+                            <span class="menu">月榜<i class="icon"></i></span>
+                        </dt>
+                        <dd>
+                            <ul style="display: block;">
+                                {% for news in Original_article.days %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for news in Original_article.week %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for news in Original_article.month %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="Billboard">
+                    <div class="title">
+                        <span class="name">专家观点排行</span>
+                        <div class="en">expert's point</div>
+                    </div>
+                    <dl class="rank-list">
+                        <dt>
+                            <span class="menu current">日榜<i class="icon"></i></span>
+                            <span class="menu">周榜<i class="icon"></i></span>
+                            <span class="menu">月榜<i class="icon"></i></span>
+                        </dt>
+                        <dd>
+                            <ul style="display: block;">
+                                {% for news in article.days %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for news in article.week %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for news in article.month %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+             </div>
+             <div class="seat-extra">
+                <div class="Billboard">
+                    <div class="title">
+                        <span class="name">投稿文章排行</span>
+                        <div class="en">Contribute articles</div>
+                    </div>
+                    <dl class="rank-list">
+                        <dt>
+                            <span class="menu current">日榜<i class="icon"></i></span>
+                            <span class="menu">周榜<i class="icon"></i></span>
+                            <span class="menu">月榜<i class="icon"></i></span>
+                        </dt>
+                        <dd>
+                            <ul style="display: block;">
+                                {% for news in creator.days %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for news in creator.week %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <ul>
+                                {% for news in creator.month %}
+                                    <li class="li{{loop.index}}">
+                                        <span class="num">{{loop.index}}</span>
+                                        <a href="{{news.news_url}}" target="_blank">{{news.subject}}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+             </div>
+        </div>
+        <div class="banner8 mb30">
+                <!-- XRJ_SY_001 -->
+            <ui-ad ad-code="XRJ_SY_021" ad-style="{width:'1200px',height:'100px'}" ad-channel="0"></ui-ad>
+        </div>
+        <div class="pane map mb40">
+            <h3 class="pane-tit mb20">网站导航<span class="en-title">WEB  NAVIGATION<em></em></span></h3>
+            <ul class="map-list">
+                <li>
+                    <div class="second-title"><i class="iconfont icon-lingxing"></i>推荐</div>
+                    <div class="box">
+                        <h4 class="three-title">要闻：</h4>
+                        <ul>
+                        {% for cate in map.yw %}
+                            <li>
+                                <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="box">
+                        <h4 class="three-title">精华：</h4>
+                            <ul>
+                            {% for cate in map.jh %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="second-title"><i class="iconfont icon-lingxing"></i>行情</div>
+                    <div class="box">
+                        <h4 class="three-title">股票：</h4>
+                            <ul>
+                            {% for cate in map.gp %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li> 
+                            {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="box">
+                        <h4 class="three-title">外汇：</h4>
+                            <ul>
+                            {% for cate in map.wh %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="second-title"><i class="iconfont icon-lingxing"></i>咨询</div>
+                    <div class="box">
+                        <h4 class="three-title">理财：</h4>
+                            <ul>
+                            {% for cate in map.lc %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="box">
+                        <h4 class="three-title">全球：</h4>
+                            <ul>
+                                {% for cate in map.qq %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="box">
+                        <h4 class="three-title">基金：</h4>
+                            <ul>
+                            {% for cate in map.jj %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                </li>
+                <li class="last">
+                    <div class="second-title"><i class="iconfont icon-lingxing"></i>数据</div>
+                    <div class="box">
+                        <h4 class="three-title">财经中心：</h4>
+                            <ul>
+                            {% for cate in map.cjzx %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                    <div class="box">
+                        <h4 class="three-title">数据中心：</h4>
+                            <ul>
+                            {% for cate in map.sjzx %}
+                                <li>
+                                    <a href="/{{cate.parentCode}}/{{cate.code}}.html" target="_blank">{{cate.name}}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                    </div>
+                </li>
+            </ul>
+        </div> 
+    </div>
+</div>
+<div class="layout">
+        <!-- 友情链接 -->
+    {% include "common/friendLink.html" %} 
+</div>
+
+<div class="index_ad" id="index_ad">
+    <div class="layout">
+        
+            <img src="/imgs/index/index_ad.png" alt="新融街">
+        <a href="/appDownload" target="_blank"></a>
+        <div class="close"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    var option = false;
+</script>
+<script type="text/javascript" src="/js/nonFarm.js"></script>
+<script type="text/javascript" src="/js/tool2.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+{% endblock %}
